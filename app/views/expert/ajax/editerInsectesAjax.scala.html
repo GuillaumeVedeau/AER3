@@ -1,0 +1,96 @@
+@*********************************************************************************
+ * 
+ *   Copyright 2014 BOUSSEJRA Malik Olivier, HALDEBIQUE Geoffroy, ROYER Johan
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *   
+ ********************************************************************************@
+@(espece: Espece)
+<table>
+	<tr>
+		<th>Systématique</th>
+		<th>Nom</th>
+		<th>Synonyme(s)</th>
+		<th>Auteur</th>
+		<th>Photo</th>
+		<th>Sous-famille</th>
+		<th>Famille</th>
+		<th>Super-famille</th>
+		<th>Ordre</th>
+		<th>Sous-groupe</th>
+	</tr>
+	<tr>
+		<td>@espece.espece_systematique</td>
+		<td>
+			<form action="/editerInsectes/changerNom/@espece.espece_id" method="POST">
+			<input name="nom" value="@espece.espece_nom"><button>Changer le nom</button></td>
+			</form>
+		<td>
+			@for(synonyme <- espece.getSynonymes()){
+			<form action="/editerInsectes/supprimerSynonyme/@synonyme.synonyme_id" method="POST">
+			<span@if(synonyme.synonyme_origineAER){ style="color:red;"}>@synonyme.synonyme_nom</span>
+			<button>Suppr.</button>
+			</form>
+			<br>
+			}
+			<form action="/editerInsectes/ajouterSynonyme/@espece.espece_id" method="POST">
+			<input name="synonyme" placeholder="Nouveau synonyme"><button>Ajouter synonyme</button></td>
+			</form>
+		</td>
+		<td>
+			<form action="/editerInsectes/changerAuteur/@espece.espece_id" method="POST">
+			<input name="auteur" value="@espece.espece_auteur"><button>Changer l'auteur</button>
+			</form>
+		</td>
+		<td>
+			<form action="/editerInsectes/changerPhoto/@espece.espece_id" method="POST" enctype="multipart/form-data">
+			@if(espece.espece_photo!=null){
+			<img src="@espece.espece_photo" style="max-width:150px;max-height:100px"></img>
+			<input type="file" name="photo" accept="image/*">
+			<button>Changer photo</button>
+			}else{
+			<input type="file" name="photo" accept="image/*">
+			<button>Ajouter photo</button>
+			}
+			</form>
+		</td>
+		<td>
+			@if(espece.espece_sousfamille.sous_famille_existe){
+			@espece.espece_sousfamille.sous_famille_nom}
+			<form action="/editerInsectes/changerSousFamille/@espece.espece_id" method="POST">
+			<select name="sous-famille">
+				<option value="0">Sans sous-famille</option>
+				@for(sousFamille <- espece.espece_sous_groupe.sous_groupe_groupe.getAllSousFamilles()){
+				<option value="@sousFamille.sous_famille_id"@if(sousFamille.sous_famille_id==espece.getSousFamille().sous_famille_id){ selected}>@sousFamille.sous_famille_nom</option>}
+			</select>
+			<button type="submit">Changer la sous-famille</button>
+			</form>
+		</td>
+		<td>
+			@espece.espece_sousfamille.sous_famille_famille
+			@if(!espece.espece_sousfamille.sous_famille_existe){
+			<form action="/editerInsectes/changerFamille/@espece.espece_id" method="POST">
+			<select name="famille">
+				@for(famille <- espece.espece_sous_groupe.sous_groupe_groupe.getAllFamilles()){
+				<option value="@famille.famille_id"@if(famille.famille_id==espece.getFamille().famille_id){ selected}>@famille.famille_nom</option>}
+			</select>
+			<button type="submit">Changer la famille</button>
+			}
+		</form>
+		</td>
+		<td>@if(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_existe){@espece.espece_sousfamille.sous_famille_famille.famille_super_famille}</td>
+		<td>@espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre</td>
+		<td>@espece.espece_sous_groupe</td>
+	</tr>
+</table>
+<br>

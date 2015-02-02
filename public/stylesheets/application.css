@@ -1,0 +1,62 @@
+
+#contenu { width:1000px; background-color:grey; border: 2px solid black;
+}
+
+#titre { text-align:center; 
+}
+
+#date { width:500px; float:left; height: 300px;
+}
+
+#localisation {width:500px; height: 300px; float:left;
+}
+
+#especes {width:1000px;
+}
+
+#bas_de_page {
+}
+
+h1{color:white;}
+table{border: 1px solid green; border-spacing: 0px;}
+tr{background-color:white; color:darkgreen; }
+td{border:1px solid darkseagreen; color: darkgreen; padding: 5px;}
+th{background-color:yellowgreen; color:white; padding: 5px;}
+body{color:black;
+background-color: #C8C8C8 ;
+	background: url(/assets/images/background2-blur.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+
+}
+ul{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+}
+li{
+	float:left;
+	display:block;
+	width:inherit;
+}
+
+table.gestionDesTemoinsPassifs{
+	font-size:0.6em;
+}
+input.nouveauTemoinInput{
+	width:90px;
+}
+input.nouveauTemoinCours{
+	width:60px;
+}
+input.nouveauTemoinCivilite{
+	width:20px;
+}
+
+body {
+	background-color: #EDEDED;
+	font-family: sans-serif;
+}

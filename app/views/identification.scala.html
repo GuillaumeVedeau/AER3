@@ -1,0 +1,53 @@
+@*********************************************************************************
+ * 
+ *   Copyright 2014 BOUSSEJRA Malik Olivier, HALDEBIQUE Geoffroy, ROYER Johan
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *   
+ ********************************************************************************@
+@(message: String)
+
+@main("Identification"){
+	@Html(message)
+	<div style="background-color: white; width: 550px; padding: 20px; border-radius: 10px; margin-left: auto; margin-right: auto;">
+		<img src="/assets/images/banniere-aer.png">
+		<form action="/connexion" method="POST" style="text-align: center;">
+			<p>
+				<input type="login"	name="login" placeholder="Identifiant">
+			</p>
+			<p>
+				<input type="password"	name="passw" placeholder="Mot de Passe"><br>
+				<a href="/retrouverMotDePasse">Mot de passe oublié ?</a>
+			</p>
+			<input type="checkbox" name="memory" value=""> Se souvenir de moi<br>
+			<button type="submit">Se connecter</button>
+		</form>
+	</div>
+		<p>	
+			<a href="/inscription">Pas encore inscrit ? Créez un compte ici !</a>
+	 	</p>
+		<p>	
+			Vous avez déjà témoigné via un formulaire papier et vous souhaitez désormais saisir vos témoignages en ligne, demandez votre identifiant et votre mot de passe à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>.
+	 	</p>
+	 	<p>
+	 		En cas de problème de connexion, merci de le signaler à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>
+	 	</p>
+	 	<br><br><br><br><br>
+
+<p style="font-size:50%">
+Cette base de données a été développée par Malik Olivier Boussejra, Geoffroy Haldebique, Johan Royer, élèves ingénieur à l'École centrale de Nantes, dans le cadre de leur projet "web stratégies".
+</p>	 	
+}{
+<script>
+</script>
+}

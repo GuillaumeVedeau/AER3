@@ -1,0 +1,158 @@
+@*********************************************************************************
+ * 
+ *   Copyright 2014 BOUSSEJRA Malik Olivier, HALDEBIQUE Geoffroy, ROYER Johan
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *   
+ ********************************************************************************@
+@main("Consulter les Données"){
+<a href="/menuExpert">Retour</a><br>
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/jquery-ui-1.10.4.custom.min.css")">
+	<h1>Consultation des données</h1>
+	<span id="message"></span>
+<table>
+<tr>
+<td>
+	<table>
+	<tr>
+		<td>Groupe :</td>
+		<td>
+			<select id="groupe" name="groupe" onChange="rafraichirSousGroupe();;rafraichirDates();">
+			<option value="0">*</option>
+			@for(groupe <- Groupe.findAll()){
+			<option value="@groupe.groupe_id">@groupe</option>
+			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>Sous-groupe :</td>
+		<td>
+			<select id="sous-groupe" onChange="rafraichirEspeces()"></select>
+		</td>
+	</tr>
+	<tr>
+		<td>Espece :</td>
+		<td>
+			<select id="espece"></select>
+		</td>
+	</tr>
+	<tr>
+		<td>Stade</td>
+		<td>
+			<select id="stade"></select>
+		</td>
+	</tr>
+	<tr>
+		<td>Maille :</td>
+		<td>
+			<input type="text" id="maille" name="maille" size="5">
+		</td>
+	</tr>
+	</table>
+</td>
+<td>
+	<table>
+	<tr>
+		<td>Témoin :</td>
+		<td>
+			<input type="text" id="temoin" name="membre">
+		</td>
+	</tr>
+	<tr>
+		<td>Dates :</td>
+		<td>
+			<span id="datesPartieMouvante"></span>
+			<input type="radio" name="periode" value="@{new functions.Periode(Fiche.getPlusVieuxTemoignage().fiche_date, Calendar.getInstance())}" onChange="changerDate()" checked> Toutes<br>
+			<input type="radio" name="periode" value="autre"> Autre<br>
+			De <input type="text" size="1" id="jour1" name="jour1" placeholder="jj">
+			<input type="text" size="1" id="mois1" name="mois1" placeholder="mm">
+			<input type="text" size="2" id="annee1" name="annee1" placeholder="yyyy"><br>
+			à &nbsp;&nbsp;&nbsp;<input type="text" size="1" id="jour2" name="jour2" placeholder="jj">
+			<input type="text" size="1" id="mois2" name="mois2" placeholder="mm">
+			<input type="text" size="2" id="annee2" name="annee2" placeholder="yyyy">
+		</td>
+	</tr>
+	</table>
+</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td><button onClick="temoinsParPeriode()">Témoins par période</button></td>
+	<td><button onClick="historiqueDesEspeces()">Historique des espèces sélectionnées</button></td>
+</tr>
+<tr>
+	<td><button onClick="chronologieDUnTemoin()">Chronologie d'un témoin</button></td>
+	<td><button onClick="maillesParPeriode()">Mailles par période</button></td>
+</tr>
+<tr>
+	<td><button onClick="histogrammeDesImagos()">Histogramme des stades</button></td>
+	<td><button onClick="maillesParEspece()">Mailles par espèce</button></td>
+</tr>
+<tr>
+	<td><button onClick="carteSomme()">Carte somme</button></td>
+	<td><button onClick="carteSommeBiodiversite()">Carte somme biodiversité</button></td>
+</tr>
+</table>
+<div id="resultats"></div>
+}{
+<script src="assets/javascripts/highcharts/highcharts.js"></script>
+<script src="assets/javascripts/highcharts/exporting.js"></script>
+<script type="text/javascript" src="/assets/javascripts/jquery-ui-1.10.4.custom.min.js"></script>
+<script>
+var listeMembres = [@Html(controllers.ajax.Listes.listeMembres())];
+setTimeout(function(){
+	$('#temoin').autocomplete({	source : listeMembres,
+		minLength: 1
+	});
+},500);
+var listeUTMS = [@Html(controllers.ajax.Listes.listeUTMS())];
+rafraichirSousGroupe();
+rafraichirDates();
+changerDate();
+function rafraichirSousGroupe(){
+	var groupe_id = $('#groupe').val();
+	$('#sous-groupe').load('/ajax/consulter/listeSousGroupes/'+groupe_id, function(){
+		rafraichirEspeces();
+		rafraichirStades();
+	});
+}
+function rafraichirEspeces(){
+	var groupe_id = $('#groupe').val();
+	var sous_groupe_id = $('#sous-groupe').val();
+	$('#espece').load('/ajax/consulter/listeEspeces/'+groupe_id+'/'+sous_groupe_id);
+}
+function rafraichirStades(){
+	var groupe_id = $('#groupe').val();
+	$('#stade').load('/ajax/consulter/listeStades/'+groupe_id);
+}
+function rafraichirDates(){
+	var groupe_id = $('#groupe').val();
+	$('#datesPartieMouvante').load('/ajax/consulter/infoDates/'+groupe_id);
+}
+function changerDate(){
+	var periode = $('input[type=radio][name=periode]:checked').val();
+	var dates = periode.split(":");
+	var date1 = dates[0].split("/");
+	var date2 = dates[1].split("/");
+	$('#jour1').val(date1[0]);
+	$('#mois1').val(date1[1]);
+	$('#annee1').val(date1[2]);
+	$('#jour2').val(date2[0]);
+	$('#mois2').val(date2[1]);
+	$('#annee2').val(date2[2]);
+}
+</script>
+<script type="text/javascript" src="/assets/javascripts/requetes.js"></script>
+}
