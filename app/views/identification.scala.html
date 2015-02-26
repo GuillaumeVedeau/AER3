@@ -19,35 +19,65 @@
 
 @main("Identification"){
 	@Html(message)
-	<div style="background-color: white; width: 550px; padding: 20px; border-radius: 10px; margin-left: auto; margin-right: auto;">
-		<img src="/assets/images/banniere-aer.png">
+	<div style="background-color: white; width: 475px; padding: 20px; border-radius: 10px; margin-left: auto; margin-right: auto;">
+		<img src="/assets/images/banniere-aer.png" height="200px"><br><br>
 		<form action="/connexion" method="POST" style="text-align: center;">
-			<p>
-				<input type="login"	name="login" placeholder="Identifiant">
-			</p>
-			<p>
-				<input type="password"	name="passw" placeholder="Mot de Passe"><br>
-				<a href="/retrouverMotDePasse">Mot de passe oublié ?</a>
-			</p>
-			<input type="checkbox" name="memory" value=""> Se souvenir de moi<br>
+			<input type="login"	name="login" placeholder="Identifiant"><br><br>
+			<input type="password"	name="passw" placeholder="Mot de Passe"><br><br>
+			<input type="checkbox" name="memory" value="">Se souvenir de moi<br><br>
 			<button type="submit">Se connecter</button>
+			<br><br>
+			<a href="/retrouverMotDePasse">Mot de passe oublié?</a>
 		</form>
+
+		<div id="comp">
+			<p>
+				<a href="/inscription">Pas encore inscrit? Créez un compte ici!</a>
+			</p>
+			<p>
+				Vous avez déjà témoigné via un formulaire papier et vous souhaitez désormais saisir vos témoignages en ligne? Demandez votre identifiant et votre mot de passe à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>.
+			</p>
+			<p>
+				En cas de problème de connexion, merci de le signaler à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>
+			</p>
+		</div>
+		<p style="font-size:70%">
+			Cette base de données a été développée par Malik Olivier Boussejra, Geoffroy Haldebique, Johan Royer, élèves ingénieur à l'École centrale de Nantes, dans le cadre de leur projet "web stratégies".
+		</p>
+
 	</div>
-		<p>	
-			<a href="/inscription">Pas encore inscrit ? Créez un compte ici !</a>
-	 	</p>
-		<p>	
-			Vous avez déjà témoigné via un formulaire papier et vous souhaitez désormais saisir vos témoignages en ligne, demandez votre identifiant et votre mot de passe à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>.
-	 	</p>
-	 	<p>
-	 		En cas de problème de connexion, merci de le signaler à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>
-	 	</p>
+
 	 	<br><br><br><br><br>
 
-<p style="font-size:50%">
-Cette base de données a été développée par Malik Olivier Boussejra, Geoffroy Haldebique, Johan Royer, élèves ingénieur à l'École centrale de Nantes, dans le cadre de leur projet "web stratégies".
-</p>	 	
+
 }{
 <script>
 </script>
+	<style type="text/css">
+		input{
+			padding: 10px;
+			border: none;
+			border-bottom: solid 1px #c9c9c9;
+			transition: border 0.3s;
+			font-size: 130%;
+		}
+
+		button{
+			padding: 10px;
+			width: 200px;
+			border: solid 1px #c9c9c9;
+			background: cornflowerblue;
+			transition: border 0.3s;
+			color: white;
+			font-size: 130%;
+		}
+
+		#comp{
+			border-top: solid 1px #c9c9c9;
+			border-bottom: solid 1px #c9c9c9;
+			margin-top: 30px;;
+			font-size: 80%;
+		}
+	</style>
+
 }
