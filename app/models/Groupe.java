@@ -21,6 +21,7 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import play.db.ebean.Model;
@@ -34,8 +35,13 @@ public class Groupe extends Model {
 	public Integer groupe_id;
 	@NotNull
 	public String groupe_nom;
-	
+	@ManyToOne
+	public Groupe groupe_pere;
+	@ManyToOne
+	public TypeGroupementLocal groupe_type;
+
 	public static Model.Finder<Integer,Groupe> find = new Model.Finder<Integer,Groupe>(Integer.class, Groupe.class);
+
 
 	public Groupe(String groupe_nom) {
 		this.groupe_nom=groupe_nom;

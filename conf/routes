@@ -15,19 +15,26 @@ GET         /nouveauMotDePasse/:lien                                            
 POST        /reinitialiseMotDePasse/:membre_id/:lien                                                       controllers.membre.MotDePasseOublie.reinitialiseMotDePasse(membre_id: Integer, lien: String)
 GET         /verification/:lien                                                                            functions.mail.VerifierMail.verifier(lien: String)
 
-# routes pour l'utilisateur
+############
+# routes pour l' UTILISATEUR
+############
 
 GET         /menuUtilisateur                                                                               controllers.membre.MenuUtilisateur.main()
+
+#infos perso
 GET         /informationsPersonnelles                                                                      controllers.membre.InformationsPersonnelles.main()
 POST        /changerInformationsPersonnelles                                                               controllers.membre.InformationsPersonnelles.changerInfos()
 GET         /changerInformationsPersonnelles                                                               controllers.membre.InformationsPersonnelles.redirectMain()
 POST        /changerMail                                                                                   controllers.membre.InformationsPersonnelles.changerMail()
 POST        /changerMdp                                                                                    controllers.membre.InformationsPersonnelles.changerMdp()
+
+#historique
 GET         /historique                                                                                    controllers.membre.Historique.main()
-GET         /historiqueParObservations                 		                                               controllers.membre.Historique.mainObservations()
+GET         /historiqueParObservations                                                                     controllers.membre.Historique.mainObservations()
 GET         /historique/page/:page                                                                         controllers.membre.Historique.voirPage(page: Integer)
 GET         /telechargerHistorique                                                                         controllers.membre.Historique.telechargerHistorique()
-# Fiche de témoignage TODO à déplacer dans ajax?
+
+# Fiche de témoignage
 GET         /ficheDeTemoignage                                                                             controllers.membre.GetNewEditFiche.mainNewFiche()
 POST        /ficheDeTemoignage                                                                             controllers.membre.GetNewEditFiche.postNewFiche()
 GET         /ficheDeTemoignage/getFiche/:fiche_id                                                          controllers.membre.GetNewEditFiche.getFiche(fiche_id: Long)
@@ -40,9 +47,13 @@ POST        /historique/suppr/:observation_id                                   
 
 # Voir routes ajax en bas de doc
 
-# routes pour les experts
+############
+# routes pour les EXPERTS
+############
 
 GET         /menuExpert                                                                                    controllers.expert.MenuExpert.main()
+
+# validation de témoignages
 GET         /temoignagesAValider/:groupe_id                                                                controllers.expert.ValiderObservations.temoignagesNonVus(groupe_id: Integer)
 GET         /temoignagesAValider/enSuspens/:groupe_id                                                      controllers.expert.ValiderObservations.temoignagesEnSuspends(groupe_id: Integer)
 POST        /temoignagesAValider/vu/:groupe_id/:observation_id                                             controllers.expert.ValiderObservations.marquerVu(observation_id: Long, groupe_id: Integer)
@@ -56,21 +67,31 @@ GET         /temoignagesValides/membre/:groupe_id/:membre_nom/:page/:orderBy/:di
 POST        /temoignagesValides/suspens/:groupe_id/:page/:observation_id                                   controllers.expert.TemoignagesValidees.remettreEnSuspens(groupe_id: Integer, observation_id: Long, page: Integer)
 POST        /temoignagesValides/export/:groupe_id/:espece_id/:orderBy/:dir/:membre_nom                     controllers.expert.TemoignagesValidees.exportExcelTemoignagesValidees(espece_id:Integer, membre_nom: String,orderBy: String, dir: String, groupe_id: Integer)
 POST        /temoignagesValides/export/:groupe_id/:espece_id/:orderBy/:dir/                                controllers.expert.TemoignagesValidees.exportExcelTemoignagesValidees(espece_id:Integer, membre_nom: String ?="",orderBy: String, dir: String, groupe_id: Integer)
+
+# gérer stades sexes
 GET         /gererstadesexe/:groupe_id                                                                     controllers.expert.GererStadeSexe.main(groupe_id: Integer)
 POST        /nouveauStadeSexe/:groupe_id                                                                   controllers.expert.GererStadeSexe.ajouterStadePere(groupe_id: Integer)
 POST        /nouveauStadeSexe/:groupe_id/:stade_sexe_pere_id                                               controllers.expert.GererStadeSexe.ajouterStadeFils(groupe_id: Integer, stade_sexe_pere_id: Integer)
 POST        /supprimerStadeSexePere/:groupe_id/:stade_sexe_id                                              controllers.expert.GererStadeSexe.supprimerStadePere(groupe_id: Integer, stade_sexe_id: Integer)
 POST        /supprimerStadeSexeFils/:groupe_id/:stade_sexe_id                                              controllers.expert.GererStadeSexe.supprimerStadeFils(groupe_id: Integer, stade_sexe_id: Integer)
+
+# gérer dates charnières
 GET         /gererdatescharnieres/:groupe_id                                                               controllers.expert.GererDatesChanieres.main(groupe_id: Integer)
 POST        /ajouterDateCharniere/:groupe_id                                                               controllers.expert.GererDatesChanieres.ajouter(groupe_id: Integer)
 POST        /supprimerDateCharniere/:groupe_id/:date_charniere_id                                          controllers.expert.GererDatesChanieres.supprimer(groupe_id: Integer, date_charniere_id: Integer)
+
+# témoingiages excel
 GET         /deposerTemoignages/excel                                                                      controllers.expert.DeposerTemoignagesImportExcel.main()
 POST        /deposerTemoignages/excel                                                                      controllers.expert.DeposerTemoignagesImportExcel.post()
 POST        /telecharger/majDeMasse/:groupe_id                                                             controllers.expert.DeposerTemoignagesImportExcel.telechargerMajDeMasse(groupe_id: Integer)
 POST        /televerser/majDeMasse                                                                         controllers.expert.DeposerTemoignagesImportExcel.televerserMajDeMasse()
+
+# gérer témoins
 GET         /gererTemoinsPassifs                                                                           controllers.expert.GererTemoinsPassifs.main()
 POST        /ajouterTemoinPassif                                                                           controllers.expert.GererTemoinsPassifs.ajouter()
 POST        /editerTemoin/:membre_id                                                                       controllers.expert.GererTemoinsPassifs.editPost(membre_id: Integer)
+
+# gerer les espèces d'un groupe
 GET         /editerInsectes/:groupe_id                                                                     controllers.expert.EditerInsectes.main(groupe_id: Integer)
 POST        /editerInsectes/changerNom/:espece_id                                                          controllers.expert.EditerInsectes.changerNom(espece_id: Integer)
 POST        /editerInsectes/changerAuteur/:espece_id                                                       controllers.expert.EditerInsectes.changerAuteur(espece_id: Integer)
@@ -84,15 +105,24 @@ POST        /editerInsectes/changerFamille/:espece_id                           
 GET         /consulterDonnees                                                                              controllers.expert.requetes.ConsulterDonnees.main()
 GET         /telechargerRapport/:filename                                                                  controllers.expert.requetes.ConsulterDonnees.telechargerFichier(filename: String)
 
-# routes pour les admins
+###########
+# routes pour les ADMINS
+###########
+
 GET         /menuAdmin                                                                                     controllers.admin.Admin.menuAdmin()
+
+# assigner les experts
 GET         /assignerExperts                                                                               controllers.admin.AssignerExpert.main()
 POST        /assignerExpert/ajouter/:groupe_id                                                             controllers.admin.AssignerExpert.ajouter(groupe_id: Integer)
 POST        /assignerExpert/retrograder/:mieog_id                                                          controllers.admin.AssignerExpert.retrograder(mieog_id: Integer)
+
+# gérer les demandes d'inscription
 GET         /demandesInscription                                                                           controllers.admin.DemandesInscription.main()
 POST        /demandesInscription/valider/:membre_id                                                        controllers.admin.DemandesInscription.valideInscription(membre_id: Integer)
 POST        /demandesInscription/refuser/:membre_id                                                        controllers.admin.DemandesInscription.refuserInscription(membre_id: Integer)
 POST        /demandeInscription/donnerPremierAcces                                                         controllers.admin.DemandesInscription.donnerPremierAccess()
+
+# gestion des groupes et sous-groupes
 GET         /gererGroupesEtSousGroupes                                                                     controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.main()
 POST        /deplacerSousGroupe/:sous_groupe_id                                                            controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.deplacerSousGroupe(sous_groupe_id: Integer)
 POST        /creerGroupe                                                                                   controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.creerGroupe()
@@ -112,6 +142,8 @@ POST        /gererSousGroupes/enleverSuperFamille/:sufhsg_id                    
 POST        /gererSousGroupes/enleverOrdre/:ohsg_id                                                        controllers.admin.groupesSousGroupes.GererElementsDansSousGroupe.enleverOrdre(ohsg_id: Integer)
 GET         /listeVilles                                                                                   controllers.admin.ListeVilles.main()
 GET         /listeMembres                                                                                  controllers.admin.ListeMembres.main()
+
+# editer un membre
 POST        /admin/editerTemoin/:membre_id                                                                 controllers.admin.ListeMembres.editPost(membre_id: Integer)
 
 # route pour gérer la base des insectes (admin)
@@ -194,13 +226,13 @@ POST        /ajax/historiqueDesEspeces                                          
 POST        /ajax/maillesParPeriode                                                                        controllers.ajax.expert.requetes.Calculs.maillesParPeriode()
 
 
-#Routes AJAX pour expert, editer especes et témoins
+#Routes AJAX pour EXPERTS, editer especes et témoins
 
 GET         /editerInsectes/espece/:groupe_id/:espece_id                                                   controllers.expert.EditerInsectes.edit(groupe_id: Integer, espece_id: Integer)
 GET         /editerTemoin/:membre_id                                                                       controllers.expert.GererTemoinsPassifs.editer(membre_id: Integer)
 
 
-#Routes AJAX pour admin, editer témoins
+#Routes AJAX pour ADMIN, editer témoins
 
 GET         /admin/editerTemoin/:membre_id                                                                 controllers.admin.ListeMembres.editer(membre_id: Integer)
 

@@ -214,18 +214,71 @@ INSERT INTO `ordre` (`ordre_id`, `ordre_nom`) VALUES
 (7,'Lepidoptera'),
 (8,'Hymenoptera');
 
-INSERT INTO `groupe` (`groupe_id`, `groupe_nom`) VALUES
-(1,'Odonata'),
-(2,'Orthoptera, Mantodea & Phasmatodea'),
-(3,'Dermaptera'),
-(4,'Cicindelinae'),
-(5,'Carabinae'),
-(6,'Scarabaeoidea'),
-(7,'Cerambycidae'),
-(8,'Zygaenidae'),
-(9,'Hétérocères'),
-(10,'Rhopalocères'),
-(11,'Formicidae');
+INSERT INTO `type_groupement_local` (`type_groupement_local_intitule`) VALUES
+('groupe'),
+('sous-groupe');
+
+INSERT INTO `groupe` (`groupe_id`, `groupe_nom`, `groupe_type_type_groupement_local_intitule`) VALUES
+(1,'Odonata','groupe'),
+(2,'Orthoptera, Mantodea & Phasmatodea','groupe'),
+(3,'Dermaptera','groupe'),
+(4,'Cicindelinae','groupe'),
+(5,'Carabinae','groupe'),
+(6,'Scarabaeoidea','groupe'),
+(7,'Cerambycidae','groupe'),
+(8,'Zygaenidae','groupe'),
+(9,'Hétérocères','groupe'),
+(10,'Rhopalocères','groupe'),
+(11,'Formicidae','groupe');
+
+INSERT INTO `groupe` (`groupe_id`, `groupe_nom`, `groupe_pere_groupe_id`, `groupe_type_type_groupement_local_intitule`) VALUES
+  (12,'Zygoptera',1, 'sous-groupe'),
+  (13,'Anisoptera',1, 'sous-groupe'),
+  (14,'Phasmatodea',2, 'sous-groupe'),
+  (15,'Ensifera',2, 'sous-groupe'),
+  (16,'Caelifera',2, 'sous-groupe'),
+  (17,'Dictyoptera',2, 'sous-groupe'),
+  (18,'Dermaptera',3, 'sous-groupe'),
+  (19,'Cicindelinae',4, 'sous-groupe'),
+  (20,'Calosomes',5, 'sous-groupe'),
+  (21,'Carabes',5, 'sous-groupe'),
+  (22,'Cychres',5, 'sous-groupe'),
+  (23,'Lucanidae',6, 'sous-groupe'),
+  (24,'Trogidae',6, 'sous-groupe'),
+  (25,'Geotrupidae',6, 'sous-groupe'),
+  (26,'Aegialiidae',6, 'sous-groupe'),
+  (27,'Aphodiidae',6, 'sous-groupe'),
+  (28,'Scarabaeidae',6, 'sous-groupe'),
+  (29,'Melolonthidae',6, 'sous-groupe'),
+  (30,'Rutelidae',6, 'sous-groupe'),
+  (31,'Dynastidae',6, 'sous-groupe'),
+  (32,'Cetoniidae',6, 'sous-groupe'),
+  (33,'Prioninae',7, 'sous-groupe'),
+  (34,'Lepturinae',7, 'sous-groupe'),
+  (35,'Necydalinae',7, 'sous-groupe'),
+  (36,'Spondylidinae',7, 'sous-groupe'),
+  (37,'Cerambycinae',7, 'sous-groupe'),
+  (38,'Lamiinae',7, 'sous-groupe'),
+  (39,'Procridinae',8, 'sous-groupe'),
+  (40,'Chalcosiinae',8, 'sous-groupe'),
+  (41,'Zygaeninae',8, 'sous-groupe'),
+  (42,'Lasiocampiidae',9, 'sous-groupe'),
+  (43,'Bombycoidea',9, 'sous-groupe'),
+  (44,'Hesperiidae',10, 'sous-groupe'),
+  (45,'Papilionidae',10, 'sous-groupe'),
+  (46,'Pieridae',10, 'sous-groupe'),
+  (47,'Riodinidae',10, 'sous-groupe'),
+  (48,'Lycaenidae',10, 'sous-groupe'),
+  (49,'Nymphalidae',10, 'sous-groupe'),
+  (50,'Drepanidae',9, 'sous-groupe'),
+  (51,'Notodontidae',9, 'sous-groupe'),
+  (52,'Lymantriinae',9, 'sous-groupe'),
+  (53,'Arctiinae',9, 'sous-groupe'),
+  (54,'Dolichoderinae',11, 'sous-groupe'),
+  (55,'Formicinae',11, 'sous-groupe'),
+  (56,'Mymicinae',11, 'sous-groupe'),
+  (57,'Ponerinae',11, 'sous-groupe');
+
 
 INSERT INTO `sous_groupe` (`sous_groupe_id`, `sous_groupe_nom`,`sous_groupe_groupe_groupe_id`) VALUES
 (1,'Zygoptera',1),
@@ -886,8 +939,9 @@ DELETE FROM droits;
 DELETE FROM confidentialite;
 DELETE FROM utms;
 DELETE FROM ordre;
-DELETE	FROM groupe;
-DELETE	FROM sous_groupe;
+DELETE FROM type_groupement_local;
+DELETE FROM groupe;
+DELETE FROM sous_groupe;
 DELETE FROM super_famille;
 DELETE FROM famille;
 DELETE FROM sous_famille;
