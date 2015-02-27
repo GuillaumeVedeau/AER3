@@ -18,11 +18,11 @@
  @(groupe: Groupe)
  	<option value="0">*</option>
  @if(groupe==null){
- 	@for(sous_groupe <- SousGroupe.findAll()){
-		<option value="@sous_groupe.sous_groupe_id">@sous_groupe</option>
+ 	@for(sous_groupe <- Groupe.find.where().eq("groupe_type", TypeGroupementLocal.find.where().eq("type_groupement_local_intitule", "sous-groupes").findUnique()).findList()){
+		<option value="@sous_groupe.groupe_id">@sous_groupe</option>
 	}
  }else{
-	@for(sous_groupe <- groupe.getSousGroupes()){
-		<option value="@sous_groupe.sous_groupe_id">@sous_groupe</option>
+	@for(sous_groupe <- groupe.getFils()){
+		<option value="@sous_groupe.groupe_id">@sous_groupe</option>
 	}
  }

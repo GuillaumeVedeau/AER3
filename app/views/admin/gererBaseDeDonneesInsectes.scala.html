@@ -23,7 +23,7 @@
 	<form action="/gererBaseDeDonneesInsectes/ajoutEspece" method="POST" enctype="multipart/form-data">
 	<div id="nouv_espece" style="display:none">
 	<h2>Ajouter une espèce</h2>
-		<table>
+		@*<table>
 			<tr>
 				<th>Nom</th>
 				<th>Auteur</th>
@@ -304,7 +304,7 @@
 								<button type="submit">&#10004;</button></form></div>
 							</td>
 							<td>	
-								@if(espece.getSousFamille().sous_famille_existe){
+								@if(espece.getNiveauHeriarchiqueScientifique("sous-famille")!=null){
 								<div id="changerSsFam" style="display:block">
 								<form action="/gererBaseDeDonneesInsectes/changerSousFamille/@espece.espece_id" method="POST">
 								Sous-famille : 
@@ -519,7 +519,7 @@
 			<td>@if(espece.espece_sous_groupe!=null){@espece.espece_sous_groupe.sous_groupe_groupe}</td>
 		</tr>
 		}
-	</table>
+	</table>*@
 		
 	}{
 <script>

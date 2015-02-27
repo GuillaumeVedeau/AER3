@@ -30,8 +30,8 @@
 		<span id="nomGroupe@groupe.groupe_id" onDblClick="renommerGroupe(@groupe.groupe_id)">@groupe</span>
 		<form id="supprimerGroupe@groupe.groupe_id" action="supprimerGroupe/@groupe.groupe_id" method="POST" style="display:inline"><button onClick="supprimerGroupe(@groupe.groupe_id);return false;">Suppr</button></form>
 	</div>
-	<div id="sousGroupes@groupe.groupe_id" style="display:none">
-		@for(sousGroupe <- groupe.getSousGroupes()){
+	@*<div id="sousGroupes@groupe.groupe_id" style="display:none">
+		@for(sousGroupe <- groupe.getFils()){
 			<div id="sousGroupe@sousGroupe.sous_groupe_id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span id="nomSousGroupe@sousGroupe.sous_groupe_id" onDblClick="renommerSousGroupe(@sousGroupe.sous_groupe_id)">@sousGroupe</span>
 			<button id="deplacerSousGroupe@sousGroupe.sous_groupe_id" onClick="deplacerSousGroupe(@sousGroupe.sous_groupe_id)">Déplacer</button>
@@ -39,7 +39,7 @@
 			<form id="supprimerSousGroupe@sousGroupe.sous_groupe_id" action="supprimerSousGroupe/@sousGroupe.sous_groupe_id" method="POST" style="display:inline"><button onClick="supprimerSousGroupe(@sousGroupe.sous_groupe_id);return false;">Suppr</button></form>
 			</div>
 		}
-	</div>
+	</div>*@
 	}
 </td>
 <td id="editerSousGroupe"></td>
@@ -66,7 +66,7 @@
 	</form>
 </div>
 <div>
-@for(espece <- Espece.findEspecesSansSousGroupe()){
+@for(espece <- Espece.findEspecesSansGroupe()){
 	L'espèce @espece.espece_nom n'a pas de sous-groupe assigné !<br>
 }
 </div>

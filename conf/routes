@@ -92,14 +92,14 @@ POST        /ajouterTemoinPassif                                                
 POST        /editerTemoin/:membre_id                                                                       controllers.expert.GererTemoinsPassifs.editPost(membre_id: Integer)
 
 # gerer les espèces d'un groupe
-GET         /editerInsectes/:groupe_id                                                                     controllers.expert.EditerInsectes.main(groupe_id: Integer)
-POST        /editerInsectes/changerNom/:espece_id                                                          controllers.expert.EditerInsectes.changerNom(espece_id: Integer)
-POST        /editerInsectes/changerAuteur/:espece_id                                                       controllers.expert.EditerInsectes.changerAuteur(espece_id: Integer)
-POST        /editerInsectes/supprimerSynonyme/:synonyme_id                                                 controllers.expert.EditerInsectes.supprimerSynonyme(synonyme_id: Integer)
-POST        /editerInsectes/ajouterSynonyme/:espece_id                                                     controllers.expert.EditerInsectes.ajouterSynonyme(espece_id: Integer)
-POST        /editerInsectes/changerPhoto/:espece_id                                                        controllers.expert.EditerInsectes.changerPhoto(espece_id: Integer)
-POST        /editerInsectes/changerSousFamille/:espece_id                                                  controllers.expert.EditerInsectes.changerSousFamille(espece_id: Integer)
-POST        /editerInsectes/changerFamille/:espece_id                                                      controllers.expert.EditerInsectes.changerFamille(espece_id: Integer)
+#GET         /editerInsectes/:groupe_id                                                                     controllers.expert.EditerInsectes.main(groupe_id: Integer)
+#POST        /editerInsectes/changerNom/:espece_id                                                          controllers.expert.EditerInsectes.changerNom(espece_id: Integer)
+#POST        /editerInsectes/changerAuteur/:espece_id                                                       controllers.expert.EditerInsectes.changerAuteur(espece_id: Integer)
+#POST        /editerInsectes/supprimerSynonyme/:synonyme_id                                                 controllers.expert.EditerInsectes.supprimerSynonyme(synonyme_id: Integer)
+#POST        /editerInsectes/ajouterSynonyme/:espece_id                                                     controllers.expert.EditerInsectes.ajouterSynonyme(espece_id: Integer)
+#POST        /editerInsectes/changerPhoto/:espece_id                                                        controllers.expert.EditerInsectes.changerPhoto(espece_id: Integer)
+#POST        /editerInsectes/changerSousFamille/:espece_id                                                  controllers.expert.EditerInsectes.changerSousFamille(espece_id: Integer)
+#POST        /editerInsectes/changerFamille/:espece_id                                                      controllers.expert.EditerInsectes.changerFamille(espece_id: Integer)
 
 # Routes pour faire des requêtes
 GET         /consulterDonnees                                                                              controllers.expert.requetes.ConsulterDonnees.main()
@@ -228,7 +228,7 @@ POST        /ajax/maillesParPeriode                                             
 
 #Routes AJAX pour EXPERTS, editer especes et témoins
 
-GET         /editerInsectes/espece/:groupe_id/:espece_id                                                   controllers.expert.EditerInsectes.edit(groupe_id: Integer, espece_id: Integer)
+#GET         /editerInsectes/espece/:groupe_id/:espece_id                                                   controllers.expert.EditerInsectes.edit(groupe_id: Integer, espece_id: Integer)
 GET         /editerTemoin/:membre_id                                                                       controllers.expert.GererTemoinsPassifs.editer(membre_id: Integer)
 
 

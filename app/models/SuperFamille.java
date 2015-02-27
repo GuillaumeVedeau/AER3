@@ -127,19 +127,19 @@ public class SuperFamille extends Model implements Comparator<SuperFamille>{
 	public static List<SuperFamille> findSuperFamillesAjoutablesDansSousGroupe(){
 		List<Espece> especesSansSousGroupe = Espece.findEspecesAjoutablesDansSousGroupe();
 		List<SuperFamille> super_familles = new ArrayList<SuperFamille>();
-		for(Espece espece : especesSansSousGroupe){
-			if(!super_familles.contains(espece.espece_sousfamille.sous_famille_famille.famille_super_famille)){
-				if(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_existe){
-					//On trouve toutes les espèces de cette la super-famille de l'espèce
-					List<Espece> especesDansSuperFamille = espece.espece_sousfamille.sous_famille_famille.famille_super_famille.getEspecesDansThis();
-					//Si toutes les espèces de cette famille sont sans sous-groupes
-					//on ajoute la famille
-					if(especesSansSousGroupe.containsAll(especesDansSuperFamille)){
-						super_familles.add(espece.espece_sousfamille.sous_famille_famille.famille_super_famille);
-					}
-				}
-			}
-		}
+//		for(Espece espece : especesSansSousGroupe){
+//			if(!super_familles.contains(espece.espece_sousfamille.sous_famille_famille.famille_super_famille)){
+//				if(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_existe){
+//					//On trouve toutes les espèces de cette la super-famille de l'espèce
+//					List<Espece> especesDansSuperFamille = espece.espece_sousfamille.sous_famille_famille.famille_super_famille.getEspecesDansThis();
+//					//Si toutes les espèces de cette famille sont sans sous-groupes
+//					//on ajoute la famille
+//					if(especesSansSousGroupe.containsAll(especesDansSuperFamille)){
+//						super_familles.add(espece.espece_sousfamille.sous_famille_famille.famille_super_famille);
+//					}
+//				}
+//			}
+//		}
 		return super_familles;
 	}
 	

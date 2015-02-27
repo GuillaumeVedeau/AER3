@@ -1,0 +1,25 @@
+package models;
+
+
+import play.db.ebean.Model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+/**
+ * Created by Guillaume on 26/02/15.
+ */
+
+@SuppressWarnings("serial")
+@Entity
+public class TypeGroupementScientifique extends Model{
+    @Id
+    public String type_groupement_scientifique_intitule;
+
+    public static Model.Finder<String,TypeGroupementScientifique> find = new Finder<String,TypeGroupementScientifique>(String.class, TypeGroupementScientifique.class);
+
+    public TypeGroupementScientifique(String intitule){
+        type_groupement_scientifique_intitule = intitule;
+    }
+
+}

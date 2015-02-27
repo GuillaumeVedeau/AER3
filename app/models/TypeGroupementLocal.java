@@ -17,7 +17,7 @@ public class TypeGroupementLocal extends Model{
     @Id
     public String type_groupement_local_intitule;
 
-    public static Model.Finder<Integer,Groupe> find = new Model.Finder<Integer,Groupe>(Integer.class, Groupe.class);
+    public static Model.Finder<String,TypeGroupementLocal> find = new Finder<String,TypeGroupementLocal>(String.class, TypeGroupementLocal.class);
 
     public TypeGroupementLocal (String intitule){
         type_groupement_local_intitule = intitule;

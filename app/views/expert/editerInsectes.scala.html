@@ -37,6 +37,7 @@
 	</tr>
 </thead>
 <tbody>
+	@*
 	@for(espece <- groupe.getEspecesInThisBySystematique()){
 	<tr>
 		<td>@espece.espece_systematique</td>
@@ -55,7 +56,7 @@
 		<td>@espece.espece_sous_groupe</td>
 		<td><button onClick="editerEspece(@espece.espece_id)">Editer</button></td>
 	</tr>
-	}
+	}*@
 </tbody>
 </table>
 }{

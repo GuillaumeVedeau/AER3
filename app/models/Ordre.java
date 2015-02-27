@@ -92,17 +92,17 @@ public class Ordre extends Model implements Comparator<Ordre>{
 	public static List<Ordre> findOrdresAjoutablesDansSousGroupe(){
 		List<Espece> especesSansSousGroupe = Espece.findEspecesAjoutablesDansSousGroupe();
 		List<Ordre> ordres = new ArrayList<Ordre>();
-		for(Espece espece : especesSansSousGroupe){
-			if(!ordres.contains(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre)){
-				//On trouve toutes les espèces de cette la famille de l'espèce
-				List<Espece> especesDansOrdre = espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre.getEspecesDansThis();
-				//Si toutes les espèces de cette famille sont sans sous-groupes
-				//on ajoute l'ordre
-				if(especesSansSousGroupe.containsAll(especesDansOrdre)){
-					ordres.add(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre);
-				}
-			}
-		}
+//		for(Espece espece : especesSansSousGroupe){
+//			if(!ordres.contains(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre)){
+//				//On trouve toutes les espèces de cette la famille de l'espèce
+//				List<Espece> especesDansOrdre = espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre.getEspecesDansThis();
+//				//Si toutes les espèces de cette famille sont sans sous-groupes
+//				//on ajoute l'ordre
+//				if(especesSansSousGroupe.containsAll(especesDansOrdre)){
+//					ordres.add(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre);
+//				}
+//			}
+//		}
 		return ordres;
 	}
 

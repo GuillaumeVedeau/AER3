@@ -111,17 +111,17 @@ public class Famille extends Model implements Comparator<Famille>{
 	public static List<Famille> findFamillesAjoutablesDansSousGroupe(){
 		List<Espece> especesSansSousGroupe = Espece.findEspecesAjoutablesDansSousGroupe();
 		List<Famille> familles = new ArrayList<Famille>();
-		for(Espece espece : especesSansSousGroupe){
-			if(!familles.contains(espece.espece_sousfamille.sous_famille_famille)){
-				//On trouve toutes les espèces de cette la famille de l'espèce
-				List<Espece> especesDansFamille = espece.espece_sousfamille.sous_famille_famille.getEspecesDansThis();
-				//Si toutes les espèces de cette famille sont sans sous-groupes
-				//on ajoute la famille
-				if(especesSansSousGroupe.containsAll(especesDansFamille)){
-					familles.add(espece.espece_sousfamille.sous_famille_famille);
-				}
-			}
-		}
+//		for(Espece espece : especesSansSousGroupe){
+//			if(!familles.contains(espece.espece_sousfamille.sous_famille_famille)){
+//				//On trouve toutes les espèces de cette la famille de l'espèce
+//				List<Espece> especesDansFamille = espece.espece_sousfamille.sous_famille_famille.getEspecesDansThis();
+//				//Si toutes les espèces de cette famille sont sans sous-groupes
+//				//on ajoute la famille
+//				if(especesSansSousGroupe.containsAll(especesDansFamille)){
+//					familles.add(espece.espece_sousfamille.sous_famille_famille);
+//				}
+//			}
+//		}
 		return familles;
 	}
 	

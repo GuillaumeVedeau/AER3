@@ -66,7 +66,7 @@ public class CarteSommeBiodiversite {
 		}else if(sous_groupe!=null){
 			especesATraiter = sous_groupe.getEspecesInThis();
 		}else if(groupe!=null){
-			especesATraiter = groupe.getEspecesInThis();
+			especesATraiter = groupe.getAllEspecesInThis();
 		}else{
 			especesATraiter = Espece.findAll();
 		}

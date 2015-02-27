@@ -57,7 +57,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
 			if(espece!=null && sous_groupe!=null && Espece.findEspecesAjoutablesDansSousGroupe().contains(espece)){
 				new EspeceHasSousGroupe(espece,sous_groupe).save();
-				espece.metAJourSousGroupes();
+				//espece.metAJourSousGroupes(); TODO vérifier mis à jour sous groupes et ajout espèces
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
 		}else
@@ -78,7 +78,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(sous_famille!=null && sous_groupe!=null && SousFamille.findSousFamillesAjoutablesDansSousGroupe().contains(sous_famille)){
 				new SousFamilleHasSousGroupe(sous_famille,sous_groupe).save();
 				for(Espece espece : sous_famille.getEspecesDansThis())
-					espece.metAJourSousGroupes();
+//					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
 		}else
@@ -99,7 +99,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(famille!=null && sous_groupe!=null && Famille.findFamillesAjoutablesDansSousGroupe().contains(famille)){
 				new FamilleHasSousGroupe(famille,sous_groupe).save();
 				for(Espece espece : famille.getEspecesDansThis())
-					espece.metAJourSousGroupes();
+//					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
 		}else
@@ -120,7 +120,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(super_famille!=null && sous_groupe!=null && SuperFamille.findSuperFamillesAjoutablesDansSousGroupe().contains(super_famille)){
 				new SuperFamilleHasSousGroupe(super_famille,sous_groupe).save();
 				for(Espece espece : super_famille.getEspecesDansThis())
-					espece.metAJourSousGroupes();
+//					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
 		}else
@@ -141,7 +141,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(ordre!=null && sous_groupe!=null && Ordre.findOrdresAjoutablesDansSousGroupe().contains(ordre)){
 				new OrdreHasSousGroupe(ordre,sous_groupe).save();
 				for(Espece espece : ordre.getEspecesDansThis())
-					espece.metAJourSousGroupes();
+//					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
 		}else

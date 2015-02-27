@@ -29,7 +29,7 @@
 		<th>Ordre</th>
 		<th>Sous-groupe</th>
 	</tr>
-	<tr>
+	@*<tr>
 		<td>@espece.espece_systematique</td>
 		<td>
 			<form action="/editerInsectes/changerNom/@espece.espece_id" method="POST">
@@ -91,6 +91,6 @@
 		<td>@if(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_existe){@espece.espece_sousfamille.sous_famille_famille.famille_super_famille}</td>
 		<td>@espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre</td>
 		<td>@espece.espece_sous_groupe</td>
-	</tr>
+	</tr>*@
 </table>
 <br>

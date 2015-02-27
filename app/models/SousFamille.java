@@ -136,19 +136,19 @@ public class SousFamille extends Model implements Comparator<SousFamille>{
 	public static List<SousFamille> findSousFamillesAjoutablesDansSousGroupe(){
 		List<Espece> especesSansSousGroupe = Espece.findEspecesAjoutablesDansSousGroupe();
 		List<SousFamille> sous_familles = new ArrayList<SousFamille>();
-		for(Espece espece : especesSansSousGroupe){
-			if(espece.espece_sousfamille.sous_famille_existe){
-				if(!sous_familles.contains(espece.espece_sousfamille)){
-					//On trouve toutes les espèces de cette sous-famille
-					List<Espece> especesDansSousFamille = espece.espece_sousfamille.getEspecesDansThis();
-					//Si toutes les espèces de cette sous-famille sont sans sous-groupes
-					//on ajoute la sous-famille
-					if(especesSansSousGroupe.containsAll(especesDansSousFamille)){
-						sous_familles.add(espece.espece_sousfamille);
-					}
-				}
-			}
-		}
+//		for(Espece espece : especesSansSousGroupe){
+//			if(espece.espece_sousfamille.sous_famille_existe){
+//				if(!sous_familles.contains(espece.espece_sousfamille)){
+//					//On trouve toutes les espèces de cette sous-famille
+//					List<Espece> especesDansSousFamille = espece.espece_sousfamille.getEspecesDansThis();
+//					//Si toutes les espèces de cette sous-famille sont sans sous-groupes
+//					//on ajoute la sous-famille
+//					if(especesSansSousGroupe.containsAll(especesDansSousFamille)){
+//						sous_familles.add(espece.espece_sousfamille);
+//					}
+//				}
+//			}
+//		}
 		return sous_familles;
 	}
 	

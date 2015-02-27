@@ -20,13 +20,9 @@ package models;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.ListIterator;
 
-import javax.naming.NamingException;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PersistenceException; 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import play.db.ebean.Model;
@@ -44,16 +40,49 @@ public class Espece extends Model implements Comparator<Espece>{
 	public Integer espece_systematique;
 	@ManyToOne
 	public Image espece_photo;
-	//Duplication des données de SousGroupe pour améliorer la vitesse de la base
-	@ManyToOne
-	public SousGroupe espece_sous_groupe;
 	@NotNull
 	@ManyToOne
-	public SousFamille espece_sousfamille;
+	public GroupementScientifique espece_groupement_scientifique_pere;
 	@Column(columnDefinition="TEXT")
 	public String espece_commentaires;
 
 	public static Finder<Integer,Espece> find = new Finder<Integer,Espece>(Integer.class, Espece.class);
+
+	// constructeurs
+
+	public Espece() {}
+
+	/**
+	 * Créé une nouvelle espèce. Attention, on ne peux pas enregistrer cette espèce dans la base
+	 * de données tout de suite avec la méthode save() ! Il faut utiliser ajouterNouvelleEspece().
+	 * @param nom
+	 * @param auteur
+	 * @param systematique
+	 * @param commentaires
+	 */
+	public Espece(String nom, String auteur, Integer systematique, String commentaires){
+		espece_nom=nom;
+		espece_auteur=auteur;
+		espece_systematique=systematique;
+		espece_commentaires=commentaires;
+		espece_groupement_scientifique_pere=null;
+	}
+	/**
+	 * Idem que le constructeur normal, mais avec un photo en plus
+	 * @param nom
+	 * @param auteur
+	 * @param systematique
+	 * @param commentaires
+	 * @param photo
+	 */
+	public Espece(String nom, String auteur, Integer systematique, String commentaires, Image photo){
+		espece_nom=nom;
+		espece_auteur=auteur;
+		espece_systematique=systematique;
+		espece_commentaires=commentaires;
+		espece_photo=photo;
+		espece_groupement_scientifique_pere=null;
+	}
 	
 	public static List<Espece> findAll(){
 		return find.orderBy("espece_systematique").findList();
@@ -63,6 +92,7 @@ public class Espece extends Model implements Comparator<Espece>{
 	}
 	
 	//Fonctions de filtres de la liste des insectes
+
 	/*************************************************/
 	public static List<Espece> selectEspecesSousFamille(SousFamille sousfam){
 		return find.where().eq("espece_sousfamille", sousfam).orderBy("espece_systematique").findList();
@@ -95,174 +125,15 @@ public class Espece extends Model implements Comparator<Espece>{
 	public int compare(Espece e1, Espece e2) {
 		return (e1.espece_systematique<e2.espece_systematique ? -1 : (e1.espece_systematique==e2.espece_systematique ? 0 : 1));
 	}
-	public Espece() {}
-	
-	/**
-	 * Créé une nouvelle espèce. Attention, on ne peux pas enregistrer cette espèce dans la base
-	 * de données tout de suite avec la méthode save() ! Il faut utiliser ajouterNouvelleEspece().
-	 * @param nom
-	 * @param auteur
-	 * @param systematique
-	 * @param commentaires
-	 */
-	public Espece(String nom, String auteur, Integer systematique, String commentaires){
-		espece_nom=nom;
-		espece_auteur=auteur;
-		espece_systematique=systematique;
-		espece_commentaires=commentaires;
-		espece_sousfamille=null;
-	}
-	/**
-	 * Idem que le constructeur normal, mais avec un photo en plus
-	 * @param nom
-	 * @param auteur
-	 * @param systematique
-	 * @param commentaires
-	 * @param photo
-	 */
-	public Espece(String nom, String auteur, Integer systematique, String commentaires, Image photo){
-		espece_nom=nom;
-		espece_auteur=auteur;
-		espece_systematique=systematique;
-		espece_commentaires=commentaires;
-		espece_photo=photo;
-		espece_sousfamille=null;
-	}
 
 	/**
-	 * Ajoute l'espèce en réordonnant toutes les espèces qui suivent.
-	 * Ajoute une espèce au milieu ou début. Instancier la nouvelle espèce avant.
-	 * @param avecSousFamille
-	 * @param sousFamilleOuFamille
-	 * @throws NamingException
-	 * @throws PersistenceException
-	 */
-	public void ajouterNouvelleEspece(boolean avecSousFamille, Integer sousFamilleOuFamilleId) throws NamingException, PersistenceException{
-		if(avecSousFamille){
-			this.espece_sousfamille=SousFamille.find.byId(sousFamilleOuFamilleId);
-			if(espece_sousfamille!=null){
-				this.save();
-			}else{
-				throw new NamingException("La sous-famille "+sousFamilleOuFamilleId+" n'existe pas !");
-			}
-		}
-		else{
-			this.espece_sousfamille=new SousFamille(this.espece_nom,false,sousFamilleOuFamilleId);
-			this.espece_sousfamille.save();
-			this.save();
-		}
-		List<Espece> especes = Espece.find.where().ge("espece_systematique",this.espece_systematique).findList();
-		for(Espece e : especes){
-			if(!e.espece_nom.equals(this.espece_nom)){
-				e.espece_systematique++;
-				e.save();
-			}
-		}
-		this.metAJourSousGroupes();
-	}
-
-	/**
-	 * Renvoie le sous-groupe auquel appartient l'espèce.
-	 * Si aucun sous-groupe n'est défini, renvoie null.
-	 * Attention, si les sous-groupes ont été définis de telle
-	 * sorte qu'une espèce est dans plusieurs sous-groupes (ce
-	 * qui est une erreur), la fonction de renvoiera qu'un seul
-	 * sous-groupe
-	 * @return SousGroupe s'il existe, null sinon
-	 */
-	public SousGroupe getSousGroupe(){
-		SousGroupe resultat = null;
-		EspeceHasSousGroupe ehsg =
-				EspeceHasSousGroupe.find.where()
-				.eq("espece",this)
-				.findUnique();
-		if(ehsg==null){
-			SousFamilleHasSousGroupe sofhsg =
-					SousFamilleHasSousGroupe.find.where()
-					.eq("sous_famille",this.getSousFamille())
-					.findUnique();
-			if(sofhsg==null){
-				FamilleHasSousGroupe fhsg =
-						FamilleHasSousGroupe.find.where()
-						.eq("famille",this.getFamille())
-						.findUnique();
-				if(fhsg==null){
-					SuperFamilleHasSousGroupe sufhsg =
-							SuperFamilleHasSousGroupe.find.where()
-							.eq("super_famille",this.getSuperFamille())
-							.findUnique();
-					if(sufhsg==null){
-						OrdreHasSousGroupe ohsg =
-								OrdreHasSousGroupe.find.where()
-								.eq("ordre",this.getOrdre())
-								.findUnique();
-						if(ohsg!=null)
-							resultat = ohsg.sous_groupe;
-					}else
-						resultat = sufhsg.sous_groupe; 
-				}else
-					resultat = fhsg.sous_groupe;
-			}else
-				resultat = sofhsg.sous_groupe;
-		}else
-			resultat = ehsg.sous_groupe;
-		return resultat;
-	}
-
-	/**
-	 * Renvoie le groupe auquel appartient l'espèce.
-	 * Si aucun groupe n'est défini, renvoie null.
-	 * Attention, si les groupes ont été définis de telle
-	 * sorte qu'une espèce est dans plusieurs groupes (ce
-	 * qui est une erreur), la fonction de renvoiera qu'un seul
-	 * groupe
-	 * @return Groupe s'il existe, null sinon
-	 */
-	public Groupe getGroupe(){
-		SousGroupe sg = this.getSousGroupe();
-		if(sg!=null)
-			return sg.sous_groupe_groupe;
-		else
-			return null;
-	}
-
-	/**
-	 * Renvoie la sous-famille de l'espèce
-	 * @return
-	 */
-	public SousFamille getSousFamille(){
-		return this.espece_sousfamille;
-	}
-	/**
-	 * Renvoie la famille de l'espèce
-	 * @return
-	 */
-	public Famille getFamille(){
-		return this.espece_sousfamille.sous_famille_famille;
-	}
-	/**
-	 * Renvoie la super-famille de l'espèce
-	 * @return
-	 */
-	public SuperFamille getSuperFamille(){
-		return this.espece_sousfamille.sous_famille_famille.famille_super_famille;
-	}
-	/**
-	 * Renvoie l'ordre de l'espèce
-	 * @return
-	 */
-	public Ordre getOrdre(){
-		return this.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre;
-	}
-	
-	/**
-	* Renvoie la liste des synonymes d'une espèce
+	 * Renvoie la liste des synonymes d'une espèce
 	 *@return
 	 */
-	 public List<EspeceSynonyme> getSynonymes(){
-	 	 return EspeceSynonyme.find.where().eq("synonyme_espece.espece_id", this.espece_id).findList();
-	 }
-	
+	public List<EspeceSynonyme> getSynonymes(){
+		return EspeceSynonyme.find.where().eq("synonyme_espece.espece_id", this.espece_id).findList();
+	}
+
 	/**
 	 * Renvoie la plus vieille fiche contenant un témoignage de l'espèce en question
 	 * Renvoie null si l'espèce n'a jamais été observée.
@@ -270,51 +141,138 @@ public class Espece extends Model implements Comparator<Espece>{
 	 */
 	public Fiche getPlusVieuxTemoignage(){
 		Observation o = Observation.find.where()
-								.eq("observation_espece",this)
-								.eq("observation_validee",Observation.VALIDEE)
-							.setMaxRows(1).orderBy("observation_fiche.fiche_date").findUnique();
+				.eq("observation_espece",this)
+				.eq("observation_validee",Observation.VALIDEE)
+				.setMaxRows(1).orderBy("observation_fiche.fiche_date").findUnique();
 		if(o==null)
 			return null;
 		else
 			return o.getFiche();
 	}
-	
+
+	/***************************  hiérarchie locale *******************************/
+	/* il peut il y avoir plusieurs hiérarchies locales. c'est à dire qy'une espèce peut appartenir à plusieurs groupes */
+
+
 	/**
-	 * Met a jour le sous-groupe de l'espèce en question.
-	 * (Duplication des données des sous-groupes pour améliorer la vitesse des requêtes.)
+	 * Renvoie le groupe (celui de plus haut niveau) auquel appartient l'espèce.
+	 * Si aucun groupe n'est défini, renvoie null.
+	 * Attention, si les groupes ont été définis de telle
+	 * sorte qu'une espèce est dans plusieurs groupes (ce
+	 * qui est une erreur), la fonction de renvoiera qu'un seul
+	 * groupe
+	 * @return Groupe s'il existe, null sinon
 	 */
-	public void metAJourSousGroupes(){
-		SousGroupe sg=this.getSousGroupe();
-		this.espece_sous_groupe= sg;
-		this.save();
+	//TODO à supprimer : une espèce peut être dans PLUSIEURS groupes
+	public Groupe getGroupe(){
+
+		// choix arbitraire d'une des branches hiérarchiques
+		List<Groupe> ls =  getHierarchiesLocales().get(0);
+		if (!ls.isEmpty()) {
+			return ls.get(ls.size() - 1);
+		} else {
+			return null;
+		}
 	}
 
 	/**
-	 * On duplique la base de données en remplissant les champs de espece_sousgroupe
-	 * Cela permet de gagner du temps dans beaucoup de requêtes
+	 *
+	 * @return la liste des groupes dont l'espece est directement fille. (une espèce peut appartenir à plusieurs groupes)
 	 */
-	public static void metAJourSousGroupesPourToutes() {
-		List<Espece> especes = Espece.findAll();
-		for (Espece espece : especes) {
-			espece.metAJourSousGroupes();
+	public List<Groupe> getGroupesPeres(){
+		List<Groupe> gPeres = null;
+		List<EspeceIsInGroupementLocal> listeRelations = EspeceIsInGroupementLocal.find.where().eq("espece",this).findList();
+		for (EspeceIsInGroupementLocal relation : listeRelations){
+			gPeres.add(relation.groupe);
 		}
+		return gPeres;
 	}
-	
+
 	/**
-	 * Renvoie la liste des espèces sans sous-groupe.
+	 *
+	 * @return la liste des hierarchies locales c-à-d les différentes branches de groupement locaux qui mènent à cette espèce. Du niveau le plus bas au plus haut.
+	 */
+	public List<List<Groupe>> getHierarchiesLocales(){
+
+		List<List<Groupe>> hierarchiesLocales = null;
+		List<Groupe> listeGroupesPeres = getGroupesPeres();
+
+		for (Groupe groupePere : listeGroupesPeres){
+
+			//on récupère la hierarchie complete du groupe Pere, lui y compris
+			List<Groupe> groupePereHierarchie = null;
+			groupePereHierarchie.add(groupePere);
+			groupePereHierarchie.addAll(groupePere.getHierarchieLocale());
+
+			// l'ajoute à la liste des hiérarchie locales
+			hierarchiesLocales.add(groupePereHierarchie);
+		}
+		return hierarchiesLocales;
+	}
+
+	/**
+	 * Renvoie la liste des espèces sans groupe.
 	 * @return
 	 */
-	public static List<Espece> findEspecesSansSousGroupe(){
-		return find.where().eq("espece_sous_groupe", null).findList();
+	public static List<Espece> findEspecesSansGroupe(){
+		List<Espece> listeEspeces = Espece.findAll();
+		// on supprime de la liste les especes qui une relation avec un groupe
+		for (ListIterator<Espece> it = listeEspeces.listIterator(); it.hasNext();) {
+			Espece espece = it.next();
+			if (!EspeceIsInGroupementLocal.find.where().eq("espece" ,espece).findList().isEmpty()){
+				it.remove();
+			}
+		}
+		return listeEspeces;
 	}
-	
+
+
 	/**
 	 * Trouve les espèces ajoutables dans un sous-groupe
 	 * @return
 	 */
+	//TODO à supprimer ?
 	public static List<Espece> findEspecesAjoutablesDansSousGroupe(){
-		return find.where().eq("espece_sous_groupe", null).findList();
+		return findEspecesSansGroupe();
 	}
+
+
+	/***************************  hiérarchie scientifique *******************************/
+	/* la hiérarchie scientifique est unique */
+
+	/**
+	 * @return la liste de tous les groupements scientiques pères (du plus bas au plus haut)
+	 */
+	public List<GroupementScientifique> getHierarchieScientifique(){
+		List<GroupementScientifique> h = null;
+		if (espece_groupement_scientifique_pere!=null) {
+			h.add( espece_groupement_scientifique_pere);
+			//h.add(0, espece_groupement_scientifique_pere); // TODO du plus haut au plus bas?
+			h.addAll(espece_groupement_scientifique_pere.getHierarchieScientifique());
+		}
+		return h;
+	}
+
+	/**
+	 * @param type libellé du niveau hiérarchique (famille, sous-famille etc...)
+	 * @return groupement correspondant si existant sinon null
+	 */
+	public GroupementScientifique getNiveauHeriarchiqueScientifique (String type){
+		List<GroupementScientifique> h = getHierarchieScientifique();
+		TypeGroupementScientifique t = TypeGroupementScientifique.find.where().eq("type_groupement_scientifique_intitule",type).findUnique();
+
+		GroupementScientifique retour = null;
+
+		for (GroupementScientifique g : h){
+			if (g.groupement_scientifique_type == t){
+				retour = g;
+			}
+		}
+		return retour;
+	}
+
+
+	// suppression
 	
 	/**
 	* Supprime l'espèce et tous les témoignages qui lui sont associés

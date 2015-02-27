@@ -6,7 +6,7 @@
             <!-- photo de l'espèce-->
         <div id="photo@obs.observation_id" style="display: inline-block; vertical-align:top;"></div> <!-- TODO photo?-->
             <!-- groupe -->
-        @obs.observation_espece.espece_sous_groupe.sous_groupe_groupe.groupe_nom
+        @obs.observation_espece.getGroupe()
         <br>
         <span style="margin-left: 20px;"> &times; </span>
             <!-- espèce -->
