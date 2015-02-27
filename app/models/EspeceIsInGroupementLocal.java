@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @SuppressWarnings("serial")
 @Entity
-public class EspeceIsInGroupementLocal {
+public class EspeceIsInGroupementLocal extends Model{
     @Id
     public Integer espece_is_in_groupement_id;
     @NotNull

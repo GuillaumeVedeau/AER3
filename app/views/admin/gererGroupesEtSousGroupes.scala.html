@@ -34,7 +34,7 @@
 		@for(sousGroupe <- groupe.getFils()){
 			<div id="sousGroupe@sousGroupe.sous_groupe_id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span id="nomSousGroupe@sousGroupe.sous_groupe_id" onDblClick="renommerSousGroupe(@sousGroupe.sous_groupe_id)">@sousGroupe</span>
-			<button id="deplacerSousGroupe@sousGroupe.sous_groupe_id" onClick="deplacerSousGroupe(@sousGroupe.sous_groupe_id)">Déplacer</button>
+			<button id="deplacerGroupe@sousGroupe.sous_groupe_id" onClick="deplacerGroupe(@sousGroupe.sous_groupe_id)">Déplacer</button>
 			<button onClick="editerSousGroupe(@sousGroupe.sous_groupe_id)">Détails</button>
 			<form id="supprimerSousGroupe@sousGroupe.sous_groupe_id" action="supprimerSousGroupe/@sousGroupe.sous_groupe_id" method="POST" style="display:inline"><button onClick="supprimerSousGroupe(@sousGroupe.sous_groupe_id);return false;">Suppr</button></form>
 			</div>
@@ -136,9 +136,9 @@ function renommerSousGroupe(sous_groupe_id){
 		}
 	});
 }
-function deplacerSousGroupe(sous_groupe_id){
+function deplacerGroupe(sous_groupe_id){
 	var listeDesGroupes = $('#listeDesGroupes').html();
-	$('#deplacerSousGroupe'+sous_groupe_id).replaceWith('<form action="/deplacerSousGroupe/'+sous_groupe_id+'" method="POST">'+listeDesGroupes+'</form>');
+	$('#deplacerGroupe'+sous_groupe_id).replaceWith('<form action="/deplacerGroupe/'+sous_groupe_id+'" method="POST">'+listeDesGroupes+'</form>');
 }
 function editerSousGroupe(sous_groupe_id){
 	$('#editerSousGroupe').load('/ajax/sous_groupe/editer/'+sous_groupe_id);

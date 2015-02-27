@@ -124,7 +124,7 @@ POST        /demandeInscription/donnerPremierAcces                              
 
 # gestion des groupes et sous-groupes
 GET         /gererGroupesEtSousGroupes                                                                     controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.main()
-POST        /deplacerSousGroupe/:sous_groupe_id                                                            controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.deplacerSousGroupe(sous_groupe_id: Integer)
+POST        /deplacerSousGroupe/:groupe_id                                                                 controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.deplacerGroupe(groupe_id: Integer)
 POST        /creerGroupe                                                                                   controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.creerGroupe()
 POST        /creerSousGroupe                                                                               controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.creerSousGroupe()
 POST        /supprimerSousGroupe/:sous_groupe_id                                                           controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.supprimerSousGroupe(sous_groupe_id: Integer)

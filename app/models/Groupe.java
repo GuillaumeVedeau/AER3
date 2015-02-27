@@ -40,14 +40,19 @@ public class Groupe extends Model {
 	public Groupe groupe_pere;
 	@ManyToOne
 	public TypeGroupementLocal groupe_type;
-	@ManyToMany
-	public List<Espece> groupe_especes;
 
 	public static Model.Finder<Integer,Groupe> find = new Model.Finder<Integer,Groupe>(Integer.class, Groupe.class);
 
 
-	public Groupe(String groupe_nom) {
+	public Groupe(String groupe_nom, String groupe_type) {
 		this.groupe_nom=groupe_nom;
+		this.groupe_type= TypeGroupementLocal.find.byId(groupe_type);
+	}
+
+	public Groupe(String groupe_nom, String groupe_type, Groupe pere) {
+		this.groupe_nom=groupe_nom;
+		this.groupe_type= TypeGroupementLocal.find.byId(groupe_type);
+		this.groupe_pere=pere;
 	}
 
 	public static List<Groupe> findAll(){
@@ -138,18 +143,23 @@ public class Groupe extends Model {
 
 	/************************** getters des espèces contenus  ************************/
 
+
 	/**
 	 * Renvoie la liste de toutes les espèces dans la hiérarchie fille de ce groupement
 	 * @return
 	 */
 	public List<Espece> getAllEspecesInThis(){
-		List<Espece> esp = groupe_especes;
+		List<Espece> esp = getEspecesInThis();
 		if (!getFils().isEmpty()) {
 			for (Groupe fils : this.getFils()) {
-				esp.addAll(fils.groupe_especes);
+				esp.addAll(fils.getEspecesInThis());
 			}
 		}
 		return esp;
+	}
+
+	public List<Espece> getEspecesInThis(){
+		return Espece.find.where().eq("espece_groupement_scientifique_pere",this).findList();
 	}
 
 	/**

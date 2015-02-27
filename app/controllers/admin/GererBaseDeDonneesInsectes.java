@@ -19,15 +19,7 @@ package controllers.admin;
 
 import java.io.IOException;
 
-import models.Espece;
-import models.EspeceSynonyme;
-import models.Image;
-import models.SousFamille;
-import models.Famille;
-import models.SuperFamille;
-import models.Ordre;
-import models.SousGroupe;
-import models.Groupe;
+import models.*;
 import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -156,6 +148,7 @@ public class GererBaseDeDonneesInsectes extends Controller {
 						espece = new Espece(nom,auteur,numero_systematique,commentaires,photo);
 					else
 						espece = new Espece(nom,auteur,numero_systematique,commentaires);
+					// TODO methode ajouter nouvelle espèce?
 					espece.ajouterNouvelleEspece(avecSousFam, nomSousFamilleOuFamille);
 				}else
 					System.out.println("Erreur lors de l'ajout:"+avecSousFamille+","+nom+","+auteur+","+nomSousFamilleOuFamille);
@@ -277,7 +270,7 @@ public class GererBaseDeDonneesInsectes extends Controller {
 			DynamicForm df = DynamicForm.form().bindFromRequest();
 			String sousfam = df.get("changerSousFamille");
 			if (sousfam!=null){
-				espece.espece_sousfamille = SousFamille.find.byId(Integer.parseInt(sousfam));
+				espece.espece_groupement_scientifique_pere = GroupementScientifique.find.byId(Integer.parseInt(sousfam));
 				espece.save();
 			} else {
 				System.out.println("Erreur lors du changement par "+sousfam);
@@ -293,6 +286,7 @@ public class GererBaseDeDonneesInsectes extends Controller {
 	* @throws NamingException
 	 * @throws PersistenceException
 	 */
+	//TODO
 	public static Result changerVersFamille(Integer espece_id) throws NamingException, PersistenceException{
 		if(Admin.isAdminConnected()){
 			Espece espece = Espece.find.byId(espece_id);
@@ -300,9 +294,9 @@ public class GererBaseDeDonneesInsectes extends Controller {
 			String sousfam = df.get("changerVersFamille");
 			if (sousfam!=null){
 				Integer sousfam_id = Integer.parseInt(sousfam);
-				espece.espece_sousfamille = new SousFamille(espece.espece_nom,false,sousfam_id);
-				espece.espece_sousfamille.save();
-				espece.save();
+//				espece.espece_groupement_scientifique_pere = new GroupementScientifique(espece.espece_nom, GroupementScientifique.find.byId(sousfam_id));
+//				espece.espece_groupement_scientifique_pere.save();
+//				espece.save();
 			} else {
 				System.out.println("Erreur lors du changement par "+sousfam);
 			}
@@ -324,11 +318,11 @@ public class GererBaseDeDonneesInsectes extends Controller {
 			String fam = df.get("changerFamilleEspece");
 			if (fam!=null){
 				Integer fam_id = Integer.parseInt(fam);
-				SousFamille ancienne = espece.espece_sousfamille;
-				espece.espece_sousfamille = new SousFamille(espece.espece_nom,false,fam_id);
-				espece.espece_sousfamille.save();
-				espece.save();
-				ancienne.delete();
+//				SousFamille ancienne = espece.espece_sousfamille;
+//				espece.espece_sousfamille = new SousFamille(espece.espece_nom,false,fam_id);
+//				espece.espece_sousfamille.save();
+//				espece.save();
+//				ancienne.delete();
 			} else {
 				System.out.println("Erreur lors du changement par "+fam);
 			}
@@ -347,10 +341,10 @@ public class GererBaseDeDonneesInsectes extends Controller {
 			DynamicForm df = DynamicForm.form().bindFromRequest();
 			String sousfam = df.get("changerVersSousFamille");
 			if (sousfam!=null){
-				SousFamille ancienne = espece.espece_sousfamille;
-				espece.espece_sousfamille = SousFamille.find.byId(Integer.parseInt(sousfam));
-				espece.save();
-				ancienne.delete();
+//				SousFamille ancienne = espece.espece_sousfamille;
+//				espece.espece_sousfamille = SousFamille.find.byId(Integer.parseInt(sousfam));
+//				espece.save();
+//				ancienne.delete();
 			} else {
 				System.out.println("Erreur lors du changement par "+sousfam);
 			}
@@ -529,13 +523,14 @@ public class GererBaseDeDonneesInsectes extends Controller {
 	public static Result supprimerEspece(Integer espece_id){
 		if(Admin.isAdminConnected()){
 			Espece espece = Espece.find.byId(espece_id);
-			if(espece.espece_sousfamille.sous_famille_existe){
-				Espece.supprEspece(espece_id);
-			} else {
-				Integer sousfam_id = espece.espece_sousfamille.sous_famille_id;
-				Espece.supprEspece(espece_id);
-				SousFamille.supprSousFamille(sousfam_id);
-			}
+//			if(espece.espece_sousfamille.sous_famille_existe){
+//				Espece.supprEspece(espece_id);
+//			} else {
+//				Integer sousfam_id = espece.espece_sousfamille.sous_famille_id;
+//				Espece.supprEspece(espece_id);
+//				SousFamille.supprSousFamille(sousfam_id);
+//			}
+			Espece.supprEspece(espece.espece_id);
 			return redirect("/gererBaseDeDonneesInsectes");
 		} else
 			return Admin.nonAutorise();

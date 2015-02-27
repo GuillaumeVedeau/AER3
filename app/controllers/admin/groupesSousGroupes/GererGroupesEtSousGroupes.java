@@ -29,25 +29,25 @@ public class GererGroupesEtSousGroupes extends Controller {
 
 	public static Result main(){
 		if(Admin.isAdminConnected())
-			return ok(gererGroupesEtSousGroupes.render(Groupe.findAll(),null));
+			return ok(gererGroupesEtSousGroupes.render(Groupe.findAll(), null));
 		else
 			return Admin.nonAutorise();
 	}
 	
 	/**
 	 * Déplace un sous-groupe dans un autre groupe
-	 * @param sous_groupe_id
+	 * @param groupeId : id du groupe à déplacer
 	 * @return
 	 */
-	public static Result deplacerSousGroupe(Integer sous_groupe_id){
+	public static Result deplacerGroupe(Integer groupeId){
 		if(Admin.isAdminConnected()){
-			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
+			Groupe groupe = Groupe.find.byId(groupeId);
 			DynamicForm df = DynamicForm.form().bindFromRequest();
-			Integer groupe_id = Integer.parseInt(df.get("groupeId"));
-			Groupe groupe = Groupe.find.byId(groupe_id);
-			if(sous_groupe!=null && groupe!=null){
-				sous_groupe.sous_groupe_groupe=groupe;
-				sous_groupe.save();
+			Integer groupePereId = Integer.parseInt(df.get("groupePereId"));
+			Groupe groupePere = Groupe.find.byId(groupePereId);
+			if(groupe!=null && groupePere!=null){
+				groupe.groupe_pere=groupePere;
+				groupe.save();
 			}
 			return redirect("/gererGroupesEtSousGroupes");
 		}else
@@ -64,7 +64,7 @@ public class GererGroupesEtSousGroupes extends Controller {
 			DynamicForm df = DynamicForm.form().bindFromRequest();
 			String nomGroupe = df.get("nomGroupe");
 			if(!nomGroupe.equals("") && Groupe.find.where().eq("groupe_nom", nomGroupe).findList().isEmpty()){
-				new Groupe(nomGroupe).save();
+				new Groupe(nomGroupe, "groupe").save();
 			}
 			return redirect("/gererGroupesEtSousGroupes");
 		}else
@@ -83,9 +83,9 @@ public class GererGroupesEtSousGroupes extends Controller {
 			Integer groupe_id = Integer.parseInt(df.get("groupeId"));
 			Groupe groupe = Groupe.find.byId(groupe_id);
 			if(!nomSousGroupe.equals("") &&
-					SousGroupe.find.where().eq("sous_groupe_nom", nomSousGroupe).findList().isEmpty()
+					Groupe.find.where().eq("groupe_nom", nomSousGroupe).findList().isEmpty()
 					&& groupe!=null){
-				new SousGroupe(nomSousGroupe, groupe).save();
+				new Groupe(nomSousGroupe, "sous-groupe", groupe).save();
 			}
 			return redirect("/gererGroupesEtSousGroupes");
 		}else
@@ -94,7 +94,7 @@ public class GererGroupesEtSousGroupes extends Controller {
 
 	/**
 	 * Supprime un groupe de la base de données DEFINITIVEMENT
-	 * @param sous_groupe_id
+	 * @param groupe_id
 	 * @return
 	 */
 	public static Result supprimerGroupe(Integer groupe_id){
@@ -114,9 +114,9 @@ public class GererGroupesEtSousGroupes extends Controller {
 	 */
 	public static Result supprimerSousGroupe(Integer sous_groupe_id){
 		if(Admin.isAdminConnected()){
-			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
-			if(sous_groupe!=null)
-				sous_groupe.supprimer();
+			Groupe groupe = Groupe.find.byId(sous_groupe_id);
+			if(groupe!=null)
+				groupe.supprimer();
 			return redirect("/gererGroupesEtSousGroupes");
 		}else
 			return Admin.nonAutorise();

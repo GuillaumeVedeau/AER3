@@ -40,7 +40,8 @@ public class Global extends GlobalSettings {
 		//Espece.metAJourSousGroupesPourToutes();
 		
 		//Lance les mails pour prévenir les experts.
-		PrevenirExperts.scheduler();
+		//TODO remettre en place scheduler
+//		PrevenirExperts.scheduler();
 	}
 	
 }

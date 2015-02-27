@@ -128,7 +128,7 @@ public class ChronologieDUnTemoinExcel extends Excel {
 				membres.append("et al.");
 			row.createCell(10).setCellValue(membres.toString());
 			row.createCell(11).setCellValue(fiche.fiche_memo);
-			row.createCell(12).setCellValue(observation.observation_espece.espece_sous_groupe.sous_groupe_groupe.groupe_nom);
+			row.createCell(12).setCellValue(observation.observation_espece.getGroupe().groupe_nom);
 			i++;
 		}
 		for(int j = 0; j<11 ; j++)

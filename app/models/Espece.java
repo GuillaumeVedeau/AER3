@@ -150,6 +150,41 @@ public class Espece extends Model implements Comparator<Espece>{
 			return o.getFiche();
 	}
 
+	/**
+	 * Ajoute l'espèce en réordonnant toutes les espèces qui suivent.
+	 * Ajoute une espèce au milieu ou début. Instancier la nouvelle espèce avant.
+	 * @param avecSousFamille
+	 * @param sousFamilleOuFamille
+	 * @throws NamingException
+	 * @throws PersistenceException
+	 */
+	public void ajouterNouvelleEspece(boolean avecSousFamille, Integer sousFamilleOuFamilleId){
+
+	}
+//	public void ajouterNouvelleEspece(boolean avecSousFamille, Integer sousFamilleOuFamilleId) throws NamingException, PersistenceException{
+//		if(avecSousFamille){
+//			this.espece_sousfamille=SousFamille.find.byId(sousFamilleOuFamilleId);
+//			if(espece_sousfamille!=null){
+//				this.save();
+//			}else{
+//				throw new NamingException("La sous-famille "+sousFamilleOuFamilleId+" n'existe pas !");
+//			}
+//		}
+//		else{
+//			this.espece_sousfamille=new SousFamille(this.espece_nom,false,sousFamilleOuFamilleId);
+//			this.espece_sousfamille.save();
+//			this.save();
+//		}
+//		List<Espece> especes = Espece.find.where().ge("espece_systematique",this.espece_systematique).findList();
+//		for(Espece e : especes){
+//			if(!e.espece_nom.equals(this.espece_nom)){
+//				e.espece_systematique++;
+//				e.save();
+//			}
+//		}
+//		this.metAJourSousGroupes();
+//	}
+
 	/***************************  hiérarchie locale *******************************/
 	/* il peut il y avoir plusieurs hiérarchies locales. c'est à dire qy'une espèce peut appartenir à plusieurs groupes */
 
@@ -259,7 +294,7 @@ public class Espece extends Model implements Comparator<Espece>{
 	 */
 	public GroupementScientifique getNiveauHeriarchiqueScientifique (String type){
 		List<GroupementScientifique> h = getHierarchieScientifique();
-		TypeGroupementScientifique t = TypeGroupementScientifique.find.where().eq("type_groupement_scientifique_intitule",type).findUnique();
+		TypeGroupementScientifique t = TypeGroupementScientifique.find.where().eq("intitule",type).findUnique();
 
 		GroupementScientifique retour = null;
 

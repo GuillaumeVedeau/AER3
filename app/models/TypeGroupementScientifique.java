@@ -14,12 +14,12 @@ import javax.persistence.Id;
 @Entity
 public class TypeGroupementScientifique extends Model{
     @Id
-    public String type_groupement_scientifique_intitule;
+    public String intitule;
 
     public static Model.Finder<String,TypeGroupementScientifique> find = new Finder<String,TypeGroupementScientifique>(String.class, TypeGroupementScientifique.class);
 
     public TypeGroupementScientifique(String intitule){
-        type_groupement_scientifique_intitule = intitule;
+        this.intitule = intitule;
     }
 
 }

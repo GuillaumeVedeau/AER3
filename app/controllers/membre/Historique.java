@@ -144,7 +144,7 @@ public class Historique extends Controller {
 					complement.informations_complementaires_nombre_de_specimens=null;
 				int stade_sexe_id = Integer.parseInt(df.get("stadesexe"+complement.informations_complementaires_id));
 				StadeSexe stade_sexe = StadeSexe.find.byId(stade_sexe_id);
-				if(espece.espece_sous_groupe.sous_groupe_groupe.getStadesSexes().contains(stade_sexe)){
+				if(espece.getGroupe().getStadesSexes().contains(stade_sexe)){
 					complement.informations_complementaires_stade_sexe=stade_sexe;
 				}
 				if(stade_sexe==null)

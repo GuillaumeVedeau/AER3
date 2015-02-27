@@ -17,18 +17,7 @@
  ********************************************************************************/
 package controllers.admin.groupesSousGroupes;
 
-import models.Espece;
-import models.EspeceHasSousGroupe;
-import models.Famille;
-import models.FamilleHasSousGroupe;
-import models.Groupe;
-import models.Ordre;
-import models.OrdreHasSousGroupe;
-import models.SousFamille;
-import models.SousFamilleHasSousGroupe;
-import models.SousGroupe;
-import models.SuperFamille;
-import models.SuperFamilleHasSousGroupe;
+import models.*;
 import controllers.admin.Admin;
 import play.data.DynamicForm;
 import play.mvc.Controller;
@@ -54,9 +43,9 @@ public class GererElementsDansSousGroupe extends Controller {
 			DynamicForm df = DynamicForm.form().bindFromRequest();
 			Integer espece_id = Integer.parseInt(df.get("espece"));
 			Espece espece = Espece.find.byId(espece_id);
-			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
+			Groupe sous_groupe = Groupe.find.byId(sous_groupe_id);
 			if(espece!=null && sous_groupe!=null && Espece.findEspecesAjoutablesDansSousGroupe().contains(espece)){
-				new EspeceHasSousGroupe(espece,sous_groupe).save();
+				new EspeceIsInGroupementLocal(espece, sous_groupe).save();
 				//espece.metAJourSousGroupes(); TODO vérifier mis à jour sous groupes et ajout espèces
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
@@ -77,7 +66,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
 			if(sous_famille!=null && sous_groupe!=null && SousFamille.findSousFamillesAjoutablesDansSousGroupe().contains(sous_famille)){
 				new SousFamilleHasSousGroupe(sous_famille,sous_groupe).save();
-				for(Espece espece : sous_famille.getEspecesDansThis())
+//				for(Espece espece : sous_famille.getEspecesDansThis())
 //					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
@@ -98,7 +87,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
 			if(famille!=null && sous_groupe!=null && Famille.findFamillesAjoutablesDansSousGroupe().contains(famille)){
 				new FamilleHasSousGroupe(famille,sous_groupe).save();
-				for(Espece espece : famille.getEspecesDansThis())
+//				for(Espece espece : famille.getEspecesDansThis())
 //					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
@@ -119,7 +108,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
 			if(super_famille!=null && sous_groupe!=null && SuperFamille.findSuperFamillesAjoutablesDansSousGroupe().contains(super_famille)){
 				new SuperFamilleHasSousGroupe(super_famille,sous_groupe).save();
-				for(Espece espece : super_famille.getEspecesDansThis())
+//				for(Espece espece : super_famille.getEspecesDansThis())
 //					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
@@ -140,7 +129,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
 			if(ordre!=null && sous_groupe!=null && Ordre.findOrdresAjoutablesDansSousGroupe().contains(ordre)){
 				new OrdreHasSousGroupe(ordre,sous_groupe).save();
-				for(Espece espece : ordre.getEspecesDansThis())
+//				for(Espece espece : ordre.getEspecesDansThis())
 //					espece.metAJourSousGroupes();
 			}
 			return redirect("/gererGroupesEtSousGroupes/sousgroupe/"+sous_groupe_id);
@@ -159,7 +148,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			Integer sous_groupe_id=-1;
 			if(ehsg!=null){
 				sous_groupe_id=ehsg.sous_groupe.sous_groupe_id;
-				ehsg.espece.espece_sous_groupe=null;
+//				ehsg.espece.espece_sous_groupe=null;
 				ehsg.espece.save();
 				ehsg.delete();
 			}
@@ -180,7 +169,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(sofhsg!=null){
 				sous_groupe_id=sofhsg.sous_groupe.sous_groupe_id;
 				for(Espece espece : sofhsg.sous_famille.getEspecesDansThis()){
-					espece.espece_sous_groupe=null;
+//					espece.espece_sous_groupe=null;
 					espece.save();
 				}
 				sofhsg.delete();
@@ -202,7 +191,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(fhsg!=null){
 				sous_groupe_id=fhsg.sous_groupe.sous_groupe_id;
 				for(Espece espece : fhsg.famille.getEspecesDansThis()){
-					espece.espece_sous_groupe=null;
+//					espece.espece_sous_groupe=null;
 					espece.save();
 				}
 				fhsg.delete();
@@ -224,7 +213,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(sufhsg!=null){
 				sous_groupe_id=sufhsg.sous_groupe.sous_groupe_id;
 				for(Espece espece : sufhsg.super_famille.getEspecesDansThis()){
-					espece.espece_sous_groupe=null;
+//					espece.espece_sous_groupe=null;
 					espece.save();
 				}
 				sufhsg.delete();
@@ -246,7 +235,7 @@ public class GererElementsDansSousGroupe extends Controller {
 			if(ohsg!=null){
 				sous_groupe_id=ohsg.sous_groupe.sous_groupe_id;
 				for(Espece espece : ohsg.ordre.getEspecesDansThis()){
-					espece.espece_sous_groupe=null;
+//					espece.espece_sous_groupe=null;
 					espece.save();
 				}
 				ohsg.delete();
