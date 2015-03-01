@@ -18,8 +18,10 @@
 
 			<!-- espèce -->
 		<select onClick="rafraichirPhoto('new-@observation_tag')" id="especes-new-@observation_tag" name="espece-new-@observation_tag" size="1">
-			@for(espece <- Groupe.find.where().eq("groupe_id",groupe_id).findUnique().getEspecesInThisByAlpha()){
-				<option value="@espece.espece_id" @if(espece_id==espece.espece_id){selected}>@espece.espece_nom</option>
+			@if(Groupe.find.where().eq("groupe_id",groupe_id).findUnique().getAllEspecesInThis != null) {
+				@for(espece <- Groupe.find.where().eq("groupe_id", groupe_id).findUnique().getEspecesInThisByAlpha()) {
+					<option value="@espece.espece_id" @if(espece_id == espece.espece_id) {selected}>@espece.espece_nom </option>
+				}
 			}
 		</select>
 

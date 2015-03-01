@@ -18,9 +18,10 @@
 @(message: String)
 
 @main("Identification"){
-	@Html(message)
+
 	<div style="background-color: white; width: 475px; padding: 20px; border-radius: 10px; margin-left: auto; margin-right: auto;">
 		<img src="/assets/images/banniere-aer.png" height="200px"><br><br>
+		<span style="color: red;">@Html(message)</span>
 		<form action="/connexion" method="POST" style="text-align: center;">
 			<input type="login"	name="login" placeholder="Identifiant"><br><br>
 			<input type="password"	name="passw" placeholder="Mot de Passe"><br><br>

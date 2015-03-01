@@ -109,7 +109,11 @@ public class Fiche extends Model {
 		Observation o = Observation.find.where()
 				.eq("observation_validee",Observation.VALIDEE)
 			.setMaxRows(1).orderBy("observation_fiche.fiche_date").findUnique();
-		return o.getFiche();
+		if(o != null) {
+			return o.getFiche();
+		} else {
+			return null;
+		}
 	}
 	
 	/**

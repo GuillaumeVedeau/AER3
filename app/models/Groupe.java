@@ -152,14 +152,22 @@ public class Groupe extends Model {
 		List<Espece> esp = getEspecesInThis();
 		if (!getFils().isEmpty()) {
 			for (Groupe fils : this.getFils()) {
-				esp.addAll(fils.getEspecesInThis());
+				List<Espece> especesFilles = fils.getEspecesInThis();
+				if (especesFilles != null) {
+					esp.addAll(especesFilles);
+				}
 			}
 		}
 		return esp;
 	}
 
 	public List<Espece> getEspecesInThis(){
-		return Espece.find.where().eq("espece_groupement_scientifique_pere",this).findList();
+		List<Espece> especes = null;
+		List<EspeceIsInGroupementLocal> listeRelations = EspeceIsInGroupementLocal.find.where().eq("groupe",this).findList();
+		for (EspeceIsInGroupementLocal relation : listeRelations){
+			especes.add(relation.espece);
+		}
+		return especes;
 	}
 
 	/**
@@ -167,13 +175,10 @@ public class Groupe extends Model {
 	 * @return
 	 */
 	public List<Espece> getEspecesInThisBySystematique(){
-		List<Groupe> sgs = this.getFils();
-		List<Espece> especes = new ArrayList<Espece>();
-		for(Groupe sg : sgs){
-			List<Espece> especeDansSG = Espece.find.where().eq("espece_groupement_scientifique_pere", sg).findList();
-			especes.addAll(especeDansSG);
+		List<Espece> especes = getAllEspecesInThis();
+		if (especes != null) {
+			Collections.sort(especes, new Espece());
 		}
-		Collections.sort(especes,new Espece());
 		return especes;
 	}
 
@@ -182,18 +187,16 @@ public class Groupe extends Model {
 	 * @return
 	 */
 	public List<Espece> getEspecesInThisByAlpha(){
-		List<Groupe> sgs = this.getFils();
-		List<Espece> especes = new ArrayList<Espece>();
-		for(Groupe sg : sgs){
-			List<Espece> especeDansSG = Espece.find.where().eq("espece_groupement_scientifique_pere", sg).findList();
-			especes.addAll(especeDansSG);
+		List<Espece> especes = getAllEspecesInThis();
+		if (especes != null) {
+			Collections.sort(especes, new Comparator<Espece>() {
+				@Override
+				public int compare(Espece arg0, Espece arg1) {
+
+					return arg0.espece_nom.compareToIgnoreCase(arg1.espece_nom);
+				}
+			});
 		}
-		Collections.sort(especes, new Comparator<Espece>(){
-			@Override
-			public int compare(Espece arg0, Espece arg1) {
-				return arg0.espece_nom.compareToIgnoreCase(arg1.espece_nom);
-			}
-		});
 		return especes;
 	}
 

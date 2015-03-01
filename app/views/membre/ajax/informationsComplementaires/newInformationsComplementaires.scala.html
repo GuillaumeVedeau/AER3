@@ -10,8 +10,10 @@
  		}
  	</select>
  	<select id="stadeSexePrecis-@observation_tag-@complement_tag" name="stadeSexePrecis-@observation_tag-@complement_tag">
-		@for(stadePrecis <- groupe.getStadeSexeFils(stadeSexePrecis.getStadeSexePerePourTelGroupe(groupe))){
-			<option value="@stadePrecis.stade_sexe_id" @if(stadeSexePrecis.stade_sexe_id == stadePrecis.stade_sexe_id){selected}>@stadePrecis</option>
+		@if(stadeSexePrecis != null) {
+				@for(stadePrecis <- groupe.getStadeSexeFils(stadeSexePrecis.getStadeSexePerePourTelGroupe(groupe))) {
+					<option value="@stadePrecis.stade_sexe_id" @if(stadeSexePrecis.stade_sexe_id == stadePrecis.stade_sexe_id) {selected}>@stadePrecis </option>
+				}
 		}
 	</select>
  </span>
