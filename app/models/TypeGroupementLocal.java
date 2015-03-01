@@ -23,4 +23,11 @@ public class TypeGroupementLocal extends Model{
         type_groupement_local_intitule = intitule;
     }
 
+    public static TypeGroupementLocal getTypeGroupe(){
+        return find.where().eq("type_groupement_local_intitule", "groupe").findUnique();
+    }
+    public static TypeGroupementLocal getTypeSousGroupe(){
+        return find.where().eq("type_groupement_local_intitule", "sous-groupe").findUnique();
+    }
+
 }

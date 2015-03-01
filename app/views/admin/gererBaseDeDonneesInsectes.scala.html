@@ -19,48 +19,51 @@
 @main("Gérer les espèces"){
 <a href="/menuAdmin">Retour</a><br>
 	<h1>Gestion des espèces</h1>
+
 	<button onClick="visibleAjoutEspece()">Ajouter une espèce</button>
+
 	<form action="/gererBaseDeDonneesInsectes/ajoutEspece" method="POST" enctype="multipart/form-data">
-	<div id="nouv_espece" style="display:none">
-	<h2>Ajouter une espèce</h2>
-		@*<table>
-			<tr>
-				<th>Nom</th>
-				<th>Auteur</th>
-				<th>Systématique</th>
-				<th>Photo</th>
-				<th>Avec ou sans sous-famille</th>
-				<th>Sous Famille ou Famille</th>
-				<th>Commentaires</th>
-			</tr>
-			<tr>
-				<td><input type="text" size="15" name="nom"></td>
-				<td><input type="text" size="15" name="auteur"></td>
-				<td><input type="text" size="5" name="systématique"></td>
-				<td><input type="file" name="photo" accept="image/*"></td>
-				<td>
-					<input type="radio" name="aUneSousFamille" onClick="afficherBonneListe()" value="sousfam">A une sous-famille<br>
-					<input type="radio" name="aUneSousFamille" onClick="afficherBonneListe()" value="fam">Pas de sous-famille
-				</td>
-				<td>
-					<select id="sousfamille" name="sous_famille" style="display:none">
-						@for(sousFamille <- sousFamilles){
-						<option value="@sousFamille.sous_famille_id">@sousFamille.sous_famille_nom</option>}
-					</select>
-					<select id="famille" name="famille" style="display:none">
-						@for(famille <- familles){
-						<option value="@famille.famille_id">@famille.famille_nom</option>}
-					</select>
-				</td>
-				<td><input type="text" size="25" name="commentaires" value=""></td>
-			</tr>
-			<tr>
-				<td><button type="submit">Ajouter l'espèce</button></td>
-			</tr>
-		</table>
-	</div>
+		<div id="nouv_espece" style="display:none">
+			<h2>Ajouter une espèce</h2>
+			<table>
+				<tr>
+					<th>Nom</th>
+					<th>Auteur</th>
+					<th>Systématique</th>
+					<th>Photo</th>
+					<th>Avec ou sans sous-famille</th>
+					<th>Sous Famille ou Famille</th>
+					<th>Commentaires</th>
+				</tr>
+				<tr>
+					<td><input type="text" size="15" name="nom"></td>
+					<td><input type="text" size="15" name="auteur"></td>
+					<td><input type="text" size="5" name="systématique"></td>
+					<td><input type="file" name="photo" accept="image/*"></td>
+					<td>
+						<input type="radio" name="aUneSousFamille" onClick="afficherBonneListe()" value="sousfam">A une sous-famille<br>
+						<input type="radio" name="aUneSousFamille" onClick="afficherBonneListe()" value="fam">Pas de sous-famille
+					</td>
+					<td>
+						<select id="sousfamille" name="sous_famille" style="display:none">
+							@for(sousFamille <- sousFamilles){
+							<option value="@sousFamille.sous_famille_id">@sousFamille.sous_famille_nom</option>}
+						</select>
+						<select id="famille" name="famille" style="display:none">
+							@for(famille <- familles){
+							<option value="@famille.famille_id">@famille.famille_nom</option>}
+						</select>
+					</td>
+					<td><input type="text" size="25" name="commentaires" value=""></td>
+				</tr>
+				<tr>
+					<td><button type="submit">Ajouter l'espèce</button></td>
+				</tr>
+			</table>
+		</div>
 	</form>
-	@for(sousFamille <- sousFamilles){
+
+@*	@for(sousFamille <- sousFamilles){
 	@if(sousFamille.estVide()){
 		<table>
 			<tr>

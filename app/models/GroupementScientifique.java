@@ -36,8 +36,9 @@ public class GroupementScientifique extends Model{
         groupement_scientifique_type=TypeGroupementScientifique.find.byId(type);
     }
 
-    public List<GroupementScientifique> findAllOfType(String type){
-        return find.where().eq("groupement_scientifique_type", type).orderBy("groupement_scientifique_nom").findList();
+    public static List<GroupementScientifique> findAllOfType(String type){
+        TypeGroupementScientifique t = TypeGroupementScientifique.find.byId(type);
+        return find.where().eq("groupement_scientifique_type", t).orderBy("groupement_scientifique_nom").findList();
     }
 
     @Override

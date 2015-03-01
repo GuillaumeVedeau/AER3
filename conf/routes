@@ -148,6 +148,8 @@ POST        /admin/editerTemoin/:membre_id                                      
 
 # route pour gérer la base des insectes (admin)
 
+GET         /gererOrganisationScientifique                                                                 controllers.admin.GererOrganisationScientifique.main()
+
 GET         /gererBaseDeDonneesInsectes                                                                    controllers.admin.GererBaseDeDonneesInsectes.main()
 POST        /gererBaseDeDonneesInsectes/ajoutEspece                                                        controllers.admin.GererBaseDeDonneesInsectes.ajouterNouvEspece()
 POST        /gererBaseDeDonneesInsectes/ajoutSousFam                                                       controllers.admin.GererBaseDeDonneesInsectes.ajouterNouvSousFamille()

@@ -58,7 +58,12 @@ public class Groupe extends Model {
 	public static List<Groupe> findAll(){
 		return find.findList();
 	}
-	
+
+	public static List<Groupe> findAllOfType(String type){
+		TypeGroupementLocal t = TypeGroupementLocal.find.byId(type);
+		return find.where().eq("groupe_type", t).orderBy("groupe_nom").findList();
+	}
+
 	@Override
 	public String toString(){
 		return groupe_nom;

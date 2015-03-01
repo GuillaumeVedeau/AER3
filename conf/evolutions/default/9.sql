@@ -11,10 +11,18 @@ INSERT INTO `membre_is_expert_on_groupe` (`membre_is_expert_on_groupe_id`, `memb
 ('1','2','8'),
 ('2','3','3');
 
+INSERT INTO `type_groupement_scientifique` (`intitule`) VALUES
+('sous-famille'),
+('famille'),
+('super-famille'),
+('ordre');
+
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
 
 DELETE FROM membre;
+DELETE FROM membre_is_expert_on_groupe;
+DELETE FROM type_groupement_scientifique;
 
 SET FOREIGN_KEY_CHECKS=1;
