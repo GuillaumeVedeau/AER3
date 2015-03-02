@@ -276,6 +276,14 @@ public class Espece extends Model implements Comparator<Espece>{
 	/* la hiérarchie scientifique est unique */
 
 	/**
+	 * Renvoie la liste des espèces sans groupement pere.
+	 * @return
+	 */
+	public static List<Espece> findEspecesSansGroupementScientifique(){
+		return Espece.find.where().eq("espece_groupement_scientifique_pere", null).findList();
+	}
+
+	/**
 	 * @return la liste de tous les groupements scientiques pères (du plus bas au plus haut)
 	 */
 	public List<GroupementScientifique> getHierarchieScientifique(){

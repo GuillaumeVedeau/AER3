@@ -18,14 +18,14 @@ import java.io.IOException;
 
 import functions.UploadImage;
 import play.mvc.Security;
-import views.html.admin.organisationScientifique.gererOrganisationScientifique;
+import views.html.admin.organisationLocale.gererOrganisationLocale;
 
 @Security.Authenticated(SecuredMembre.class)
-public class GererOrganisationScientifique extends Controller{
+public class GererOrganisationLocale extends Controller{
 
     public static Result main(){
         if (Admin.isAdminConnected()){
-            return ok(gererOrganisationScientifique.render());
+            return ok(gererOrganisationLocale.render());
         } else {
             return Admin.nonAutorise();
         }

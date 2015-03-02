@@ -138,7 +138,7 @@ create table groupe (
   groupe_id                 integer auto_increment not null,
   groupe_nom                varchar(255) not null,
   groupe_pere_groupe_id     integer,
-  groupe_type_type_groupement_local_intitule varchar(255),
+  groupe_type_type_groupement_local_intitule varchar(255) not null,
   constraint pk_groupe primary key (groupe_id))
 ;
 
@@ -151,7 +151,7 @@ create table groupe_de_membres (
 create table groupement_scientifique (
   groupement_scientifique_id integer auto_increment not null,
   groupement_scientifique_nom varchar(255),
-  groupement_scientifique_type_intitule varchar(255),
+  groupement_scientifique_type_intitule varchar(255) not null,
   groupement_scientifique_pere_groupement_scientifique_id integer,
   constraint pk_groupement_scientifique primary key (groupement_scientifique_id))
 ;

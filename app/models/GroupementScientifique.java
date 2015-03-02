@@ -1,9 +1,6 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,6 +15,7 @@ public class GroupementScientifique extends Model{
     @Id
     public Integer groupement_scientifique_id;
     public String groupement_scientifique_nom;
+    @NotNull
     @ManyToOne
     public TypeGroupementScientifique groupement_scientifique_type;
     @ManyToOne
@@ -96,6 +94,19 @@ public class GroupementScientifique extends Model{
             }
         }
         return h;
+    }
+
+    public static List<GroupementScientifique> findGroupementSansPere(){
+        List<GroupementScientifique> listeGroupements = find.where().eq("groupement_scientifique_pere", null).findList();
+
+        // on supprime de la liste les ordres
+        for (ListIterator<GroupementScientifique> it = listeGroupements.listIterator(); it.hasNext();) {
+            GroupementScientifique groupement = it.next();
+            if (groupement.groupement_scientifique_type.equals(TypeGroupementScientifique.find.byId("ordre"))){
+                it.remove();
+            }
+        }
+        return listeGroupements;
     }
 
     /****************** hiérarchie locale  ****************/

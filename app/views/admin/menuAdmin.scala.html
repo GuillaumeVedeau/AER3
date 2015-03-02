@@ -17,36 +17,67 @@
  ********************************************************************************@
 @main("Menu Admin"){
 	<h1>Bienvenue Admin. Ici, vous pouvez gérer la base.</h1>
-	<dl>
-		<dt>
-		<a href="/assignerExperts">Assigner des experts</a>
-		</dt>
-		<dt>
-		<a href="/gererGroupesEtSousGroupes">Gerer les groupes et les sous-groupes</a>
-		</dt>
-		<dt>
-		<a href="/demandesInscription">Demandes d'inscription</a>
-		</dt>
-		<dt>
-		<a href="/gererBaseDeDonneesInsectes">Gérer la base de données des insectes</a>
-		</dt>
-		<dt>
-			<a href="/gererOrganisationScientifique">Gérer l'organisation scientifique des espèces (ordres, familles, etc..)</a>
-		</dt>
-		<dt>
-		<a href="/listeMembres">Liste des membres</a>
-		</dt>
-		<dt>
-		<a href="/listeVilles">Liste des communes</a>
-		</dt>
-		<dt>
-		<a href="/informationsPersonnelles">Informations personnelles (changement de mot de passe ou d'adresse email)</a>
-		</dt>
-		<dt>
-		<a href="/deconnexion">Se Déconnecter</a>
-		</dt>
-	</dl>
+	<div id="menu">
+		<dl>
+			<dt>
+				<a href="/assignerExperts">Assigner des experts</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/demandesInscription">Demandes d'inscription</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/listeMembres">Liste des membres</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/gererOrganisationLocale">Gérer l'organisation locale           (groupes, sous-groupes, etc..)</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/gererOrganisationScientifique">Gérer l'organisation scientifique        (ordres, familles, etc..)</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/gererGroupesEtSousGroupes">Gerer les groupes et les sous-groupes         (ancienne fct)</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/gererBaseDeDonneesInsectes">Gérer la base de données des insectes         (ancienne fct)</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/listeVilles">Liste des communes</a>
+			</dt>
+			<br>
+			<dt>
+				<a href="/informationsPersonnelles">Informations personnelles</a>
+			</dt>
+
+			<br>
+
+			<dt>
+				<a href="/deconnexion">Se Déconnecter</a>
+			</dt>
+		</dl>
+	</div>
 }{
-<script>
-</script>
+
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/menu.css")">
+
 }

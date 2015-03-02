@@ -38,6 +38,7 @@ public class Groupe extends Model {
 	public String groupe_nom;
 	@ManyToOne
 	public Groupe groupe_pere;
+	@NotNull
 	@ManyToOne
 	public TypeGroupementLocal groupe_type;
 
@@ -146,7 +147,7 @@ public class Groupe extends Model {
 
 
 
-	/************************** getters des espèces contenus  ************************/
+	/************************** getters des espèces contenues  ************************/
 
 
 	/**
@@ -167,7 +168,7 @@ public class Groupe extends Model {
 	}
 
 	public List<Espece> getEspecesInThis(){
-		List<Espece> especes = null;
+		List<Espece> especes = new ArrayList<Espece>();
 		List<EspeceIsInGroupementLocal> listeRelations = EspeceIsInGroupementLocal.find.where().eq("groupe",this).findList();
 		for (EspeceIsInGroupementLocal relation : listeRelations){
 			especes.add(relation.espece);
@@ -228,6 +229,21 @@ public class Groupe extends Model {
 			}
 		}
 		return h;
+	}
+
+	public static List<Groupe> findGroupesSansPere(){
+		List<Groupe> listeGroupes = find.where().eq("groupe_pere", null).findList();
+
+		// on supprime de la liste les groupes
+		for (ListIterator<Groupe> it = listeGroupes.listIterator(); it.hasNext();) {
+			Groupe groupe = it.next();
+			if(groupe.groupe_type != null) {
+				if (groupe.groupe_type.equals(TypeGroupementLocal.getTypeGroupe())) {
+					it.remove();
+				}
+			}
+		}
+		return listeGroupes;
 	}
 
 	/************************** hiérarchie scientifique ************************/

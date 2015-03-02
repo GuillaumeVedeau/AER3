@@ -1,0 +1,145 @@
+@import views.html.admin.organisationLocale.tableauFils
+
+@main("Gérer les groupes") {
+
+
+    <a href="/menuAdmin">Retour</a><br>
+    <h1>Gestion de l'organisation locale</h1>
+
+    <!-- PANNEAU D'EDITION-->
+    <div id="editPanel">
+        <p style="font-size: small">
+            Cliquez sur un groupement pour afficher/cacher les éléments qu'il contient. <br>
+            Double cliquez sur un groupement ou une espèce pour l'éditer.
+        </p>
+    </div>
+
+    <button onclick="hideShowAll()"> Réduire/déplier tout </button>
+    <div>
+        <!-- HIERARCHIE -->
+        <div id="hierarchie">
+
+                <!-- GROUPES-->
+            @tableauFils(Groupe.findAllOfType("groupe"), true)
+
+        </div>
+
+        <!-- ELEMENTS NON CLASSES -->
+        <div id="unclassed">
+            <p><b><u>Elements non classés</u></b></p>
+                <!-- ESPECES -->
+            <p><b>Espèces :</b></p>
+            @for(espece <- Espece.findEspecesSansGroupe()) {
+                <div class="element">
+                    <span class="typeGroupement">espèce</span><br>
+                    <div class="espece" id="espece-@espece.espece_id" ondblclick="editEspece('@espece.espece_id')">@espece.espece_nom</div>
+                </div>
+            }
+                <!-- GROUPEMENTS -->
+            <p><b>Groupement locaux :</b><small>(sauf les groupes)</small></p>
+            @tableauFils(Groupe.findGroupesSansPere(), false)
+
+        </div>
+    </div>
+
+
+}{
+
+
+    <script type="text/javascript">
+
+        /******* gestion des clicks et double clicks pour les groupements scientifiques et les espèces ******/
+
+        var DELAY = 300, clicks = 0, timer = null;
+        var hidden = false;
+
+        $(function(){
+
+        $(".groupement").on("click", function(e){
+        clicks++;  //count clicks
+        if(clicks === 1) {
+        var $this = this;
+        timer = setTimeout(function() {
+
+        // SINGLE CLICK ACTION
+        hideShowFils($this.id);
+
+        clicks = 0;             //after action performed, reset counter
+        }, DELAY);
+        } else {
+        clearTimeout(timer);    //prevent single-click action
+
+        // DOUBLE CLICK ACTION
+        editGroupement(this.id);
+
+        clicks = 0;             //after action performed, reset counter
+        }
+        })
+
+        $(".groupement").on("dblclick", function(e){
+        e.preventDefault();  //cancel system double-click event
+        });
+        });
+
+        // cacher et afficher contenu
+        function hideShowFils(groupement_id){
+            if($ ( '#groupement-' + groupement_id + '-container' ).is(':visible')) {
+                $ ( '#groupement-' + groupement_id + '-container' ).hide ( ) ;
+            }
+            else {
+                $ ( '#groupement-' + groupement_id + '-container' ).show ( ) ;
+            }
+        }
+        function hideShowAll() {
+            if (hidden) {
+                $ ( '#hierarchie .container' ).each ( function ( i, obj ) {
+                    $ ( this ).show ( );
+                    hidden = false;
+                } ) ;
+            } else {
+                $ ( '#hierarchie .container' ).each ( function ( i, obj ) {
+                    $ ( this ).hide ( );
+                    hidden = true;
+                } ) ;
+            }
+        }
+
+        // éditer les groupements
+        function editGroupement(groupement_id){
+        alert('edit groupement : ' + groupement_id);
+        }
+
+        // éditer les espèces
+        function editEspece(espece_id){
+        alert('edit espèce : ' + espece_id);
+        }
+
+    </script>
+
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/gestionOrganisations.css")">
+    <style type="text/css">
+
+        #editPanel{
+            width: 80%;
+            min-height: 200px;;
+            border: solid 1px gray;
+            text-align: center;
+            margin: 10px;
+        }
+        #hierarchie{
+            display: inline-block;
+            width: 60%;
+            border-right: solid 1px gray;
+        }
+        #unclassed{
+            display: inline-block;
+            vertical-align: top;
+            width: 30%;
+            padding: 10px;
+            margin: 10px;
+        }
+
+    </style>
+
+}

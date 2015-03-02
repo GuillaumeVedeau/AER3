@@ -123,6 +123,9 @@ POST        /demandesInscription/refuser/:membre_id                             
 POST        /demandeInscription/donnerPremierAcces                                                         controllers.admin.DemandesInscription.donnerPremierAccess()
 
 # gestion des groupes et sous-groupes
+
+GET         /gererOrganisationLocale                                                                        controllers.admin.GererOrganisationLocale.main()
+#TODO les routes suivantes sont obsolète : à éditer puis à supprimer
 GET         /gererGroupesEtSousGroupes                                                                     controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.main()
 POST        /deplacerSousGroupe/:groupe_id                                                                 controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.deplacerGroupe(groupe_id: Integer)
 POST        /creerGroupe                                                                                   controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.creerGroupe()
@@ -149,7 +152,7 @@ POST        /admin/editerTemoin/:membre_id                                      
 # route pour gérer la base des insectes (admin)
 
 GET         /gererOrganisationScientifique                                                                 controllers.admin.GererOrganisationScientifique.main()
-
+#TODO les routes suivantes sont obsolète : à éditer puis à supprimer
 GET         /gererBaseDeDonneesInsectes                                                                    controllers.admin.GererBaseDeDonneesInsectes.main()
 POST        /gererBaseDeDonneesInsectes/ajoutEspece                                                        controllers.admin.GererBaseDeDonneesInsectes.ajouterNouvEspece()
 POST        /gererBaseDeDonneesInsectes/ajoutSousFam                                                       controllers.admin.GererBaseDeDonneesInsectes.ajouterNouvSousFamille()

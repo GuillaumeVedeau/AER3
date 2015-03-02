@@ -17,6 +17,27 @@ INSERT INTO `type_groupement_scientifique` (`intitule`) VALUES
 ('super-famille'),
 ('ordre');
 
+INSERT INTO `espece` (`espece_id`, `espece_nom`, `espece_auteur`, `espece_groupement_scientifique_pere_groupement_scientifique_id`, `espece_systematique`) VALUES
+('1','espece 1','bob','7', '1'),
+('2','espece 2','bob','7', '2'),
+('3','espece 3','bob','5', '3');
+
+
+INSERT INTO `aer3`.`groupement_scientifique` (`groupement_scientifique_id`, `groupement_scientifique_nom`, `groupement_scientifique_type_intitule`, `groupement_scientifique_pere_groupement_scientifique_id`) VALUES
+('1', 'ordre 1', 'ordre',''),
+('2', 'ordre 2', 'ordre',''),
+('3', 'super famille 1', 'super-famille', '1'),
+('4', 'super famille 2', 'super-famille', '1'),
+('5', 'famille 1', 'famille', '3'),
+('6', 'famille 2', 'famille', '3'),
+('7', 'sous famille 1', 'sous-famille', '5'),
+('8', 'sous famille 2', 'sous-famille', '5'),
+('9', 'sous famille 3', 'sous-famille', '');
+
+
+
+
+
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
