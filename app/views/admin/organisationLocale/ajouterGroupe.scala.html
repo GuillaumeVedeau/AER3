@@ -1,0 +1,39 @@
+@(message: String)
+
+@main("Test") {
+<h1>Modifiez vos informations</h1>
+<span id="message">@message</span>
+	<div style="width: 400px; margin-right: auto; margin-left: auto;">
+		<form id="infos" method="POST" action="/gererOrganisationLocale/add ">
+		<table>
+			<tr>
+				<td>NOM :</td>
+				<td><input type="text" name="groupe_nom" value="Nom du groupe" id="nom"></td>
+			</tr>
+			<tr>
+				<td>Groupe père: </td>
+				<td>
+					<select name="pere">
+						<option value="NULL">none</option>
+					@for(gr: Groupe <- Groupe.findAll()){
+						<option value="@gr.groupe_id">@gr.groupe_nom</option>
+					}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Type de groupe: </td>
+				<td>
+					<select name="type">
+					@for(ty: TypeGroupementLocal <- TypeGroupementLocal.find.findList()){
+						<option value="@ty.type_groupement_local_intitule">@ty.type_groupement_local_intitule</option>
+					}
+					</select>
+				</td>
+			</tr>
+			<tr>
+			<button>Valider</button>
+			</tr>
+				
+} {
+}
