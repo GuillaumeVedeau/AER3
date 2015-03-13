@@ -125,6 +125,10 @@ POST        /demandeInscription/donnerPremierAcces                              
 # gestion des groupes et sous-groupes
 
 GET         /gererOrganisationLocale                                                                        controllers.admin.GererOrganisationLocale.main()
+GET         /gererOrganisationLocale/:groupe_id/edit                                                        controllers.admin.GererOrganisationLocale.edit(groupe_id: Integer)
+POST        /gererOrganisationLocale/:groupe_id/edit                                                        controllers.admin.GererOrganisationLocale.changerInfos(groupe_id: Integer)
+GET         /gererOrganisationLocale/add                                                        			controllers.admin.GererOrganisationLocale.add()
+POST        /gererOrganisationLocale/add                                                        			controllers.admin.GererOrganisationLocale.ajouterInfos()
 #TODO les routes suivantes sont obsolète : à éditer puis à supprimer
 GET         /gererGroupesEtSousGroupes                                                                     controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.main()
 POST        /deplacerSousGroupe/:groupe_id                                                                 controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.deplacerGroupe(groupe_id: Integer)
