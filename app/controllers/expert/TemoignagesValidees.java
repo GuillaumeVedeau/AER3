@@ -33,8 +33,9 @@ public class TemoignagesValidees extends Controller {
 		Groupe groupe = Groupe.find.byId(groupe_id);
 		if(MenuExpert.isExpertOn(groupe)){
 			Integer valide=Observation.VALIDEE;
-			List<Observation> observation= Observation.find.where().eq("observation_validee",valide).eq("observation_espece.espece_sous_groupe.sous_groupe_groupe",groupe).orderBy(orderBy+" "+dir).findList();
-			List<Espece> especes= Espece.find.where().eq("espece_sous_groupe.sous_groupe_groupe", groupe).findList();
+			List<Observation> observation= Observation.validees(groupe);
+			List<Espece> especes= groupe.getAllEspecesInThis();
+
 			Integer premierObservation=Math.min(((page-1)*50),observation.size() );
 			Integer dernierObservation=Math.min((page*50-1), observation.size());
 			Integer nbpages = observation.size()/50+1;

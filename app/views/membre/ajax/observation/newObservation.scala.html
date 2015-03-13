@@ -10,7 +10,7 @@
 
 			<!-- groupe -->
 		<select id="groupes-new-@observation_tag" onChange="rafraichirListeDEspeces('new-@observation_tag')" size="1">
-		@for(groupe <- Groupe.findAll()){
+		@for(groupe <- Groupe.findAllOfType("groupe")){
 			<option value="@groupe.groupe_id" @if(groupe_id==groupe.groupe_id){selected}>@groupe.groupe_nom</option>
 		}
 		</select><br>

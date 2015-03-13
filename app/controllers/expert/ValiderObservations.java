@@ -53,7 +53,7 @@ public class ValiderObservations extends Controller {
 	public static Result temoignagesNonVus(Integer groupe_id) {
 		Groupe groupe = Groupe.find.byId(groupe_id);
 		if(MenuExpert.isExpertOn(groupe))
-    	return ok( temoignagesAValider.render(Observation.nonVus(groupe_id), groupe));
+    	return ok( temoignagesAValider.render(Observation.nonVus(groupe), groupe));
 		else
 			return Admin.nonAutorise();
     }
@@ -65,7 +65,7 @@ public class ValiderObservations extends Controller {
 	public static Result temoignagesEnSuspends(Integer groupe_id) {
 		Groupe groupe = Groupe.find.byId(groupe_id);
 		if(MenuExpert.isExpertOn(groupe))
-    	return ok( temoignagesAValider.render(Observation.enSuspend(groupe_id),groupe));
+    	return ok( temoignagesAValider.render(Observation.enSuspend(groupe),groupe));
 		else
 			return Admin.nonAutorise();
     }

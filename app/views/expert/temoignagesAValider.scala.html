@@ -16,7 +16,9 @@
  *   
  ********************************************************************************@
 @(listObservation :List[Observation], groupe :Groupe)
+
  @main("Témoignages à valider"){
+
  <a href="/menuExpert">Retour</a><br>
 <h1>Témoignages à valider</h1>
 <span id="editObservation"></span>
@@ -86,8 +88,8 @@ function edite(observation_id, groupe_id){
 			$('#editObservation').load('/temoignagesAValider/edite/'+groupe_id+'/'+observation_id, function(){
 				$('#commune'+observation_id).html(res);
 			});
-			
-		
+
+
 			}
 	});
 }
@@ -105,7 +107,7 @@ function confirmValider(observation_id){
 		{}
 	}
 function confirmEditer(observation_id){
-	
+
 	var r=confirm("Etes-vous sûr des Changements effectués sur cette observation?");
 	if(r==true)
 		{

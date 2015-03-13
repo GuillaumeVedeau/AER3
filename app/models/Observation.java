@@ -19,6 +19,7 @@
 package models;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import models.Espece;
@@ -110,27 +111,36 @@ public class Observation extends Model {
 	 * liste des observations non vues
 	 * @return
 	 */
-	public static List<Observation> nonVus(Integer groupe_id){
-		Groupe groupe = Groupe.find.byId(groupe_id);
-		boolean nonvu= false;
-		return find.where()
-				.eq("observation_vue_par_expert",nonvu)
-				.eq("observation_espece.espece_sous_groupe.sous_groupe_groupe",groupe)
-				.orderBy("observation_date_derniere_modification desc")
-				.findList();
+	public static List<Observation> nonVus(Groupe groupe){
+		List<Observation> listeObs = new LinkedList<Observation>();
+		for(Espece espece : groupe.getAllEspecesInThis()){
+			listeObs.addAll(Observation.find.where().eq("observation_espece", espece).eq("observation_vue_par_expert", false).findList());
+		}
+		return listeObs;
 	}
 
 	/**
 	 * liste des observations en suspend
 	 * @return
 	 */
-	public static List<Observation> enSuspend(Integer groupe_id){
-		Groupe groupe = Groupe.find.byId(groupe_id);
-		Integer suspend=Observation.EN_SUSPEND;
-		return find.where().eq("observation_validee", suspend)
-				.eq("observation_espece.espece_sous_groupe.sous_groupe_groupe",groupe)
-				.orderBy("observation_date_derniere_modification desc")
-				.findList();
+	public static List<Observation> enSuspend(Groupe groupe){
+		List<Observation> listeObs = new LinkedList<Observation>();
+		for(Espece espece : groupe.getAllEspecesInThis()){
+			listeObs.addAll(Observation.find.where().eq("observation_espece", espece).eq("observation_validee", EN_SUSPEND).findList());
+		}
+		return listeObs;
+	}
+
+	/**
+	 * liste des observations validées
+	 * @return
+	 */
+	public static List<Observation> validees(Groupe groupe){
+		List<Observation> listeObs = new LinkedList<Observation>();
+		for(Espece espece : groupe.getAllEspecesInThis()){
+			listeObs.addAll(Observation.find.where().eq("observation_espece", espece).eq("observation_validee", VALIDEE).findList());
+		}
+		return listeObs;
 	}
 
 	/**
