@@ -29,7 +29,7 @@
 		<td>
 			<select id="groupe" name="groupe" onChange="rafraichirSousGroupe();;rafraichirDates();">
 			<option value="0">*</option>
-			@for(groupe <- Groupe.findAll()){
+			@for(groupe <- Groupe.findAllOfType("groupe")){
 			<option value="@groupe.groupe_id">@groupe</option>
 			}
 			</select>
@@ -73,7 +73,7 @@
 		<td>Dates :</td>
 		<td>
 			<span id="datesPartieMouvante"></span>
-			<input type="radio" name="periode" value="@{new functions.Periode(Fiche.getPlusVieuxTemoignage().fiche_date, Calendar.getInstance())}" onChange="changerDate()" checked> Toutes<br>
+			<input type="radio" name="periode" value="@{if(Fiche.getPlusVieuxTemoignage()!=null){new functions.Periode(Fiche.getPlusVieuxTemoignage().fiche_date, Calendar.getInstance())}}" onChange="changerDate()" checked> Toutes<br>
 			<input type="radio" name="periode" value="autre"> Autre<br>
 			De <input type="text" size="1" id="jour1" name="jour1" placeholder="jj">
 			<input type="text" size="1" id="mois1" name="mois1" placeholder="mm">
