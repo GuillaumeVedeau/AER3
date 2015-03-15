@@ -1,4 +1,4 @@
-@import views.html.admin.organisationLocale.tableauFils
+@import views.html.admin.organisationLocale.organisationLocale
 
 @main("Gérer les groupes") {
 
@@ -14,37 +14,11 @@
         </p>
     </div>
 
-    <button onclick="hideShowAll()"> Réduire/déplier tout </button>
-    <div>
-        <!-- HIERARCHIE -->
-        <div id="hierarchie">
+    <button onclick="hideShowAll()"> Réduire/déplier tout </button> &nbsp; | &nbsp;
+    <button onclick="newGroupement()"> Nouveau groupe/sous-groupe </button>
 
-                <!-- GROUPES-->
-            @tableauFils(Groupe.findAllOfType("groupe"), true)
-
-        </div>
-
-        <!-- ELEMENTS NON CLASSES -->
-        <div id="unclassed">
-            <p>
-                <button onclick="newGroupement()">
-                    nouveau groupe/sous-groupe
-                </button>
-            </p>
-            <p><b><u>Elements non classés</u></b></p>
-                <!-- ESPECES -->
-            <p><b>Espèces :</b></p>
-            @for(espece <- Espece.findEspecesSansGroupe()) {
-                <div class="element">
-                    <span class="typeGroupement">espèce</span><br>
-                    <div class="espece" id="espece-@espece.espece_id" ondblclick="editEspece('@espece.espece_id')">@espece.espece_nom</div>
-                </div>
-            }
-                <!-- GROUPEMENTS -->
-            <p><b>Groupement locaux :</b><small>(sauf les groupes)</small></p>
-            @tableauFils(Groupe.findGroupesSansPere(), false)
-
-        </div>
+    <div id="content">
+        @organisationLocale()
     </div>
 
 
@@ -53,12 +27,17 @@
 
     <script type="text/javascript">
 
+        $( document ).ready(function(){
+            initClicks();
+        });
+
         /******* gestion des clicks et double clicks pour les groupements scientifiques et les espèces ******/
 
         var DELAY = 300, clicks = 0, timer = null;
         var hidden = false;
 
-        $(function(){
+
+        function initClicks(){
 
             $(".groupement").on("click", function(e){
                 clicks++;  //count clicks
@@ -84,9 +63,9 @@
             $(".groupement").on("dblclick", function(e){
                 e.preventDefault();  //cancel system double-click event
             });
-        });
+        }
 
-        // cacher et afficher contenu
+        /****** cacher et afficher contenu *********/
 
         function hideShowFils(groupement_id){
             if($ ( '#groupement-' + groupement_id + '-container' ).is(':visible')) {
@@ -110,7 +89,7 @@
             }
         }
 
-        // éditer les groupements
+        /******* éditer les groupements *******/
 
         function editGroupement(groupement_id){
             $ ( '#editPanel' ).html ( 'Chargement...' ) ;
@@ -134,14 +113,32 @@
                 data: dataForm,
                 success : function ( res ) {
                     $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
                 },
                 error : function ( ) {
                     rapportDErreur ( ) ;
                 }
             } ) ;
         }
+        function deleteGroupement(groupement_id){
+            var conf = confirm("Voulez vous vraiment supprimer ce groupe? (cette action est irremédiable)");
+            if (conf == true ){
+                $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+                $.ajax ( {
+                    type : 'POST',
+                    url : '/gererOrganisationLocale/deleteGroupementLocal/'+groupement_id,
+                    success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                        refreshOrganisation();
+                    },
+                    error : function ( ) {
+                        rapportDErreur ( ) ;
+                    }
+                } ) ;
+            }
+        }
 
-        // ajouter un groupement
+        /******* ajouter un groupement *******/
 
         function newGroupement(){
             $ ( '#editPanel' ).html ( 'Chargement...' ) ;
@@ -165,6 +162,7 @@
                 data: dataForm,
                 success : function ( res ) {
                     $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
                 },
                 error : function ( ) {
                     rapportDErreur ( ) ;
@@ -173,21 +171,43 @@
         }
 
 
-
-
-        // éditer les espèces
+        /******* éditer les espèces *******/
 
         function editEspece(espece_id){
             alert('edit espèce : ' + espece_id);
         }
 
 
+        /******* refresh organisation *******/
+
+        function refreshOrganisation(){
+            $ ( '#content' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationLocale/organisationLocale',
+                success : function ( res ) {
+                    $ ( '#content' ).html ( res ) ;
+                    $(document ).ready(function() {
+                    initClicks ( ) ;
+                    });
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+
+
+        /******* message erreur ajax *******/
+
         function rapportDErreur(){
-            $('#editPanel').html('Un problème est survenu lors du calcul côté serveur...');
+            $('#editPanel').html('Un problème est survenu côté serveur...');
         }
 
     </script>
 
+
+    <!-- STYLE -->
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/gestionOrganisations.css")">
     <style type="text/css">
@@ -202,7 +222,6 @@
         #hierarchie{
             display: inline-block;
             width: 60%;
-            border-right: solid 1px gray;
         }
         #unclassed{
             display: inline-block;
@@ -210,6 +229,7 @@
             width: 30%;
             padding: 10px;
             margin: 10px;
+            border: solid 1px gray;
         }
 
     </style>

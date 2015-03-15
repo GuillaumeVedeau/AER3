@@ -21,6 +21,7 @@ import play.mvc.Security;
 import views.html.admin.organisationLocale.gererOrganisationLocale;
 import views.html.admin.organisationLocale.editerGroupe;
 import views.html.admin.organisationLocale.ajouterGroupe;
+import views.html.admin.organisationLocale.organisationLocale;
 
 @Security.Authenticated(SecuredMembre.class)
 public class GererOrganisationLocale extends Controller{
@@ -32,6 +33,10 @@ public class GererOrganisationLocale extends Controller{
             return Admin.nonAutorise();
         }
     }
+
+	public static Result getOrganisationLocale(){
+		return ok(organisationLocale.render());
+	}
     
     public static Result getEditGroupementLocal(Integer groupe_id) {
     	Groupe groupe=Groupe.find.where().eq("groupe_id", groupe_id).findUnique();
@@ -82,4 +87,11 @@ public class GererOrganisationLocale extends Controller{
     	}
     	return ok(ajouterGroupe.render("Informations mises à jour avec succès"));
     }
+
+
+	public static Result deleteGroupementLocal(Integer groupe_id){
+		Groupe groupe = Groupe.find.byId(groupe_id);
+		groupe.supprimer();
+		return ok("Le groupement a bien été supprimé.");
+	}
 }

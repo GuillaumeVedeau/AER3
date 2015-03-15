@@ -18,14 +18,15 @@
 @(groupe: Groupe)
 @main("Gérer les dates charnières du groupe "+groupe){
 	<h1>Gérer les dates charnières du groupe @groupe</h1>
-	<ol>@for(dateCharniere <- groupe.getDatesCharnieres()){
+	<ul>
+	@for(dateCharniere <- groupe.getDatesCharnieres()){
 		<li>
-		<form method="POST" action="/supprimerDateCharniere/@groupe.groupe_id/@dateCharniere.date_charniere_id">
-			<button onClick="supprimer(@dateCharniere.date_charniere_id)">Supprimer</button>
-		</form>
-		@dateCharniere
+			<form method="POST" action="/supprimerDateCharniere/@groupe.groupe_id/@dateCharniere.date_charniere_id">
+				@dateCharniere <button onClick="supprimer(@dateCharniere.date_charniere_id)">Supprimer</button>
+			</form>
 		</li>
-	}</ol>
+	}
+	</ul>
 	<button onClick="ajouter()">Ajouter une date charnière</button>
 	<div id="nouvelleDateCharniere" style="display:none">
 		Date charnière :
@@ -43,6 +44,11 @@
 			<select name="annee">
 				@if(Fiche.getPlusVieuxTemoignage() != null) {
 					@for(i: Int <- (Integer.parseInt(Fiche.getPlusVieuxTemoignage().fiche_date.getTime().format("yyyy")) - 1) to Integer.parseInt(Calendar.getInstance().getTime().format("yyyy"))) {
+						<option value="@i">@i</option>
+					}
+				}
+				@if(Fiche.getPlusVieuxTemoignage() == null){
+					@for(i: Int <- 1900 to Integer.parseInt(Calendar.getInstance().getTime().format("yyyy"))) {
 						<option value="@i">@i</option>
 					}
 				}

@@ -1,7 +1,7 @@
--- # --- Created by Ebean DDL
--- # To stop Ebean DDL generation, remove this comment and start using Evolutions
---
--- # --- !Ups
+# --- Created by Ebean DDL
+# To stop Ebean DDL generation, remove this comment and start using Evolutions
+
+# --- !Ups
 --
 -- INSERT INTO `espece_synonyme` (`synonyme_id`,`synonyme_nom`,`synonyme_origine_aer`,`synonyme_espece_espece_id`) VALUES
 -- (80,'Erythromma lindenii',0,20),
@@ -119,27 +119,27 @@
 -- (122,'Callicnemis atlanticus',1,295),
 -- (123,'Calicnemis atlanticus',0,295);
 --
--- INSERT INTO `stade_sexe` (`stade_sexe_id`,`stade_sexe_intitule`,`stade_sexe_explication`) VALUES
--- (1,'Adulte vivant',''),
--- (2,'Chrysalide',''),
--- (3,'Nymphe',''),
--- (4,'Chenille',''),
--- (5,'Larve',''),
--- (6,'Œuf',''),
--- (7,'Indéterminé',''),
--- (10,'Mâle',''),
--- (11,'Femelle',''),
--- (12,'Reine',''),
--- (13,'Ouvrière',''),
--- (20,'Traces',''),
--- (21,'Restes imago',''),
--- (22,'Exuvie',''),
--- (23,'Cocon vide',''),
--- (24,'Mue larvaire',''),
--- (25,'Terrier larvaire',''),
--- (26,'Ponte vide',''),
--- (27,'Oothèque',''),
--- (28,'Nid','');
+INSERT INTO `stade_sexe` (`stade_sexe_id`,`stade_sexe_intitule`,`stade_sexe_explication`) VALUES
+(1,'Adulte vivant',''),
+(2,'Chrysalide',''),
+(3,'Nymphe',''),
+(4,'Chenille',''),
+(5,'Larve',''),
+(6,'Œuf',''),
+(7,'Indéterminé',''),
+(10,'Mâle',''),
+(11,'Femelle',''),
+(12,'Reine',''),
+(13,'Ouvrière',''),
+(20,'Traces',''),
+(21,'Restes imago',''),
+(22,'Exuvie',''),
+(23,'Cocon vide',''),
+(24,'Mue larvaire',''),
+(25,'Terrier larvaire',''),
+(26,'Ponte vide',''),
+(27,'Oothèque',''),
+(28,'Nid','');
 --
 -- INSERT INTO `ordre_has_sous_groupe` (`ordre_ordre_id`,`sous_groupe_sous_groupe_id`) VALUES
 -- (2,3),
@@ -217,17 +217,17 @@
 -- (185,11),
 -- (186,11);
 --
--- # --- !Downs
---
--- SET FOREIGN_KEY_CHECKS=0;
---
+# --- !Downs
+
+SET FOREIGN_KEY_CHECKS=0;
+
 -- DELETE FROM espece_synonyme;
--- DELETE FROM stade_sexe;
+DELETE FROM stade_sexe;
 -- DELETE FROM stade_sexe_hierarchie_dans_groupe;
 -- DELETE FROM ordre_has_sous_groupe;
 -- DELETE FROM super_famille_has_sous_groupe;
 -- DELETE FROM famille_has_sous_groupe;
 -- DELETE FROM sous_famille_has_sous_groupe;
 -- DELETE FROM espece_has_sous_groupe;
---
--- SET FOREIGN_KEY_CHECKS=1;
+
+SET FOREIGN_KEY_CHECKS=1;

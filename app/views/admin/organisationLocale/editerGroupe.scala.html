@@ -6,6 +6,9 @@
 <div style="width : 400 px ; margin-right : auto ; margin-left : auto ;">
 	<form id="editGroupementLocalForm">
 		<table>
+			<p>
+				Groupement n°@groupe.groupe_id
+			</p>
 			<tr>
 				<td>NOM :</td>
 				<td><input type="text" name="groupe_nom" value="@groupe.groupe_nom" placeholder="Nom du groupe" id="nom"></td>
@@ -37,6 +40,8 @@
 			</tr>
 		</table>
 	</form>
+	<br>
 	<button onclick="submitEditGroupement(@groupe.groupe_id)">Valider</button>
+	<br><br>
+	<button onclick="deleteGroupement(@groupe.groupe_id)">Supprimer</button>
 </div>
-<br>

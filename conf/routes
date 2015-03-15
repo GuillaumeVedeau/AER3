@@ -122,13 +122,15 @@ POST        /demandesInscription/valider/:membre_id                             
 POST        /demandesInscription/refuser/:membre_id                                                        controllers.admin.DemandesInscription.refuserInscription(membre_id: Integer)
 POST        /demandeInscription/donnerPremierAcces                                                         controllers.admin.DemandesInscription.donnerPremierAccess()
 
-# gestion des groupes et sous-groupes
+# gestion de l'organisation locale
 
 GET         /gererOrganisationLocale                                                                       controllers.admin.GererOrganisationLocale.main()
+GET         /gererOrganisationLocale/organisationLocale                                                    controllers.admin.GererOrganisationLocale.getOrganisationLocale()
 GET         /gererOrganisationLocale/editGroupementLocal/:groupe_id                                        controllers.admin.GererOrganisationLocale.getEditGroupementLocal(groupe_id: Integer)
 POST        /gererOrganisationLocale/editGroupementLocal/:groupe_id                                        controllers.admin.GererOrganisationLocale.postEditGroupementLocal(groupe_id: Integer)
 GET         /gererOrganisationLocale/newGroupementLocal                                                    controllers.admin.GererOrganisationLocale.getNewGroupementLocal()
 POST        /gererOrganisationLocale/newGroupementLocal                                                    controllers.admin.GererOrganisationLocale.postNewGroupementLocal()
+POST        /gererOrganisationLocale/deleteGroupementLocal/:groupe_id                                      controllers.admin.GererOrganisationLocale.deleteGroupementLocal(groupe_id: Integer)
 
 #TODO les routes suivantes sont obsolète : à éditer puis à supprimer
 GET         /gererGroupesEtSousGroupes                                                                     controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.main()
@@ -154,7 +156,7 @@ GET         /listeMembres                                                       
 # editer un membre
 POST        /admin/editerTemoin/:membre_id                                                                 controllers.admin.ListeMembres.editPost(membre_id: Integer)
 
-# route pour gérer la base des insectes (admin)
+# gestion de l'organisation scientifique
 
 GET         /gererOrganisationScientifique                                                                 controllers.admin.GererOrganisationScientifique.main()
 #TODO les routes suivantes sont obsolète : à éditer puis à supprimer
