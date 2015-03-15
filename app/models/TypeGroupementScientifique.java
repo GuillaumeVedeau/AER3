@@ -22,4 +22,9 @@ public class TypeGroupementScientifique extends Model{
         this.intitule = intitule;
     }
 
+    @Override
+    public String toString() {
+        return intitule;
+    }
+
 }

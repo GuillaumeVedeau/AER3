@@ -1,25 +1,27 @@
 @(message: String, groupe: Groupe)
 
-@main("Test") {
-<h1>Modifiez vos informations</h1>
+
 <span id="message">@message</span>
-	<div style="width: 400px; margin-right: auto; margin-left: auto;">
-		<form id="infos" method="POST" action="/gererOrganisationLocale/@groupe.groupe_id/edit ">
+
+<div style="width : 400 px ; margin-right : auto ; margin-left : auto ;">
+	<form id="editGroupementLocalForm">
 		<table>
 			<tr>
 				<td>NOM :</td>
-				<td><input type="text" name="groupe_nom" value="@groupe.groupe_nom" placeholder="NOM Prénom" id="nom"></td>
+				<td><input type="text" name="groupe_nom" value="@groupe.groupe_nom" placeholder="Nom du groupe" id="nom"></td>
 			</tr>
 			<tr>
 				<td>Groupe père: </td>
 				<td>
 					<select name="pere">
-						<option value="NULL">none</option>
-						@for(gr: Groupe <- Groupe.findAll()){
-						@if(gr.groupe_id != groupe.groupe_id) {
-						<option value="@gr.groupe_id">@gr.groupe_nom</option>
+						<option value="NULL">- (aucun)</option>
+						@for(gr: Groupe <- Groupe.findAllByHierarchie()) {
+							@if(gr.groupe_id != groupe.groupe_id) {
+								<option value="@gr.groupe_id" @if(groupe.groupe_pere!=null && gr.groupe_id==groupe.groupe_pere.groupe_id){selected}>
+									@if(gr.groupe_type.type_groupement_local_intitule.equals("sous-groupe")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} @gr.groupe_nom
+								</option>
+							}
 						}
-					}
 					</select>
 				</td>
 			</tr>
@@ -27,12 +29,14 @@
 				<td>Type de groupe: </td>
 				<td>
 					<select name="type">
-					@for(ty: TypeGroupementLocal <- TypeGroupementLocal.find.findList()){
-						<option value="@ty.type_groupement_local_intitule">@ty.type_groupement_local_intitule</option>
+					@for(ty: TypeGroupementLocal <- TypeGroupementLocal.find.findList()) {
+						<option value="@ty.type_groupement_local_intitule" @if(groupe.groupe_type.type_groupement_local_intitule.equals(ty.type_groupement_local_intitule)){selected}>@ty.type_groupement_local_intitule</option>
 					}
 					</select>
 				</td>
-			</tr>			
-			<button>Valider</button>
-} {
-}
+			</tr>
+		</table>
+	</form>
+	<button onclick="submitEditGroupement(@groupe.groupe_id)">Valider</button>
+</div>
+<br>

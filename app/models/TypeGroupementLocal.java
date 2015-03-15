@@ -30,4 +30,8 @@ public class TypeGroupementLocal extends Model{
         return find.where().eq("type_groupement_local_intitule", "sous-groupe").findUnique();
     }
 
+    @Override
+    public String toString() {
+        return type_groupement_local_intitule;
+    }
 }

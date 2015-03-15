@@ -33,12 +33,12 @@ public class GererOrganisationLocale extends Controller{
         }
     }
     
-    public static Result edit(Integer groupe_id) {
+    public static Result getEditGroupementLocal(Integer groupe_id) {
     	Groupe groupe=Groupe.find.where().eq("groupe_id", groupe_id).findUnique();
     	return ok(editerGroupe.render("",groupe));
     }
     
-    public static Result changerInfos(Integer groupe_id) {
+    public static Result postEditGroupementLocal(Integer groupe_id) {
     	Groupe groupe=Groupe.find.where().eq("groupe_id", groupe_id).findUnique();
 		if(groupe!=null){
 			DynamicForm df = DynamicForm.form().bindFromRequest();
@@ -50,21 +50,23 @@ public class GererOrganisationLocale extends Controller{
 			TypeGroupementLocal type=TypeGroupementLocal.find.where().eq("type_groupement_local_intitule", type_intitule).findUnique();
 			groupe.groupe_type = type;
 			String pere_string = df.get("pere");
-			if (!pere_string.equals("NULL")) {
-			Integer pere_id = Integer.parseInt(pere_string);
-			Groupe pere=Groupe.find.where().eq("groupe_id", pere_id).findUnique();
-			groupe.groupe_pere = pere;
+			if (pere_string.equals("NULL")) {
+				groupe.groupe_pere=null;
+			} else {
+				Integer pere_id = Integer.parseInt(pere_string);
+				Groupe pere=Groupe.find.where().eq("groupe_id", pere_id).findUnique();
+				groupe.groupe_pere = pere;
 			}
 			groupe.update();
 		}
 		return ok(editerGroupe.render("Informations mises à jour avec succès",groupe));
 	}
     
-    public static Result add() {
+    public static Result getNewGroupementLocal() {
     	return ok(ajouterGroupe.render(""));
     }
     
-    public static Result ajouterInfos() {
+    public static Result postNewGroupementLocal() {
     	DynamicForm df = DynamicForm.form().bindFromRequest();
     	String groupe_nom = df.get("groupe_nom");
     	String type_intitule = df.get("type");

@@ -26,6 +26,11 @@
 
         <!-- ELEMENTS NON CLASSES -->
         <div id="unclassed">
+            <p>
+                <button onclick="newGroupement()">
+                    nouveau groupe/sous-groupe
+                </button>
+            </p>
             <p><b><u>Elements non classés</u></b></p>
                 <!-- ESPECES -->
             <p><b>Espèces :</b></p>
@@ -55,33 +60,34 @@
 
         $(function(){
 
-        $(".groupement").on("click", function(e){
-        clicks++;  //count clicks
-        if(clicks === 1) {
-        var $this = this;
-        timer = setTimeout(function() {
+            $(".groupement").on("click", function(e){
+                clicks++;  //count clicks
+                if(clicks === 1) {
+                var $this = this;
+                timer = setTimeout(function() {
 
-        // SINGLE CLICK ACTION
-        hideShowFils($this.id);
+                    // SINGLE CLICK ACTION
+                    hideShowFils($this.id);
 
-        clicks = 0;             //after action performed, reset counter
-        }, DELAY);
-        } else {
-        clearTimeout(timer);    //prevent single-click action
+                    clicks = 0;             //after action performed, reset counter
+                    }, DELAY);
+                } else {
+                    clearTimeout(timer);    //prevent single-click action
 
-        // DOUBLE CLICK ACTION
-        editGroupement(this.id);
+                    // DOUBLE CLICK ACTION
+                    editGroupement(this.id);
 
-        clicks = 0;             //after action performed, reset counter
-        }
-        })
+                    clicks = 0;             //after action performed, reset counter
+                }
+            })
 
-        $(".groupement").on("dblclick", function(e){
-        e.preventDefault();  //cancel system double-click event
-        });
+            $(".groupement").on("dblclick", function(e){
+                e.preventDefault();  //cancel system double-click event
+            });
         });
 
         // cacher et afficher contenu
+
         function hideShowFils(groupement_id){
             if($ ( '#groupement-' + groupement_id + '-container' ).is(':visible')) {
                 $ ( '#groupement-' + groupement_id + '-container' ).hide ( ) ;
@@ -105,13 +111,79 @@
         }
 
         // éditer les groupements
+
         function editGroupement(groupement_id){
-        alert('edit groupement : ' + groupement_id);
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationLocale/editGroupementLocal/'+groupement_id,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function submitEditGroupement(groupement_id){
+            var dataForm =  $( '#editGroupementLocalForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationLocale/editGroupementLocal/'+groupement_id,
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
         }
 
+        // ajouter un groupement
+
+        function newGroupement(){
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationLocale/newGroupementLocal',
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function submitNewGroupement(){
+            var dataForm =  $( '#newGroupementLocalForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationLocale/newGroupementLocal',
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+
+
+
+
         // éditer les espèces
+
         function editEspece(espece_id){
-        alert('edit espèce : ' + espece_id);
+            alert('edit espèce : ' + espece_id);
+        }
+
+
+        function rapportDErreur(){
+            $('#editPanel').html('Un problème est survenu lors du calcul côté serveur...');
         }
 
     </script>
@@ -124,8 +196,8 @@
             width: 80%;
             min-height: 200px;;
             border: solid 1px gray;
-            text-align: center;
             margin: 10px;
+            padding: 10px;
         }
         #hierarchie{
             display: inline-block;

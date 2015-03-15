@@ -65,6 +65,18 @@ public class Groupe extends Model {
 		return find.where().eq("groupe_type", t).orderBy("groupe_nom").findList();
 	}
 
+	public static List<Groupe> findAllByHierarchie(){
+		List<Groupe> liste = new LinkedList<Groupe>();
+		for (Groupe g : findAllOfType("groupe")){
+			liste.add(g);
+			for (Groupe sg :g.getFils()){
+				liste.add(sg);
+			}
+
+		}
+		return liste;
+	}
+
 	@Override
 	public String toString(){
 		return groupe_nom;
