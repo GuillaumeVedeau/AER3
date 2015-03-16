@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class EspeceIsInGroupementLocal extends Model{
     @Id
-    public Integer espece_is_in_groupement_id;
+    public Integer espece_is_in_groupement_local_id;
     @NotNull
     @ManyToOne
     public Espece espece;

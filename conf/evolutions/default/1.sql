@@ -78,10 +78,10 @@ create table espece (
 ;
 
 create table espece_is_in_groupement_local (
-  espece_is_in_groupement_id integer auto_increment not null,
+  espece_is_in_groupement_local_id integer auto_increment not null,
   espece_espece_id          integer not null,
   groupe_groupe_id          integer not null,
-  constraint pk_espece_is_in_groupement_local primary key (espece_is_in_groupement_id))
+  constraint pk_espece_is_in_groupement_local primary key (espece_is_in_groupement_local_id))
 ;
 
 create table espece_synonyme (
