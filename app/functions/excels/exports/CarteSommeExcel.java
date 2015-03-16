@@ -21,7 +21,6 @@ import java.util.Map;
 
 import models.Espece;
 import models.Groupe;
-import models.SousGroupe;
 import models.StadeSexe;
 import models.UTMS;
 
@@ -42,7 +41,7 @@ public class CarteSommeExcel extends Excel {
 		super();
 		Sheet sheet = wb.createSheet("Carte somme");
 		Espece espece = Espece.find.byId(Integer.parseInt(info.get("espece")));
-		SousGroupe sous_groupe = SousGroupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
+		Groupe sous_groupe = Groupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
 		Groupe groupe = Groupe.find.byId(Integer.parseInt(info.get("groupe")));
 		StadeSexe stade_sexe = StadeSexe.find.byId(Integer.parseInt(info.get("stade")));
 		String date1 = info.get("jour1")+"/"+info.get("mois1")+"/"+info.get("annee1");

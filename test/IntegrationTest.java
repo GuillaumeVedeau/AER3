@@ -30,16 +30,15 @@ import javax.naming.NamingException;
 import javax.persistence.PersistenceException;
 
 import models.Commune;
-import models.Espece;
+/*import models.Espece;
 import models.Famille;
 import models.Fiche;
 import models.Groupe;
 import models.Membre;
 import models.Ordre;
 import models.SousFamille;
-import models.SousGroupe;
 import models.StadeSexe;
-import models.SuperFamille;
+import models.SuperFamille;*/
 
 import org.junit.*;
 
@@ -56,7 +55,6 @@ import functions.mail.VerifierMail;
 import play.mvc.*;
 import play.test.*;
 import play.libs.F.*;
-import views.html.admin.gererBaseDeDonneesInsectes;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 import static org.fluentlenium.core.filter.FilterConstructor.*;
@@ -114,6 +112,7 @@ public class IntegrationTest {
         });
     }
     
+  /*
     private void ajouteEspece(){
     	Espece e = new Espece("Rasgus pipus","Malik Olivier Boussejra, 2014",54,"GA!");
     	System.out.println(e);
@@ -159,17 +158,17 @@ public class IntegrationTest {
     private void listeEspecesAvecSousGroupeEtGroupe() throws IOException{
     	FileWriter fw = new FileWriter("listeEspeces");
     	List<Espece> especes = Espece.find.where().orderBy("espece_systematique").findList();
-    	SousGroupe sg = null;
+    	Groupe sg = null;
     	Fiche f = null;
 		SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
-    	for(Espece e : especes){
-    		sg = e.getSousGroupe();
-    		f = e.getPlusVieuxTemoignage();
-    		if(f==null)
-        		fw.append(e+","+sg+","+sg.sous_groupe_groupe+","+null+"\n");
-    		else
-    			fw.append(e+","+sg+","+sg.sous_groupe_groupe+","+date_format.format(f.fiche_date.getTime())+"\n");
-    	}
+//    	for(Espece e : especes){
+//    		sg = e.getGroupesPeres().get(0);
+//    		f = e.getPlusVieuxTemoignage();
+//    		if(f==null)
+//        		fw.append(e+","+sg+","+sg.sous_groupe_groupe+","+null+"\n");
+//    		else
+//    			fw.append(e+","+sg+","+sg.sous_groupe_groupe+","+date_format.format(f.fiche_date.getTime())+"\n");
+//    	}
     	fw.flush();
     	fw.close();
     }
@@ -220,7 +219,7 @@ public class IntegrationTest {
     	int[] xy = UTMtoXY.convert10x10("WT25");
     	System.out.println(xy[0]);
     	System.out.println(xy[1]);		
-	}
+	}*/
 
 	/**
 	 * Pour utiliser les noms de commune dicté par AER : c'est-à-dire

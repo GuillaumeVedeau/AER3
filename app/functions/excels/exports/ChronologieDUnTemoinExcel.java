@@ -26,7 +26,6 @@ import models.FicheHasMembre;
 import models.Groupe;
 import models.InformationsComplementaires;
 import models.Observation;
-import models.SousGroupe;
 import models.StadeSexe;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -45,7 +44,7 @@ public class ChronologieDUnTemoinExcel extends Excel {
 		super();
 		Sheet sheet = wb.createSheet("Chronologie d'un témoin");
 		Espece espece = Espece.find.byId(Integer.parseInt(info.get("espece")));
-		SousGroupe sous_groupe = SousGroupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
+		Groupe sous_groupe = Groupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
 		Groupe groupe = Groupe.find.byId(Integer.parseInt(info.get("groupe")));
 		StadeSexe stade_sexe = StadeSexe.find.byId(Integer.parseInt(info.get("stade")));
 		String maille = info.get("maille");

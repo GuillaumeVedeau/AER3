@@ -29,7 +29,6 @@ import models.Fiche;
 import models.Groupe;
 import models.InformationsComplementaires;
 import models.Observation;
-import models.SousGroupe;
 import models.StadeSexe;
 import models.UTMS;
 
@@ -70,7 +69,7 @@ public class HistoriqueDesEspeces {
 		
 		//Génération du titre
 		Espece espece = Espece.find.byId(Integer.parseInt(info.get("espece")));
-		SousGroupe sous_groupe = SousGroupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
+		Groupe sous_groupe = Groupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
 		Groupe groupe = Groupe.find.byId(Integer.parseInt(info.get("groupe")));
 		String maille = info.get("maille");
 		titre = "Historique des espèces";
@@ -145,7 +144,7 @@ public class HistoriqueDesEspeces {
 	 */
 	public static List<InformationsComplementaires> getInformationsComplementaires(Map<String,String> info) throws ParseException{
 		Espece espece = Espece.find.byId(Integer.parseInt(info.get("espece")));
-		SousGroupe sous_groupe = SousGroupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
+		Groupe sous_groupe = Groupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
 		Groupe groupe = Groupe.find.byId(Integer.parseInt(info.get("groupe")));
 		List<UTMS> mailles = UTMS.parseMaille(info.get("maille"));
 		StadeSexe stade_sexe = StadeSexe.find.byId(Integer.parseInt(info.get("stade")));

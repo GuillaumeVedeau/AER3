@@ -23,7 +23,6 @@ import controllers.admin.Admin;
 import controllers.expert.MenuExpert;
 import functions.Periode;
 import models.Groupe;
-import models.SousGroupe;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.expert.requetes.ajax.listeSousGroupes;
@@ -44,7 +43,7 @@ public class Requetes extends Controller {
 	public static Result listeEspeces(Integer groupe_id, Integer sous_groupe_id){
 		if(MenuExpert.isExpertConnected()){
 			Groupe groupe = Groupe.find.byId(groupe_id);
-			SousGroupe sous_groupe = SousGroupe.find.byId(sous_groupe_id);
+			Groupe sous_groupe = Groupe.find.byId(sous_groupe_id);
 			return ok(listeEspeces.render(groupe,sous_groupe));
 		}else
 			return Admin.nonAutorise();

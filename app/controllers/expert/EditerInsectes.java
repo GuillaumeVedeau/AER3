@@ -24,7 +24,7 @@ import javax.persistence.PersistenceException;
 
 import models.Espece;
 import models.EspeceSynonyme;
-import models.SousFamille;
+//import models.SousFamille;
 import models.Groupe;
 import models.Image;
 import controllers.admin.Admin;

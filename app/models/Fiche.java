@@ -56,6 +56,7 @@ public class Fiche extends Model {
 	public String fiche_utm1x1;
 	@NotNull
 	public Calendar fiche_date_soumission;
+	public Integer fiche_id_papier;
 	
 	public static Finder<Long,Fiche> find = new Finder<Long,Fiche>(Long.class, Fiche.class);
 	

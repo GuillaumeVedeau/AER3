@@ -25,7 +25,6 @@ import java.util.Map;
 
 import models.Espece;
 import models.Groupe;
-import models.SousGroupe;
 import models.StadeSexe;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -47,7 +46,7 @@ public class MaillesParPeriodeExcel extends Excel {
 		});
 		Sheet sheet = wb.createSheet("Mailles par espèce");
 		Espece espece = Espece.find.byId(Integer.parseInt(info.get("espece")));
-		SousGroupe sous_groupe = SousGroupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
+		Groupe sous_groupe = Groupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
 		Groupe groupe = Groupe.find.byId(Integer.parseInt(info.get("groupe")));
 		StadeSexe stade_sexe = StadeSexe.find.byId(Integer.parseInt(info.get("stade")));
 		//Titre

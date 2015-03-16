@@ -94,6 +94,7 @@ public class Espece extends Model implements Comparator<Espece>{
 	//Fonctions de filtres de la liste des insectes
 
 	/*************************************************/
+	/*
 	public static List<Espece> selectEspecesSousFamille(SousFamille sousfam){
 		return find.where().eq("espece_sousfamille", sousfam).orderBy("espece_systematique").findList();
 	}
@@ -106,12 +107,12 @@ public class Espece extends Model implements Comparator<Espece>{
 	public static List<Espece> selectEspecesOrdre(Ordre ordre){
 		return find.where().eq("espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre", ordre).orderBy("espece_systematique").findList();
 	}
-	public static List<Espece> selectEspecesSousGroupe(SousGroupe sousg){
+	public static List<Espece> selectEspecesSousGroupe(Groupe sousg){
 		return find.where().eq("espece_sous_groupe", sousg).orderBy("espece_systematique").findList();
 	}
 	public static List<Espece> selectEspecesGroupe(Groupe groupe){
 		return find.where().eq("espece_sous_groupe.sous_groupe_groupe",groupe).orderBy("espece_systematique").findList();
-	}
+	}*/
 
 	@Override
 	public String toString(){

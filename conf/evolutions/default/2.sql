@@ -889,13 +889,13 @@ DELETE FROM departement;
 DELETE FROM droits;
 DELETE FROM confidentialite;
 DELETE FROM utms;
-DELETE FROM ordre;
+# DELETE FROM ordre;
 DELETE FROM type_groupement_local;
 DELETE FROM groupe;
-DELETE FROM sous_groupe;
-DELETE FROM super_famille;
-DELETE FROM famille;
-DELETE FROM sous_famille;
+# DELETE FROM sous_groupe;
+# DELETE FROM super_famille;
+# DELETE FROM famille;
+# DELETE FROM sous_famille;
 
 SET FOREIGN_KEY_CHECKS=1;
 

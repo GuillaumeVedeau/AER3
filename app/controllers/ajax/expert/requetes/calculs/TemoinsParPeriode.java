@@ -34,7 +34,6 @@ import models.Groupe;
 import models.InformationsComplementaires;
 import models.Membre;
 import models.Observation;
-import models.SousGroupe;
 import models.StadeSexe;
 import models.UTMS;
 
@@ -105,7 +104,7 @@ public class TemoinsParPeriode implements Comparator<TemoinsParPeriode>{
 	 */
 	public static List<InformationsComplementaires> getObservations(Map<String,String> info) throws ParseException{
 		Espece espece = Espece.find.byId(Integer.parseInt(info.get("espece")));
-		SousGroupe sous_groupe = SousGroupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
+		Groupe sous_groupe = Groupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
 		Groupe groupe = Groupe.find.byId(Integer.parseInt(info.get("groupe")));
 		StadeSexe stade_sexe = StadeSexe.find.byId(Integer.parseInt(info.get("stade")));
 		List<StadeSexe> stades_sexes;

@@ -22,7 +22,6 @@ import java.util.Map;
 
 import models.Espece;
 import models.Groupe;
-import models.SousGroupe;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -37,7 +36,7 @@ public class HistogrammeDesImagosExcel extends Excel {
 		super();
 		Sheet sheet = wb.createSheet("Histogramme des imagos");
 		Espece espece = Espece.find.byId(Integer.parseInt(info.get("espece")));
-		SousGroupe sous_groupe = SousGroupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
+		Groupe sous_groupe = Groupe.find.byId(Integer.parseInt(info.get("sous_groupe")));
 		Groupe groupe = Groupe.find.byId(Integer.parseInt(info.get("groupe")));
 		String maille = info.get("maille");
 		String date1 = info.get("jour1")+"/"+info.get("mois1")+"/"+info.get("annee1");

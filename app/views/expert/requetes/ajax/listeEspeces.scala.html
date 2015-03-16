@@ -15,7 +15,7 @@
  *   limitations under the License.
  *   
  ********************************************************************************@
-@(groupe: Groupe, sous_groupe: SousGroupe)
+@(groupe: Groupe, sous_groupe: Groupe)
 	<option value="0">*</option>
 @if(sous_groupe!=null){
 	@for(espece <- sous_groupe.getEspecesInThisByAlpha()){
