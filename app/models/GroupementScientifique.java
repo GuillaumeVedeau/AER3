@@ -21,7 +21,7 @@ public class GroupementScientifique extends Model{
     @ManyToOne
     public GroupementScientifique groupement_scientifique_pere;
 
-    public static Finder<Integer,GroupementScientifique> find = new Finder<Integer,GroupementScientifique>(Integer.class, GroupementScientifique.class);
+    public static Model.Finder<Integer,GroupementScientifique> find = new Finder<Integer,GroupementScientifique>(Integer.class, GroupementScientifique.class);
 
 
     public GroupementScientifique (String nom, String type){

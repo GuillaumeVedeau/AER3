@@ -1,0 +1,38 @@
+@(message: String, gsci: GroupementScientifique)
+
+@main("Test") {
+<h1>Modifiez les informations de @gsci.groupement_scientifique_nom</h1>
+<span id="message">@message</span>
+	<div style="width: 400px; margin-right: auto; margin-left: auto;">
+		<form id="infos" method="POST" action="/gererOrganisationScientifique/editGroupementScientifique/@gsci.groupement_scientifique_id">
+		<table>
+			<tr>
+				<td>NOM :</td>
+				<td><input type="text" name="groupement_scientifique_nom" value="@gsci.groupement_scientifique_nom" id="nom"></td>
+			</tr>
+			<tr>
+				<td>Groupement Scientifique père: </td>
+				<td>
+					<select name="pere">
+						<option value="NULL">none</option>
+						@for(gs: GroupementScientifique <- GroupementScientifique.find.findList()){
+						@if(gs.groupement_scientifique_id != gsci.groupement_scientifique_id) {
+						<option value="@gs.groupement_scientifique_id">@gs.groupement_scientifique_nom</option>
+						}
+					}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Type de groupe: </td>
+				<td>
+					<select name="type">
+					@for(ty: TypeGroupementScientifique <- TypeGroupementScientifique.find.findList()){
+						<option value="@ty.intitule">@ty.intitule</option>
+					}
+					</select>
+				</td>
+			</tr>			
+			<button>Valider</button>
+} {
+}

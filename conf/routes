@@ -160,6 +160,12 @@ POST        /admin/editerTemoin/:membre_id                                      
 # gestion de l'organisation scientifique
 
 GET         /gererOrganisationScientifique                                                                 controllers.admin.GererOrganisationScientifique.main()
+GET         /gererOrganisationScientifique/organisationScientifique                                        controllers.admin.GererOrganisationScientifique.getOrganisationScientifique()
+GET         /gererOrganisationScientifique/editGroupementScientifique/:gsci_id                             controllers.admin.GererOrganisationScientifique.getEditGroupementScientifique(gsci_id: Integer)
+POST        /gererOrganisationScientifique/editGroupementScientifique/:gsci_id                             controllers.admin.GererOrganisationScientifique.postEditGroupementScientifique(gsci_id: Integer)
+GET         /gererOrganisationScientifique/newGroupementScientifique                                       controllers.admin.GererOrganisationScientifique.getNewGroupementScientifique()
+POST        /gererOrganisationScientifique/newGroupementScientifique                                       controllers.admin.GererOrganisationScientifique.postNewGroupementScientifique()
+POST        /gererOrganisationScientifique/deleteGroupementScientifique/:gsci_id                           controllers.admin.GererOrganisationScientifique.deleteGroupementScientifique(gsci_id: Integer)
 #TODO les routes suivantes sont obsolète : à éditer puis à supprimer
 #GET         /gererBaseDeDonneesInsectes                                                                    controllers.admin.GererBaseDeDonneesInsectes.main()
 #POST        /gererBaseDeDonneesInsectes/ajoutEspece                                                        controllers.admin.GererBaseDeDonneesInsectes.ajouterNouvEspece()
