@@ -44,6 +44,21 @@ public class GroupementScientifique extends Model{
         return groupement_scientifique_nom;
     }
 
+	public static List<GroupementScientifique> findAllByHierarchie(){
+		List<GroupementScientifique> liste = new LinkedList<GroupementScientifique>();
+		for (GroupementScientifique gs : findAllOfType("ordre")){
+			liste.add(gs);
+			for (GroupementScientifique sg : gs.getFils()){
+				liste.add(sg);
+			}
+
+		}
+		for (GroupementScientifique gsc : GroupementScientifique.findGroupementSansPere()){
+			liste.add(gsc);
+		}
+		return liste;
+	}
+
     /****************** getters des espèces contenus ****************/
 
     /**

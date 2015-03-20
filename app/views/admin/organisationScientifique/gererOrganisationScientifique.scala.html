@@ -16,30 +16,10 @@
 
     <!-- HIERARCHIE -->
     <button onclick="hideShowAll()"> Réduire/déplier tout </button>
-    <div>
-        <div id="hierarchie">
-
-            <!-- ORDRES-->
-            @tableauFils(GroupementScientifique.findAllOfType("ordre"), true)
-
-        </div>
-
-        <!-- ELEMENTS NON CLASSES -->
-        <div id="unclassed">
-            <p><b><u>Elements non classés</u></b></p>
-            <!-- ESPECES -->
-            <p><b>Espèces :</b></p>
-            @for(espece <- Espece.findEspecesSansGroupementScientifique()) {
-                <div class="element">
-                    <span class="typeGroupement">espèce</span>
-                    <div class="espece" id="espece-@espece.espece_id" ondblclick="editEspece('@espece.espece_id')">@espece.espece_nom</div>
-                </div>
-            }
-            <!-- GROUPEMENTS -->
-            <p><b>Groupements scientifiques :</b><small>(sauf les ordres)</small></p>
-            @tableauFils(GroupementScientifique.findGroupementSansPere(), false)
-
-        </div>
+	<button onclick="newGroupement()"> Nouveau groupement scientifique </button>
+    
+	<div id="content">
+        @organisationScientifique()
     </div>
 
 
@@ -48,18 +28,23 @@
 
     <script type="text/javascript">
 
-        /******* gestion des clicks et double clicks pour les groupements scientifiques et les espèces ******/
+        $( document ).ready(function(){
+            initClicks();
+        });
+
+        /******* gestion des clicks et double clicks pour les groupements scientifiques et les espÃ¨ces ******/
 
         var DELAY = 300, clicks = 0, timer = null;
         var hidden = false;
 
-        $(function(){
+
+        function initClicks(){
 
             $(".groupement").on("click", function(e){
                 clicks++;  //count clicks
                 if(clicks === 1) {
-                    var $this = this;
-                    timer = setTimeout(function() {
+                var $this = this;
+                timer = setTimeout(function() {
 
                     // SINGLE CLICK ACTION
                     hideShowFils($this.id);
@@ -79,9 +64,10 @@
             $(".groupement").on("dblclick", function(e){
                 e.preventDefault();  //cancel system double-click event
             });
-        });
+        }
 
-            // cacher et afficher contenu
+        /****** cacher et afficher contenu *********/
+
         function hideShowFils(groupement_id){
             if($ ( '#groupement-' + groupement_id + '-container' ).is(':visible')) {
                 $ ( '#groupement-' + groupement_id + '-container' ).hide ( ) ;
@@ -90,7 +76,6 @@
                 $ ( '#groupement-' + groupement_id + '-container' ).show ( ) ;
             }
         }
-
         function hideShowAll() {
             if (hidden) {
                 $ ( '#hierarchie .container' ).each ( function ( i, obj ) {
@@ -105,19 +90,125 @@
             }
         }
 
-            // éditer les groupements
+        /******* Ã©diter les groupements *******/
+
         function editGroupement(groupement_id){
-            alert('edit groupement : ' + groupement_id);
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationScientifique/editGroupementScientifique/'+groupement_id,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function submitEditGroupement(groupement_id){
+            var dataForm =  $( '#editGroupementScientifiqueForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationScientifique/editGroupementScientifique/'+groupement_id,
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function deleteGroupement(groupement_id){
+            var conf = confirm("Voulez vous vraiment supprimer ce groupe? (cette action est irremÃ©diable)");
+            if (conf == true ){
+                $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+                $.ajax ( {
+                    type : 'POST',
+                    url : '/gererOrganisationScientifique/deleteGroupementScientifique/'+groupement_id,
+                    success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                        refreshOrganisation();
+                    },
+                    error : function ( ) {
+                        rapportDErreur ( ) ;
+                    }
+                } ) ;
+            }
         }
 
-            // éditer les espèces
+        /******* ajouter un groupement *******/
+
+        function newGroupement(){
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationScientifique/newGroupementScientifique',
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function submitNewGroupement(){
+            var dataForm =  $( '#newGroupementScientifiqueForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationScientifique/newGroupementScientifique',
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+
+
+        /******* Ã©diter les espÃ¨ces *******/
+
         function editEspece(espece_id){
-            alert('edit espèce : ' + espece_id);
+            alert('edit espÃ¨ce : ' + espece_id);
+        }
+
+
+        /******* refresh organisation *******/
+
+        function refreshOrganisation(){
+            $ ( '#content' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationScientifique/organisationScientifique',
+                success : function ( res ) {
+                    $ ( '#content' ).html ( res ) ;
+                    $(document ).ready(function() {
+                    initClicks ( ) ;
+                    });
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+
+
+        /******* message erreur ajax *******/
+
+        function rapportDErreur(){
+            $('#editPanel').html('Un problÃ¨me est survenu cÃ´tÃ© serveur...');
         }
 
     </script>
 
 
+    <!-- STYLE -->
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/gestionOrganisations.css")">
     <style type="text/css">
@@ -126,13 +217,12 @@
             width: 80%;
             min-height: 200px;;
             border: solid 1px gray;
-            text-align: center;
             margin: 10px;
+            padding: 10px;
         }
         #hierarchie{
             display: inline-block;
             width: 60%;
-            border-right: solid 1px gray;
         }
         #unclassed{
             display: inline-block;
@@ -140,6 +230,7 @@
             width: 30%;
             padding: 10px;
             margin: 10px;
+            border: solid 1px gray;
         }
 
     </style>
