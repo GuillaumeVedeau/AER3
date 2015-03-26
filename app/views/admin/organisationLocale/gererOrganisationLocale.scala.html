@@ -196,6 +196,126 @@
                 }
             } ) ;
         }
+        
+        /******* éditer les espèces *******/
+
+        function editEspece(espece_id){
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationLocale/editEspece/'+espece_id,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        
+        function changerPhoto(espece_id){
+            var dataForm =  $( '#editEspeceForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationLocale/changerImage/'+espece_id,
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        
+        function submitEditEspece(espece_id){
+            var dataForm =  $( '#editEspeceForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationLocale/editEspece/'+espece_id,
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function deleteEspece(espece_id){
+            var conf = confirm("Voulez vous vraiment supprimer cette espece ? (cette action est irremédiable)");
+            if (conf == true ){
+                $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+                $.ajax ( {
+                    type : 'POST',
+                    url : '/gererOrganisationLocale/deleteEspece/'+espece_id,
+                    success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                        refreshOrganisation();
+                    },
+                    error : function ( ) {
+                        rapportDErreur ( ) ;
+                    }
+                } ) ;
+            }
+        }
+        
+        
+        /******* ajouter une Espece *******/
+
+        function newEspece(){
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationLocale/newEspece',
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function submitNewEspece(){
+            var dataForm =  $( '#newEspeceForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationLocale/newEspece',
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+
+
+        /******* refresh organisation *******/
+
+        function refreshOrganisation(){
+            $ ( '#content' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationLocale/organisationLocale',
+                success : function ( res ) {
+                    $ ( '#content' ).html ( res ) ;
+                    $(document ).ready(function() {
+                    initClicks ( ) ;
+                    });
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
 
 
         /******* message erreur ajax *******/

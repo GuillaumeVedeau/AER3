@@ -132,6 +132,15 @@ GET         /gererOrganisationLocale/newGroupementLocal                         
 POST        /gererOrganisationLocale/newGroupementLocal                                                    controllers.admin.GererOrganisationLocale.postNewGroupementLocal()
 POST        /gererOrganisationLocale/deleteGroupementLocal/:groupe_id                                      controllers.admin.GererOrganisationLocale.deleteGroupementLocal(groupe_id: Integer)
 
+# gestion des espece
+GET         /gererOrganisationLocale/editEspece/:espece_id                      							controllers.admin.GererEspeceAdmin.getEditEspece(espece_id: Integer)
+POST        /gererOrganisationLocale/editEspece/:espece_id                                        			controllers.admin.GererEspeceAdmin.postEditEspece(espece_id: Integer)
+POST        /gererOrganisationLocale/changerImage/:espece_id                                        		controllers.admin.GererEspeceAdmin.changerPhoto(espece_id: Integer)
+GET         /gererOrganisationLocale/newEspece                                                    			controllers.admin.GererEspeceAdmin.getNewEspece()
+POST        /gererOrganisationLocale/newEspece                                                   			controllers.admin.GererEspeceAdmin.postNewEspece()
+POST        /gererOrganisationLocale/deleteEspece/:espece_id                              					controllers.admin.GererEspeceAdmin.deleteEspece(espece_id: Integer)
+
+
 #TODO les routes suivantes sont obsolète : à éditer puis à supprimer
 #GET         /gererGroupesEtSousGroupes                                                                     controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.main()
 #POST        /deplacerSousGroupe/:groupe_id                                                                 controllers.admin.groupesSousGroupes.GererGroupesEtSousGroupes.deplacerGroupe(groupe_id: Integer)
