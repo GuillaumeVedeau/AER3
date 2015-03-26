@@ -18,15 +18,19 @@
 @(groupes : List[Groupe])
 @main("Assigner des Experts"){
 	<h1>Assigner un expert à un groupe</h1>
-	<a href="/menuAdmin">Retour</a><br>
+	<a href="/menuAdmin">Retour</a> | <a href="/gererOrganisationLocale">Gerer l'organisation locale</a>
+	<br><br>
 	<table>
 		<tr>
 			<th>Groupe</th>
 			<th>Expert assigné</th>
 		</tr>
-		@for(groupe <- groupes){
-		<tr>
-			<td>@groupe.groupe_nom</td>
+		@for(groupe <- Groupe.findAllByHierarchie()){
+		<tr @if(groupe.groupe_type.type_groupement_local_intitule.equals("groupe")){ style="background-color: lightgrey;"}>
+			<td>
+				@if(groupe.groupe_type.type_groupement_local_intitule.equals("sous-groupe")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+				@groupe.groupe_nom
+			</td>
 			<td>
 			@defining(groupe.getExperts()){ mieogs=>
 				@if(mieogs.isEmpty()){
@@ -48,7 +52,7 @@
 		</tr>
 		}
 	</table>
-	<a href="/gererGroupesEtSousGroupes">Gerer les groupes et les sous-groupes</a>
+
 }{
  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/jquery-ui-1.10.4.custom.min.css")">
  <script type="text/javascript" src="/assets/javascripts/jquery-ui-1.10.4.custom.min.js"></script>
