@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 import play.db.ebean.Model;
 
@@ -111,7 +112,7 @@ public class GroupementScientifique extends Model{
      * @return
      */
     public List<GroupementScientifique> getHierarchieScientifique(){
-        List<GroupementScientifique> h = null;
+        List<GroupementScientifique> h = new ArrayList<GroupementScientifique>();
         if (groupement_scientifique_pere!=null) {
             h.add(groupement_scientifique_pere);
             if (groupement_scientifique_pere.groupement_scientifique_pere != null) {

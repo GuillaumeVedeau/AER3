@@ -15,9 +15,9 @@
  *   limitations under the License.
  *   
  ********************************************************************************@
-@(observation: Observation, listUtms: List[UTMS], listEspece: List[Espece], listStadeSexe: List[StadeSexe])
+@(observation: Observation, listUtms: List[UTMS], listEspece: List[Espece], listStadeSexe: List[StadeSexe], groupe_id: Integer)
 		
- 		 <form id="edite@observation.observation_id" action="/temoignagesAValider/editer/@observation.observation_espece.getGroupe().groupe_id/@observation.observation_id" method="POST">
+ 		 <form id="edite@observation.observation_id" action="/temoignagesAValider/editer/@groupe_id/@observation.observation_id" method="POST">
  		 <table>
  		 <tr>
         		
@@ -47,20 +47,22 @@
 				<td>@observation.observation_fiche.fiche_date.getTime().format("dd/MM/yyyy")</td>
 				<td><input type="text" name="lieudit" value="@observation.observation_fiche.fiche_lieudit"></td>
 				<td>@if(observation.observation_fiche.fiche_commune!=null){@observation.observation_fiche.fiche_commune.ville_nom_reel}<span id="commune@observation.observation_id"></span></td>
-				<td>@observation.observation_fiche.fiche_utm.utm<select name="utm">
+				<td>@if(observation.observation_fiche.fiche_utm!=null){@observation.observation_fiche.fiche_utm.utm}<select name="utm">
 					@for(utms <- listUtms){
-					<option value="@utms.utm" @if(utms.utm==observation.observation_fiche.fiche_utm.utm){selected}>@utms.utm</option>
+					<option value="@utms.utm" @if(observation.observation_fiche.fiche_utm!=null){@if(utms.utm==observation.observation_fiche.fiche_utm.utm){selected}}>@utms.utm</option>
 					}</select></td>
 				<td><textarea name="memo">@observation.observation_fiche.fiche_memo</textarea></td>
 				<td>@observation.observation_fiche.fiche_date_soumission.getTime().format("dd/MM/yyyy")</td>
 				<td>
 				<span id="nouvelleinfo"></span> 
 				@for(informationsComplementaires <-observation.getInfos()){
+					<!-- TO DO
 					<select name="stadesexe@informationsComplementaires.informations_complementaires_id">
 					@for(stadesexe <- listStadeSexe){
 						<option value="@stadesexe.stade_sexe_id" @if(stadesexe.stade_sexe_id==informationsComplementaires.informations_complementaires_stade_sexe.stade_sexe_id){selected}>
 							@stadesexe.stade_sexe_intitule
 						</option>}
+						-->
 					<input type="text" name="nombre@informationsComplementaires.informations_complementaires_id" value="@informationsComplementaires.informations_complementaires_nombre_de_specimens">
 					@informationsComplementaires.informations_complementaires_nombre_de_specimens 
 					@informationsComplementaires.informations_complementaires_stade_sexe

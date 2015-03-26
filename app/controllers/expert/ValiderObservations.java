@@ -34,6 +34,8 @@ import models.InformationsComplementaires;
 import models.Observation;
 import models.StadeSexe;
 import models.UTMS;
+import models.*;
+import java.util.ArrayList;
 
 
 /**
@@ -80,10 +82,14 @@ public class ValiderObservations extends Controller {
     			Groupe groupe = Groupe.find.byId(groupe_id);
     			Observation observation= Observation.find.byId(observation_id);
     			List<UTMS> utms= UTMS.find.all();
-    			List<Espece> especes= Espece.find.where().eq("espece_sous_groupe.sous_groupe_groupe", groupe).findList();
+    			List<EspeceIsInGroupementLocal> eiigls= EspeceIsInGroupementLocal.find.where().eq("groupe", groupe).findList();
+    			List<Espece> especes= new ArrayList<Espece>();
+    			for (EspeceIsInGroupementLocal eiigl : eiigls){
+    				especes.add(eiigl.espece);
+    			}
     			List<StadeSexe> stadessexes=groupe.getStadesSexes();
     			if(MenuExpert.isExpertOn(groupe))
-    				return ok( editeTemoignagesAValider.render(observation,utms,especes, stadessexes));
+    				return ok(editeTemoignagesAValider.render(observation,utms,especes, stadessexes, groupe_id));
     			else
     				return Admin.nonAutorise();
      }
@@ -172,11 +178,11 @@ public class ValiderObservations extends Controller {
 				}else{
 					info.informations_complementaires_nombre_de_specimens=null;
 				}
-			Integer stadesexeid=Integer.parseInt(df.get("stadesexe"+id));
-			if(stadesexeid!=null){
-			StadeSexe stadesexe= StadeSexe.find.byId(stadesexeid);
-			info.informations_complementaires_stade_sexe=stadesexe;
-			}
+	//		Integer stadesexeid=Integer.parseInt(df.get("stadesexe"+id));
+	//		if(stadesexeid!=null){
+	//		StadeSexe stadesexe= StadeSexe.find.byId(stadesexeid);
+	//		info.informations_complementaires_stade_sexe=stadesexe;
+	//		}
 			info.save();
 		}
 		if (nouvelleinfo!=null){

@@ -28,16 +28,13 @@
 		<th>Synonyme(s)</th>
 		<th>Auteur</th>
 		<th>Photo</th>
-		<th>Sous-famille</th>
-		<th>Famille</th>
-		<th>Super-famille</th>
-		<th>Ordre</th>
-		<th>Sous-groupe</th>
+		<th>Hierarchie scientifique</th>
+		<th>Hierarchie locale</th>
 		<th>Editer</th>
 	</tr>
 </thead>
 <tbody>
-	@*
+	
 	@for(espece <- groupe.getEspecesInThisBySystematique()){
 	<tr>
 		<td>@espece.espece_systematique</td>
@@ -49,14 +46,11 @@
 		</td>
 		<td>@espece.espece_auteur</td>
 		<td>@if(espece.espece_photo!=null){<img src="@espece.espece_photo" style="max-width:150px;max-height:100px"></img>}</td>
-		<td>@if(espece.espece_sousfamille.sous_famille_existe){@espece.espece_sousfamille.sous_famille_nom}</td>
-		<td>@espece.espece_sousfamille.sous_famille_famille</td>
-		<td>@if(espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_existe){@espece.espece_sousfamille.sous_famille_famille.famille_super_famille}</td>
-		<td>@espece.espece_sousfamille.sous_famille_famille.famille_super_famille.super_famille_ordre</td>
-		<td>@espece.espece_sous_groupe</td>
+		<td>@espece.getHierarchieScientifique()</td>
+		<td>@espece.getHierarchiesLocales()</td>
 		<td><button onClick="editerEspece(@espece.espece_id)">Editer</button></td>
 	</tr>
-	}*@
+	}
 </tbody>
 </table>
 }{
