@@ -339,6 +339,7 @@ public class GetNewEditFiche extends Controller {
 				if ((especeId = df.get("espece-" + obs_tag)) != null) {
 					Espece espece = Espece.find.byId(Integer.parseInt(especeId));
 					if (espece != null) {
+						obs.observation_espece = espece;
 						obs.observation_determinateur = df.get("determinateur-" + obs_tag);
 						obs.observation_commentaires = df.get("commentaires-" + obs_tag);
 						obs.update();

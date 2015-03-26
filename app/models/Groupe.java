@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 import play.db.ebean.Model;
 
@@ -233,7 +234,7 @@ public class Groupe extends Model {
 	 * @return la liste des groupes parents du plus bas au plus haut : groupe ne peut appartenir qu'à un groupe
 	 */
 	public List<Groupe> getHierarchieLocale(){
-		List<Groupe> h = null;
+		List<Groupe> h = new ArrayList<Groupe>();
 		if (groupe_pere!=null) {
 			h.add(groupe_pere);
 			if (groupe_pere.groupe_pere != null) {
