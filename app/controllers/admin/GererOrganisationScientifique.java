@@ -48,9 +48,9 @@ public class GererOrganisationScientifique extends Controller{
 		if(gsci!=null){
 			DynamicForm df = DynamicForm.form().bindFromRequest();
 			String gsci_nom = df.get("groupement_scientifique_nom");
-			if(GroupementScientifique.find.where().eq("groupement_scientifique_nom", gsci_nom).findUnique()==null){
+			//if(GroupementScientifique.find.where().eq("groupement_scientifique_nom", gsci_nom).findUnique()==null){
 				gsci.groupement_scientifique_nom=gsci_nom;
-			}
+			//}
 			String type_intitule = df.get("type");
 			TypeGroupementScientifique type=TypeGroupementScientifique.find.where().eq("intitule", type_intitule).findUnique();
 			gsci.groupement_scientifique_type = type;
