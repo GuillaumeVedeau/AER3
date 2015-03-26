@@ -16,15 +16,15 @@
 					<select name="pere">
 						<option value="NULL">none</option>
 						@for(gs: GroupementScientifique <- GroupementScientifique.findAllByHierarchie()){
-						@if(gs.groupement_scientifique_id != gsci.groupement_scientifique_id) {
-						<option value="@gs.groupement_scientifique_id" @if(gsci.groupement_scientifique_pere!=null && gs.groupement_scientifique_id==gsci.groupement_scientifique_pere.groupement_scientifique_id){selected}>
-						@if(gs.groupement_scientifique_type.intitule.equals("super-famille")){&nbsp;&nbsp;}
-						@if(gs.groupement_scientifique_type.intitule.equals("famille")){&nbsp;&nbsp;&nbsp;&nbsp;}
-						@if(gs.groupement_scientifique_type.intitule.equals("sous-famille")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
-						@gs.groupement_scientifique_nom
-						</option>
+							@if(gs.groupement_scientifique_id != gsci.groupement_scientifique_id) {
+								<option value="@gs.groupement_scientifique_id" @if(gsci.groupement_scientifique_pere!=null && gs.groupement_scientifique_id==gsci.groupement_scientifique_pere.groupement_scientifique_id){selected}>
+								@if(gs.groupement_scientifique_type.intitule.equals("super-famille")){&nbsp;&nbsp;}
+								@if(gs.groupement_scientifique_type.intitule.equals("famille")){&nbsp;&nbsp;&nbsp;&nbsp;}
+								@if(gs.groupement_scientifique_type.intitule.equals("sous-famille")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+								@gs.groupement_scientifique_nom
+								</option>
+							}
 						}
-					}
 					</select>
 				</td>
 			</tr>

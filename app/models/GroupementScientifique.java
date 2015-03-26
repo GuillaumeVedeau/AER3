@@ -44,20 +44,30 @@ public class GroupementScientifique extends Model{
         return groupement_scientifique_nom;
     }
 
+    /**
+     * permet de récupérer une liste de toutes les groupements scientifiques dans l'ordre hiérarchique.
+     * C'est à dire que après un ordre, il y a la première super-famille, puis les familles dans cette première super-famille etc...
+     * Cela permet d'afficher la classification dans un menu déroulant
+     * @return
+     */
 	public static List<GroupementScientifique> findAllByHierarchie(){
 		List<GroupementScientifique> liste = new LinkedList<GroupementScientifique>();
 		for (GroupementScientifique gs : findAllOfType("ordre")){
 			liste.add(gs);
-			for (GroupementScientifique sg : gs.getFils()){
-				liste.add(sg);
-			}
-
+            recFils(gs,liste);
 		}
 		for (GroupementScientifique gsc : GroupementScientifique.findGroupementSansPere()){
 			liste.add(gsc);
 		}
 		return liste;
 	}
+    private static List<GroupementScientifique> recFils (GroupementScientifique gs, List<GroupementScientifique> liste){
+        for (GroupementScientifique sg : gs.getFils()){
+            liste.add(sg);
+            recFils(sg,liste);
+        }
+        return liste;
+    }
 
     /****************** getters des espèces contenus ****************/
 
