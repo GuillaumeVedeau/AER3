@@ -6,31 +6,23 @@
 	<form id="newEspeceForm">
 		<table>
 			<tr>
-				<td>NOM :</td>
-				<td><input type="text" name="espece_nom" placeholder="Nom de l'espece" id="nom"></td>
+				<tr>
+				<td>nom :</td>
+				<td><input type="text" name="espece_nom" placeholder="Nom de l'espece" id="espece_nom"></td>
+			</tr>
+			
+			<tr>
+				<td>auteur :</td>
+				<td><input type="text" name="espece_auteur" placeholder="Nom de l'auteur" id="espece_auteur"></td>
 			</tr>
 			<tr>
-				<td>Groupe père: </td>
-				<td>
-					<select name="pere">
-						<option value="NULL">none</option>
-						@for(gr: Groupe <- Groupe.findAllByHierarchie()) {
-							<option value="@gr.groupe_id">
-								@if(gr.groupe_type.type_groupement_local_intitule.equals("sous-groupe")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} @gr.groupe_nom
-							</option>
-						}
-					</select>
-				</td>
+				<td>systematique :</td>
+				<td><input type="text" name="espece_systematique" placeholder="systematique" id="espece_systematique"></td>
 			</tr>
 			<tr>
-				<td>Type de groupe: </td>
-				<td>
-					<select name="type">
-					@for(ty: TypeGroupementLocal <- TypeGroupementLocal.find.findList()) {
-						<option value="@ty.type_groupement_local_intitule">@ty.type_groupement_local_intitule</option>
-					}
-					</select>
-				</td>
+				<td>commentaire :</td>
+				<td><input type="text" name="espece_commentaires" placeholder="commentaires" id="espece_commentaires"></td>
+			</tr>
 			</tr>
 		</table>
 	</form>

@@ -10,18 +10,8 @@ import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 import play.mvc.Http.MultipartFormData;
 
-import javax.naming.NamingException;
-import javax.persistence.PersistenceException;
-
-import java.io.File;
-import java.io.IOException;
 
 import functions.UploadImage;
-import play.mvc.Security;
-import views.html.admin.organisationLocale.gererOrganisationLocale;
-import views.html.admin.organisationLocale.editerGroupe;
-import views.html.admin.organisationLocale.ajouterGroupe;
-import views.html.admin.organisationLocale.organisationLocale;
 import views.html.admin.organisationLocale.editerEspece;
 import views.html.admin.organisationLocale.ajouterEspece;
 
@@ -67,6 +57,10 @@ public class GererEspeceAdmin extends Controller{
 				int espece_systematique = Integer.parseInt(df.get("espece_systematique"));
 				if(Espece.find.where().eq("espece_systematique", espece_systematique).findUnique()==null){
 					espece.espece_systematique= espece_systematique;
+				}
+				String espece_commentaires = df.get("espece_commentaires");
+				if(Espece.find.where().eq("espece_commentaires", espece_commentaires).findUnique()==null){
+					espece.espece_commentaires=espece_commentaires;
 				}
 				espece.update();
 			}

@@ -15,7 +15,8 @@
     </div>
 
     <button onclick="hideShowAll()"> Réduire/déplier tout </button> &nbsp; | &nbsp;
-    <button onclick="newGroupement()"> Nouveau groupe/sous-groupe </button>
+    <button onclick="newGroupement()"> Nouveau groupe/sous-groupe </button> &nbsp; | &nbsp;
+    <button onclick="newEspece()"> Nouvelle espèce </button>
 
     <div id="content">
         @organisationLocale()
@@ -168,13 +169,6 @@
                     rapportDErreur ( ) ;
                 }
             } ) ;
-        }
-
-
-        /******* éditer les espèces *******/
-
-        function editEspece(espece_id){
-            alert('edit espèce : ' + espece_id);
         }
 
 

@@ -132,7 +132,7 @@ GET         /gererOrganisationLocale/newGroupementLocal                         
 POST        /gererOrganisationLocale/newGroupementLocal                                                    controllers.admin.GererOrganisationLocale.postNewGroupementLocal()
 POST        /gererOrganisationLocale/deleteGroupementLocal/:groupe_id                                      controllers.admin.GererOrganisationLocale.deleteGroupementLocal(groupe_id: Integer)
 
-# gestion des espece
+# gestion des especes
 GET         /gererOrganisationLocale/editEspece/:espece_id                      							controllers.admin.GererEspeceAdmin.getEditEspece(espece_id: Integer)
 POST        /gererOrganisationLocale/editEspece/:espece_id                                        			controllers.admin.GererEspeceAdmin.postEditEspece(espece_id: Integer)
 POST        /gererOrganisationLocale/changerImage/:espece_id                                        		controllers.admin.GererEspeceAdmin.changerPhoto(espece_id: Integer)

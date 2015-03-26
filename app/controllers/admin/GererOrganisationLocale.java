@@ -48,9 +48,9 @@ public class GererOrganisationLocale extends Controller{
 		if(groupe!=null){
 			DynamicForm df = DynamicForm.form().bindFromRequest();
 			String groupe_nom = df.get("groupe_nom");
-			//if(Groupe.find.where().eq("groupe_nom", groupe_nom).findUnique()==null){
+			if(Groupe.find.where().eq("groupe_nom", groupe_nom).findUnique()==null){
 				groupe.groupe_nom=groupe_nom;
-			//}
+			}
 			String type_intitule = df.get("type");
 			TypeGroupementLocal type=TypeGroupementLocal.find.where().eq("type_groupement_local_intitule", type_intitule).findUnique();
 			groupe.groupe_type = type;
