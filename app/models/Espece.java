@@ -21,7 +21,7 @@ package models;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
-
+import java.util.ArrayList;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -216,13 +216,15 @@ public class Espece extends Model implements Comparator<Espece>{
 	 * @return la liste des groupes dont l'espece est directement fille. (une espèce peut appartenir à plusieurs groupes)
 	 */
 	public List<Groupe> getGroupesPeres(){
-		List<Groupe> gPeres = null;
+		List<Groupe> gPeres = new ArrayList<Groupe>();
 		List<EspeceIsInGroupementLocal> listeRelations = EspeceIsInGroupementLocal.find.where().eq("espece",this).findList();
+		
 		for (EspeceIsInGroupementLocal relation : listeRelations){
-			gPeres.add(relation.groupe);
+			gPeres.add(relation.groupe);	
 		}
 		return gPeres;
 	}
+	
 
 	/**
 	 *
@@ -230,13 +232,13 @@ public class Espece extends Model implements Comparator<Espece>{
 	 */
 	public List<List<Groupe>> getHierarchiesLocales(){
 
-		List<List<Groupe>> hierarchiesLocales = null;
+		List<List<Groupe>> hierarchiesLocales = new ArrayList<List<Groupe>>();
 		List<Groupe> listeGroupesPeres = getGroupesPeres();
 
 		for (Groupe groupePere : listeGroupesPeres){
 
 			//on récupère la hierarchie complete du groupe Pere, lui y compris
-			List<Groupe> groupePereHierarchie = null;
+			List<Groupe> groupePereHierarchie = new ArrayList<Groupe>();
 			groupePereHierarchie.add(groupePere);
 			groupePereHierarchie.addAll(groupePere.getHierarchieLocale());
 
@@ -288,7 +290,7 @@ public class Espece extends Model implements Comparator<Espece>{
 	 * @return la liste de tous les groupements scientiques pères (du plus bas au plus haut)
 	 */
 	public List<GroupementScientifique> getHierarchieScientifique(){
-		List<GroupementScientifique> h = null;
+		List<GroupementScientifique> h = new ArrayList<GroupementScientifique>();
 		if (espece_groupement_scientifique_pere!=null) {
 			h.add( espece_groupement_scientifique_pere);
 			//h.add(0, espece_groupement_scientifique_pere); // TODO du plus haut au plus bas?
