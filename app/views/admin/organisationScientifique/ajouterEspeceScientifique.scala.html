@@ -1,0 +1,43 @@
+@(message: String)
+
+
+<span id="message">@message</span>
+<div style="width : 400 px ; margin-right : auto ; margin-left : auto ;">
+	<form id="newEspeceForm">
+		<table>
+			<tr>
+				<tr>
+				<td>nom :</td>
+				<td><input type="text" name="espece_nom" placeholder="Nom de l'espece" id="espece_nom"></td>
+			</tr>
+			
+			<tr>
+				<td>auteur :</td>
+				<td><input type="text" name="espece_auteur" placeholder="Nom de l'auteur" id="espece_auteur"></td>
+			</tr>
+			<tr>
+				<td>systematique :</td>
+				<td><input type="text" name="espece_systematique" placeholder="systematique" id="espece_systematique"></td>
+			</tr>
+			<tr>
+				<td>Groupe père: </td>
+				<td>
+					<select name="pere">
+						<option value="NULL">none</option>
+						@for(gr: GroupementScientifique <- GroupementScientifique.findAllByHierarchie()) {
+							<option value="@gr.groupement_scientifique_id">
+								 @gr.groupement_scientifique_nom
+							</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>commentaire :</td>
+				<td><input type="text" name="espece_commentaires" placeholder="commentaires" id="espece_commentaires"></td>
+			</tr>
+			</tr>
+		</table>
+	</form>
+	<button onclicK="submitNewGroupement()">Valider</button>
+</div>
