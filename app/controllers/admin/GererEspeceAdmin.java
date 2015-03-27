@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 import play.mvc.Http.MultipartFormData;
+import java.util.List;
 
 
 import functions.UploadImage;
@@ -31,25 +32,47 @@ public class GererEspeceAdmin extends Controller{
 
 	public static Result postEditEspeceLocale(Integer espece_id) {
 		Espece espece=Espece.find.where().eq("espece_id", espece_id).findUnique();
-		if(espece!=null){
-			DynamicForm df = DynamicForm.form().bindFromRequest();
+		DynamicForm df = DynamicForm.form().bindFromRequest();
+
+		// mise à jour des informations de la table espèce
+
+		if(espece != null){
 			String espece_nom = df.get("espece_nom");
-			if(Espece.find.where().eq("espece_nom", espece_nom).findUnique()==null){
+			if(espece_nom!=null){
 				espece.espece_nom=espece_nom;
 			}
-			String espece_auteur = df.get("espece_auteur");
-			if(Espece.find.where().eq("espece_auteur", espece_auteur).findUnique()==null){
-				espece.espece_auteur=espece_auteur;
+			espece.espece_auteur=df.get("espece_auteur");
+			String espece_systematique_string = df.get("espece_systematique");
+			if (espece_systematique_string != null) {
+				espece.espece_systematique = Integer.parseInt(espece_systematique_string);
 			}
-			int espece_systematique = Integer.parseInt(df.get("espece_systematique"));
-			if(Espece.find.where().eq("espece_systematique", espece_systematique).findUnique()==null){
-				espece.espece_systematique= espece_systematique;
-			}
-			String espece_commentaires = df.get("espece_commentaires");
-			if(Espece.find.where().eq("espece_commentaires", espece_commentaires).findUnique()==null){
-				espece.espece_commentaires=espece_commentaires;
-			}
+			espece.espece_commentaires=df.get("espece_commentaires");
 			espece.update();
+		}
+
+		// mise à jour des relations avec le groupe père
+
+		String string_groupe_pere_id = df.get("pere");
+
+		if (string_groupe_pere_id.equals("NULL")) {
+			// si pas de parents, on supprime les relations
+			List<EspeceIsInGroupementLocal> relations = EspeceIsInGroupementLocal.find.where().eq("espece",espece).findList();
+			for (EspeceIsInGroupementLocal r : relations){
+				r.delete();
+			}
+		} else {
+			//TODO idéalement, il faudrait tester si la relation a changé ou pas. Pb lié à l'autoincrement de l'id dans la table EspeceIsInGroupementLocal
+			// si un parent est sélectionné, on supprime les relations existantes
+			List<EspeceIsInGroupementLocal> relations = EspeceIsInGroupementLocal.find.where().eq("espece",espece).findList();
+			for (EspeceIsInGroupementLocal r : relations){
+				r.delete();
+			}
+			// puis on ajoute la nouvelle
+			Groupe groupePere = Groupe.find.byId(Integer.parseInt(string_groupe_pere_id));
+			if (groupePere != null) {
+				EspeceIsInGroupementLocal r = new EspeceIsInGroupementLocal(espece,groupePere);
+				r.save();
+			}
 		}
 		return ok(editerEspece.render("Informations mises à jour avec succès",espece));
 	}

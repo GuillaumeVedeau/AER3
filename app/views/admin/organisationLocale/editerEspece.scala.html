@@ -9,7 +9,7 @@
 	<form id="editEspeceForm">
 		<table>
 			<p>
-				Espece n'°@espece.espece_id
+				Espece n°@espece.espece_id
 			</p>
 			<tr>
 				<td>nom :</td>
@@ -29,12 +29,16 @@
 				<td><input type="text" name="espece_commentaires" value="@espece.espece_commentaires" placeholder="commentaire" id="espece_commentaires"></td>
 			</tr>
 			<tr>
-				<td>Groupe père: </td>
+				<td>Groupe/sous-groupe local père: </td>
 				<td>
 					<select name="pere">
 						<option value="NULL">none</option>
 						@for(gr: Groupe <- Groupe.findAllByHierarchie()) {
-							<option value="@gr.groupe_id">
+							<option value="@gr.groupe_id"
+								@if(!espece.getGroupesPeres().isEmpty()){
+									@if(gr.groupe_id == espece.getGroupesPeres().get(0).groupe_id){selected}
+								}
+							>
 								@if(gr.groupe_type.type_groupement_local_intitule.equals("sous-groupe")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} @gr.groupe_nom
 							</option>
 						}
@@ -49,8 +53,7 @@
 	</form>
 	<br>
 	<button onclick="changerImage(@espece.espece_id)">Changer image</button>
-	<button onclick="submitEditEspece(@espece.espece_id)">Valider</button>
 	<br><br>
-	<button onclick="deleteEspece(@espece.espece_id)">Supprimer</button>
+	<button onclick="submitEditEspece(@espece.espece_id)">Valider</button>
 	
 </div>
