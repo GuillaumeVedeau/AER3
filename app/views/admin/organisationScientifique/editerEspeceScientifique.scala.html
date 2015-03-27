@@ -29,14 +29,19 @@
 				<td><input type="text" name="espece_commentaires" value="@espece.espece_commentaires" placeholder="commentaire" id="espece_commentaires"></td>
 			</tr>
 			<tr>
-				<td>Groupe père: </td>
+				<td>Groupement Scientifique père: </td>
 				<td>
-					<select name="pere">
+					<select name="groupement scientifique">
 						<option value="NULL">none</option>
-						@for(gr: Groupe <- Groupe.findAllByHierarchie()) {
-							<option value="@gr.groupe_id">
-								@if(gr.groupe_type.type_groupement_local_intitule.equals("sous-groupe")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} @gr.groupe_nom
-							</option>
+						@for(gs: GroupementScientifique <- GroupementScientifique.findAllByHierarchie()){
+							@if(gs.groupement_scientifique_id != espece.espece_groupement_scientifique_pere.groupement_scientifique_id) {
+								<option value="@gs.groupement_scientifique_id" @if(espece.espece_groupement_scientifique_pere.groupement_scientifique_pere!=null && gs.groupement_scientifique_id==espece.espece_groupement_scientifique_pere.groupement_scientifique_pere.groupement_scientifique_id){selected}>
+								@if(gs.groupement_scientifique_type.intitule.equals("super-famille")){&nbsp;&nbsp;}
+								@if(gs.groupement_scientifique_type.intitule.equals("famille")){&nbsp;&nbsp;&nbsp;&nbsp;}
+								@if(gs.groupement_scientifique_type.intitule.equals("sous-famille")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+								@gs.groupement_scientifique_nom
+								</option>
+							}
 						}
 					</select>
 				</td>
