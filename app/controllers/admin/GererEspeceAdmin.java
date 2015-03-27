@@ -124,7 +124,7 @@ public class GererEspeceAdmin extends Controller{
 
 					espece.save();
 
-					return ok(editerEspece.render("Informations mises a  jour avec succes", espece));
+					return ok(editerEspeceScientifique.render("Informations mises a  jour avec succes", espece));
 				} else {
 					return ok(ajouterEspeceScientifique.render("Les informations ne sont pas complètes"));
 				}
