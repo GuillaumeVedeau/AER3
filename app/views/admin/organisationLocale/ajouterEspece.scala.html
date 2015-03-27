@@ -20,11 +20,24 @@
 				<td><input type="text" name="espece_systematique" placeholder="systematique" id="espece_systematique"></td>
 			</tr>
 			<tr>
+				<td>Groupe père: </td>
+				<td>
+					<select name="pere">
+						<option value="NULL">none</option>
+						@for(gr: Groupe <- Groupe.findAllByHierarchie()) {
+							<option value="@gr.groupe_id">
+								@if(gr.groupe_type.type_groupement_local_intitule.equals("sous-groupe")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} @gr.groupe_nom
+							</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>commentaire :</td>
 				<td><input type="text" name="espece_commentaires" placeholder="commentaires" id="espece_commentaires"></td>
 			</tr>
 			</tr>
 		</table>
 	</form>
-	<button onclick="submitNewGroupement()">Valider</button>
+	<button onclicK="submitNewGroupement()">Valider</button>
 </div>

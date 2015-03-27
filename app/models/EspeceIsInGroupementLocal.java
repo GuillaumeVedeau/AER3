@@ -29,5 +29,9 @@ public class EspeceIsInGroupementLocal extends Model{
         this.espece=espece;
         this.groupe=groupe;
     }
+    
+    public static Groupe especeIsInThisGroupeLocal(Integer espece_id){
+    	return find.where().eq("espece", espece_id).findUnique().groupe;
+    }
 
 }

@@ -29,6 +29,19 @@
 				<td><input type="text" name="espece_commentaires" value="@espece.espece_commentaires" placeholder="commentaire" id="espece_commentaires"></td>
 			</tr>
 			<tr>
+				<td>Groupe père: </td>
+				<td>
+					<select name="pere">
+						<option value="NULL">none</option>
+						@for(gr: Groupe <- Groupe.findAllByHierarchie()) {
+							<option value="@gr.groupe_id">
+								@if(gr.groupe_type.type_groupement_local_intitule.equals("sous-groupe")){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} @gr.groupe_nom
+							</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
 			<td>Image: </td>
 			<td>@if(espece.espece_photo!=null){<img src="@espece.espece_photo" style="max-width:150px;max-height:100px"></img>}</td>
 			</tr>

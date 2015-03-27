@@ -17,6 +17,7 @@
     <!-- HIERARCHIE -->
     <button onclick="hideShowAll()"> Réduire/déplier tout </button>
 	<button onclick="newGroupement()"> Nouveau groupement scientifique </button>
+	<button onclick="newEspece()"> Nouvelle espèce </button>
     
 	<div id="content">
         @organisationScientifique()
@@ -172,11 +173,106 @@
         }
 
 
-        /******* Ã©diter les espÃ¨ces *******/
+         /******* éditer les espèces *******/
 
         function editEspece(espece_id){
-            alert('edit espÃ¨ce : ' + espece_id);
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationScientifique/editEspece/'+espece_id,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
         }
+        
+        function changerPhoto(espece_id){
+            var dataForm =  $( '#editEspeceForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationScientifique/changerImage/'+espece_id,
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        
+        function submitEditEspece(espece_id){
+            var dataForm =  $( '#editEspeceForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationScientifique/editEspece/'+espece_id,
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function deleteEspece(espece_id){
+            var conf = confirm("Voulez vous vraiment supprimer cette espece ? (cette action est irremédiable)");
+            if (conf == true ){
+                $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+                $.ajax ( {
+                    type : 'POST',
+                    url : '/gererOrganisationScientifique/deleteEspece/'+espece_id,
+                    success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                        refreshOrganisation();
+                    },
+                    error : function ( ) {
+                        rapportDErreur ( ) ;
+                    }
+                } ) ;
+            }
+        }
+        
+        
+        /******* ajouter une Espece *******/
+
+        function newEspece(){
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'GET',
+                url : '/gererOrganisationScientifique/newEspece',
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        function submitNewEspece(){
+            var dataForm =  $( '#newEspeceForm' ).serialize();
+            $ ( '#editPanel' ).html ( 'Chargement...' ) ;
+            $.ajax ( {
+                type : 'POST',
+                url : '/gererOrganisationScientifique/newEspece',
+                data: dataForm,
+                success : function ( res ) {
+                    $ ( '#editPanel' ).html ( res ) ;
+                    refreshOrganisation();
+                },
+                error : function ( ) {
+                    rapportDErreur ( ) ;
+                }
+            } ) ;
+        }
+        
 
 
         /******* refresh organisation *******/
