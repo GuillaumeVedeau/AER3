@@ -14,6 +14,8 @@ import play.mvc.Http.MultipartFormData;
 import functions.UploadImage;
 import views.html.admin.organisationLocale.editerEspece;
 import views.html.admin.organisationLocale.ajouterEspece;
+import views.html.admin.organisationScientifique.editerEspeceScientifique;
+import views.html.admin.organisationScientifique.ajouterEspeceScientifique;
 
 
 
