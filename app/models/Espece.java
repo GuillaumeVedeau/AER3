@@ -187,7 +187,8 @@ public class Espece extends Model implements Comparator<Espece>{
 //	}
 
 	/***************************  hiérarchie locale *******************************/
-	/* il peut il y avoir plusieurs hiérarchies locales. c'est à dire qy'une espèce peut appartenir à plusieurs groupes */
+	/* il pourrait il y avoir plusieurs hiérarchies locales. c'est à dire qy'une espèce pourrait appartenir à plusieurs groupes
+	* mais cela c'est pas implémenter dans l'application en elle même */
 
 
 	/**

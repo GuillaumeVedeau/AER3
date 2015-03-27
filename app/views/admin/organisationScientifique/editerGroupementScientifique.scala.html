@@ -1,11 +1,12 @@
 @(message: String, gsci: GroupementScientifique)
 
-
-<h1>Modifiez les informations de @gsci.groupement_scientifique_nom</h1>
 <span id="message">@message</span>
-	<div style="width: 400px; margin-right: auto; margin-left: auto;">
+	<div style="width: 400px;">
 		<form id="editGroupementScientifiqueForm">
 		<table>
+			<p>
+				Groupement n°@gsci.groupement_scientifique_id
+			</p>
 			<tr>
 				<td>NOM :</td>
 				<td><input type="text" name="groupement_scientifique_nom" value="@gsci.groupement_scientifique_nom" id="nom"></td>
