@@ -141,12 +141,12 @@ POST        /gererOrganisationLocale/newEspece                                  
 POST        /gererOrganisationLocale/deleteEspece/:espece_id                              					controllers.admin.GererEspeceAdmin.deleteEspece(espece_id: Integer)
 
 
-GET         /gererOrganisationScientifique/editEspece/:espece_id                      			controllers.admin.GererEspeceAdmin.getEditEspeceScientifique(espece_id: Integer)
-POST        /gererOrganisationScientifique/editEspece/:espece_id                                controllers.admin.GererEspeceAdmin.postEditEspeceScientifique(espece_id: Integer)
-POST        /gererOrganisationScientifique/changerImage/:espece_id                              controllers.admin.GererEspeceAdmin.changerPhotoScientifique(espece_id: Integer)
-GET         /gererOrganisationScientifique/newEspece                                            controllers.admin.GererEspeceAdmin.getNewEspeceScientifique()
-POST        /gererOrganisationScientifique/newEspece                                       		controllers.admin.GererEspeceAdmin.postNewEspeceScientifique()
-POST        /gererOrganisationScientifique/deleteEspece/:espece_id                              controllers.admin.GererEspeceAdmin.deleteEspeceScientifique(espece_id: Integer)
+GET         /gererOrganisationScientifique/editEspece/:espece_id                      						controllers.admin.GererEspeceAdmin.getEditEspeceScientifique(espece_id: Integer)
+POST        /gererOrganisationScientifique/editEspece/:espece_id                                			controllers.admin.GererEspeceAdmin.postEditEspeceScientifique(espece_id: Integer)
+POST        /gererOrganisationScientifique/changerImage/:espece_id                              			controllers.admin.GererEspeceAdmin.changerPhotoScientifique(espece_id: Integer)
+GET         /gererOrganisationScientifique/newEspece                                            			controllers.admin.GererEspeceAdmin.getNewEspeceScientifique()
+POST        /gererOrganisationScientifique/newEspece                                       					controllers.admin.GererEspeceAdmin.postNewEspeceScientifique()
+POST        /gererOrganisationScientifique/deleteEspece/:espece_id                              			controllers.admin.GererEspeceAdmin.deleteEspeceScientifique(espece_id: Integer)
 
 
 #TODO les routes suivantes sont obsolète : à éditer puis à supprimer
