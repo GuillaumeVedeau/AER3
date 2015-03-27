@@ -14,14 +14,6 @@
 
             </p>
     <p><b><u>Elements non classés</u></b></p>
-        <!-- ESPECES -->
-    <p>Espèces :</p>
-    @for(espece <- Espece.findEspecesSansGroupe()) {
-        <div class="element">
-            <span class="typeGroupement">espèce</span><br>
-            <div class="espece" id="espece-@espece.espece_id" ondblclick="editEspece('@espece.espece_id')">@espece.espece_nom</div>
-        </div>
-    }
         <!-- GROUPEMENTS -->
     <p>Groupements Scientifiques :<small>(sauf les ordres)</small></p>
     @tableauFils(GroupementScientifique.findGroupementSansPere(), false)

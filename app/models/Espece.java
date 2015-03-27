@@ -40,7 +40,6 @@ public class Espece extends Model implements Comparator<Espece>{
 	public Integer espece_systematique;
 	@ManyToOne
 	public Image espece_photo;
-	@NotNull
 	@ManyToOne
 	public GroupementScientifique espece_groupement_scientifique_pere;
 	@Column(columnDefinition="TEXT")

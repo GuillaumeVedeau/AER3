@@ -109,48 +109,58 @@ public class GererEspeceAdmin extends Controller{
 		    	DynamicForm df = DynamicForm.form().bindFromRequest();
 		    	String espece_nom = df.get("espece_nom");
 		    	String espece_auteur = df.get("espece_auteur");
-		    	int espece_systematique = Integer.parseInt(df.get("espece_systematique"));
-		    	String espece_commentaires = df.get("espece_commentaires");
-		    	
-		    	Espece espece = new Espece(espece_nom, espece_auteur, espece_systematique, espece_commentaires);
-		    	String pere = df.get("pere");
-		    	
-		    	espece.save();
-		    	
-		    	return ok(ajouterEspeceScientifique.render("Informations mises a  jour avec succes"));
+				String string_espece_systematique = df.get("espece_systematique");
+				String espece_commentaires = df.get("espece_commentaires");
+
+				if (espece_nom !=null && espece_auteur !=null && string_espece_systematique!=null) {
+					int espece_systematique=Integer.parseInt(string_espece_systematique);
+
+					Espece espece = new Espece(espece_nom, espece_auteur, espece_systematique, espece_commentaires);
+
+					String string_pere_id = df.get("groupement scientifique_id");
+					if (!string_pere_id.equals("NULL")) {
+						espece.espece_groupement_scientifique_pere = GroupementScientifique.find.byId(Integer.parseInt(string_pere_id));
+					}
+
+					espece.save();
+
+					return ok(editerEspece.render("Informations mises a  jour avec succes", espece));
+				} else {
+					return ok(ajouterEspeceScientifique.render("Les informations ne sont pas complètes"));
+				}
 		    }
 		    
 		    public static Result postEditEspeceScientifique(Integer espece_id) {
-		    	Espece espece=Espece.find.where().eq("espece_id", espece_id).findUnique();
-				if(espece!=null){
-					DynamicForm df = DynamicForm.form().bindFromRequest();
+				Espece espece=Espece.find.where().eq("espece_id", espece_id).findUnique();
+				DynamicForm df = DynamicForm.form().bindFromRequest();
+
+				// mise à jour des informations de la table espèce
+
+				if(espece != null){
 					String espece_nom = df.get("espece_nom");
-					if(Espece.find.where().eq("espece_nom", espece_nom).findUnique()==null){
+					if(espece_nom!=null){
 						espece.espece_nom=espece_nom;
 					}
-					String espece_auteur = df.get("espece_auteur");
-					if(Espece.find.where().eq("espece_auteur", espece_auteur).findUnique()==null){
-						espece.espece_auteur=espece_auteur;
+					espece.espece_auteur=df.get("espece_auteur");
+					String espece_systematique_string = df.get("espece_systematique");
+					if (espece_systematique_string != null) {
+						espece.espece_systematique = Integer.parseInt(espece_systematique_string);
 					}
-					int espece_systematique = Integer.parseInt(df.get("espece_systematique"));
-					if(Espece.find.where().eq("espece_systematique", espece_systematique).findUnique()==null){
-						espece.espece_systematique= espece_systematique;
-					}
-					String espece_commentaires = df.get("espece_commentaires");
-					if(Espece.find.where().eq("espece_commentaires", espece_commentaires).findUnique()==null){
-						espece.espece_commentaires=espece_commentaires;
-					}
+					espece.espece_commentaires=df.get("espece_commentaires");
+
+
+					espece.espece_groupement_scientifique_pere = GroupementScientifique.find.byId(Integer.parseInt(df.get("groupement scientifique")));
 					espece.update();
 				}
 				return ok(editerEspeceScientifique.render("Informations mises à jour avec succès",espece));
-			} 
-		 
+			}
+
 		 public static Result deleteEspeceScientifique(Integer espece_id){
 				Espece espece = Espece.find.byId(espece_id);
 				Espece.supprEspece(espece_id);
 				return ok("L'espece a bien ete supprimee.");
 			}
-		 
+
 		 public static Result changerPhotoScientifique(Integer espece_id) throws IOException{
 					MultipartFormData body = request().body().asMultipartFormData();
 					Espece espece = Espece.find.byId(espece_id);
