@@ -39,7 +39,7 @@ public class Listes extends Controller {
 	}
 
 	public static Result communes(String string_id){
-		return ok(listeDesCommunes.render(string_id));
+		return ok(listeDesCommunes.render(string_id, null));
 	}
 	/**
 	 * Renvoie une chaîne de caractère exploitable par la fonction

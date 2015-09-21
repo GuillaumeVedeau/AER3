@@ -91,9 +91,9 @@ public class Identification extends Controller {
     public static Result allerVers(Membre membre){
 		membre.membre_lien_de_validation_de_mail=null;;
 		membre.save();
-		if(membre.membre_droits.equals(Droits.TEMOIN))
+		if(membre.membre_droits.equals(Droits.TEMOIN)) {
 			return redirect("/menuUtilisateur");
-		else if(membre.membre_droits.equals(Droits.EXPERT)){
+		} else if(membre.membre_droits.equals(Droits.EXPERT)){
 			session("expert","true");
 			return redirect("/menuExpert");
 		}

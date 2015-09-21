@@ -257,7 +257,7 @@ POST        /ajax/maillesParEspece                                              
 POST        /ajax/chronologieDUnTemoin                                                                     controllers.ajax.expert.requetes.Calculs.chronologieDUnTemoin()
 POST        /ajax/historiqueDesEspeces                                                                     controllers.ajax.expert.requetes.Calculs.historiqueDesEspeces()
 POST        /ajax/maillesParPeriode                                                                        controllers.ajax.expert.requetes.Calculs.maillesParPeriode()
-
+POST		/ajax/exportDonnees																			   controllers.ajax.expert.requetes.Calculs.exportDonnees()
 
 #Routes AJAX pour EXPERTS, editer especes et témoins
 

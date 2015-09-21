@@ -16,7 +16,7 @@ public class TypeGroupementScientifique extends Model{
     @Id
     public String intitule;
 
-    public static Model.Finder<String,TypeGroupementScientifique> find = new Finder<String,TypeGroupementScientifique>(String.class, TypeGroupementScientifique.class);
+    public static Model.Finder<String,TypeGroupementScientifique> find = new Model.Finder<String,TypeGroupementScientifique>(String.class, TypeGroupementScientifique.class);
 
     public TypeGroupementScientifique(String intitule){
         this.intitule = intitule;

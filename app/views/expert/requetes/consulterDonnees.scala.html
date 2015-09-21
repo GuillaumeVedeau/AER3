@@ -15,6 +15,7 @@
  *   limitations under the License.
  *   
  ********************************************************************************@
+@(membre: Membre)
 @main("Consulter les Données"){
 <a href="/menuExpert">Retour</a><br>
 <link rel="stylesheet" href="@routes.Assets.at("stylesheets/jquery-ui-1.10.4.custom.min.css")">
@@ -56,7 +57,13 @@
 	<tr>
 		<td>Maille :</td>
 		<td>
-			<input type="text" id="maille" name="maille" size="5">
+			<select name="maille" id="maille">
+				<option value="">-</option>
+				@for(utm <- UTMS.findAll()){
+				<option value="@utm">@utm</option>
+				}
+			</select><br/>
+			<input type="text" id="mailles" name="mailles" size="10">
 		</td>
 	</tr>
 	</table>
@@ -75,19 +82,221 @@
 			<span id="datesPartieMouvante"></span>
 			<input type="radio" name="periode" value="@{if(Fiche.getPlusVieuxTemoignage()!=null){new functions.Periode(Fiche.getPlusVieuxTemoignage().fiche_date, Calendar.getInstance())}}" onChange="changerDate()" checked> Toutes<br>
 			<input type="radio" name="periode" value="autre"> Autre<br>
-			De <input type="text" size="1" id="jour1" name="jour1" placeholder="jj">
-			<input type="text" size="1" id="mois1" name="mois1" placeholder="mm">
-			<input type="text" size="2" id="annee1" name="annee1" placeholder="yyyy"><br>
-			à &nbsp;&nbsp;&nbsp;<input type="text" size="1" id="jour2" name="jour2" placeholder="jj">
-			<input type="text" size="1" id="mois2" name="mois2" placeholder="mm">
-			<input type="text" size="2" id="annee2" name="annee2" placeholder="yyyy">
+			De <input type="text" size="2" id="jour1" name="jour1" placeholder="jj">
+			<input type="text" size="2" id="mois1" name="mois1" placeholder="mm">
+			<input type="text" size="4" id="annee1" name="annee1" placeholder="yyyy"><br>
+			à &nbsp;&nbsp;&nbsp;<input type="text" size="2" id="jour2" name="jour2" placeholder="jj">
+			<input type="text" size="2" id="mois2" name="mois2" placeholder="mm">
+			<input type="text" size="4" id="annee2" name="annee2" placeholder="yyyy">
 		</td>
 	</tr>
 	</table>
 </td>
 </tr>
 </table>
+<p>&nbsp;</p>
 <table>
+	<colgroup>
+		<col width="100" />
+		<col width="600" />
+	</colgroup>
+<tr><th colspan="2">Générer les données : </th></tr>
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(10)">Carte par espèce</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste des premiers témoignages de chaque maille (maille, index, date, témoin(s)) avec carte du nombre de témoignages par mailles</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(11)">Carte par espèce</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste de vos premiers témoignages de chaque maille (maille, index, date)</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(20)">Carte 20x20 par espèce</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste des premiers témoignages de chaque maille UTM 20km X 20km (maille, index, date, témoin(s)) avec carte du nombre de témoignages par mailles</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(30)">Carte somme</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(31)">Carte somme</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces de vos témoignages par maille</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(32)">Carte somme</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(40)">Carte somme 20x20</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille UTM 20km X 20km</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(42)">Carte somme 20x20</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille UTM 20km X 20km</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(50)">Liste des témoins</button></td>
+	<td>[UNDER DEVELOPMENT]Liste alphabétique des témoins pour une période donnée</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(52)">Liste des témoins</button></td>
+	<td>[UNDER DEVELOPMENT]Liste alphabétique des témoins pour une période donnée</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(60)">Liste des espèces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(61)">Liste des espèces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées, pour vos témoignages</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(62)">Liste des espèces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(70)">Espèces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste maille par maille des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(71)">Espèces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste maille par maille des espèces renseignées</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(72)">Espèces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste maille par maille des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(80)">Espèces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par commune des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(81)">Espèces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par commune des espèces renseignées</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(82)">Espèces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par commune des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(90)">Espèces par département</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par département des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(91)">Espèces par département</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par département des espèces renseignées</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(92)">Espèces par département</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par département des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(100)">Phénologie</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, histogramme par décades (mois divisé en trois) du nombre de témoignages (quels que soient le nombre d'individus)</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(110)">Carnet de Chasse</button></td>
+	<td>[UNDER DEVELOPMENT]liste chronologique des différents lieux prospectés et, dans ces lieux, des différentes espèces observées avec détail des nombres et stade/sexe</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(111)">Carnet de Chasse</button></td>
+	<td>[UNDER DEVELOPMENT]liste chronologique des différents lieux prospectés et, dans ces lieux, des différentes espèces observées avec détail des nombres et stade/sexe</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(120)">Carte des observations</button></td>
+	<td>[UNDER DEVELOPMENT]Pour un témoin donné, carte du nombre d'espèces différentes par mailles prospectées</td>
+</tr>
+}
+@if(membre.isMembre()) {
+<tr>
+	<td><button onClick="exportDonnees(121)">Carte des observations</button></td>
+	<td>[UNDER DEVELOPMENT]Pour un témoin donné, carte du nombre d'espèces différentes par mailles prospectées</td>
+</tr>
+}
+
+@if(membre.isExpert()) {
+<tr>
+	<td><button onClick="exportDonnees(130)">Historique</button></td>
+	<td>[UNDER DEVELOPMENT]Graphique par période de 20 ans du nombre de témoignages</td>
+</tr>
+}
+@if(membre.isAdmin()) {
+<tr>
+	<td><button onClick="exportDonnees(132)">Historique</button></td>
+	<td>[UNDER DEVELOPMENT]Graphique par période de 20 ans du nombre de témoignages</td>
+</tr>
+}
+</table>
+
+<table>
+	<colgroup>
+		<col width="350" />
+		<col width="350" />
+	</colgroup>
+
+<tr><th colspan="2">[WILL BE REMOVED]Générer les données : </th></tr>
 <tr>
 	<td><button onClick="temoinsParPeriode()">Témoins par période</button></td>
 	<td><button onClick="historiqueDesEspeces()">Historique des espèces sélectionnées</button></td>
@@ -105,6 +314,8 @@
 	<td><button onClick="carteSommeBiodiversite()">Carte somme biodiversité</button></td>
 </tr>
 </table>
+<input type="hidden" id="typeDonnees" name="typeDonnees" value="" />
+</form>
 <div id="resultats"></div>
 }{
 <script src="assets/javascripts/highcharts/highcharts.js"></script>
@@ -143,15 +354,17 @@ function rafraichirDates(){
 }
 function changerDate(){
 	var periode = $('input[type=radio][name=periode]:checked').val();
-	var dates = periode.split(":");
-	var date1 = dates[0].split("/");
-	var date2 = dates[1].split("/");
-	$('#jour1').val(date1[0]);
-	$('#mois1').val(date1[1]);
-	$('#annee1').val(date1[2]);
-	$('#jour2').val(date2[0]);
-	$('#mois2').val(date2[1]);
-	$('#annee2').val(date2[2]);
+	if ((periode != undefined) && (periode != "autre")) {
+		var dates = periode.split(":");
+		var date1 = dates[0].split("/");
+		var date2 = dates[1].split("/");
+		$('#jour1').val(date1[0]);
+		$('#mois1').val(date1[1]);
+		$('#annee1').val(date1[2]);
+		$('#jour2').val(date2[0]);
+		$('#mois2').val(date2[1]);
+		$('#annee2').val(date2[2]);
+	}
 }
 </script>
 <script type="text/javascript" src="/assets/javascripts/requetes.js"></script>

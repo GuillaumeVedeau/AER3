@@ -16,12 +16,9 @@
  *   
  ********************************************************************************@
  @(user: Membre)
-
 @main("Historique"){
-
-	 <a href="/@if(user.membre_droits.equals(Droits.TEMOIN)){menuUtilisateur}else{@if(user.membre_droits.equals(Droits.EXPERT)){menuExpert}else{menuAdmin}}">Retour</a><br>
+<p><a href="/@if(user.membre_droits.equals(Droits.TEMOIN)){menuUtilisateur}else{@if(user.membre_droits.equals(Droits.EXPERT)){menuExpert}else{menuAdmin}}">Retour</a></p>
 <h1 align="center">Historique de mes témoignages </h1>
-
 <button onclick="newFicheToViewPanel()">Nouvelle fiche</button> | <a href="/historiqueParObservations">Afficher par observations</a> | <a href="/telechargerHistorique">Télécharger le fichier Excel de mes témoignages</a>
 <br><br>
 <!-- TODO réduire le nb de fiches chargées si très nb-->
@@ -29,6 +26,15 @@
 <div>
 	<div id="liste_fiches" style=" width: 100%;">
 			<table id="table_fiches" class="display">
+				<thead>
+					<th>Fiche N°</th>
+					<th>Date</th>
+					<th>Date min</th>
+					<th>UTM</th>
+					<th>Lieu-dit</th>
+					<th>Commune</th>
+					<th>Dép.</th>
+				</thead>
 				<tbody>
 				@for(fiche <- user.getFiches){
 					<tr onClick="addFicheToViewPanel(@fiche.fiche_id)" style="cursor: pointer;">
@@ -42,15 +48,6 @@
 					</tr>
 				}
 				</tbody>
-				<thead>
-					<th>Fiche N°</th>
-					<th>Date</th>
-					<th>Date min</th>
-					<th>UTM</th>
-					<th>Lieu-dit</th>
-					<th>Commune</th>
-					<th>Dép.</th>
-				</thead>
 			</table>
 	</div>
 
@@ -61,7 +58,6 @@
 	</iframe>
 </div>
 
-
 }{
 
 <link rel="stylesheet" href="@routes.Assets.at("stylesheets/jquery-ui-1.10.4.custom.min.css")">
@@ -69,8 +65,6 @@
 <script type="text/javascript" src="/assets/javascripts/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript" src="/assets/javascripts/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf-8">
-
-
 $(document).ready(function updateTable() {
 	$('table.display').dataTable({
 		"sScrollY": "200px",

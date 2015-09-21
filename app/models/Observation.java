@@ -31,14 +31,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-
-
-
-
-
-
-
-
 import play.db.ebean.Model;
 
 /**
@@ -168,6 +160,15 @@ public class Observation extends Model {
 	public void vu(){
 		this.observation_vue_par_expert=true;
 		this.observation_validee=Observation.EN_SUSPEND;
+	}
+	
+	/**
+	 * Indique si l'observation a été validée par un expert
+	 * @return
+	 */
+	 
+	public boolean estvalidee() {
+		return (this.observation_validee==Observation.VALIDEE);
 	}
 
 	/**

@@ -16,11 +16,8 @@
  *   
  ********************************************************************************@
 @(membre: Membre, message: String)
-
 @import views.html.membre.ajax.observation.newObservation
-
-@main("Fiche de Témoignage"){
-
+@main("Fiche de Témoignage") {
 <div style="display: table; margin-right: auto; margin-left: auto;">
 		<span id="message" class="message" style="color:red;">@message</span><br>
 
@@ -70,7 +67,7 @@
 					</tr>
 					<tr>
 						<td>Commune :
-							@listeDesCommunes("commune")
+							@listeDesCommunes("commune", null)
 						</td>
 						<td>Date :
 							@defining(Calendar.getInstance().getTime()){ maintenant =>
@@ -105,7 +102,7 @@
 					<tr>
 						<td colspan="2" id="memo">
 							Commentaires :<br>
-							<textarea name="memo"></textarea>
+							<textarea name="memo" cols="70" rows="5"></textarea>
 						</td>
 					</tr>
 				</table>
@@ -126,7 +123,6 @@
 					</tr>
 				</thead>
 				<tbody id="observations">
-
 					<tr id="observation-new-1">
 						@newObservation(1,1,26)
 					</tr>

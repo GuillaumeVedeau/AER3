@@ -16,24 +16,25 @@
  *   
  ********************************************************************************@
 @(membre: Membre, message: String, fiche: Fiche)
-
 @import views.html.membre.ajax.observation.editObservation
-
+@import views.html.membre.ajax.observation.getObservation
 @main("Fiche de Témoignage"){
-
 <div style="display: table; margin-right: auto; margin-left: auto;">
 		<span id="message" class="message" style="color:red;">@message</span><br>
 
 		<form id="form" action="/ficheDeTemoignage/editFiche/@fiche.fiche_id" method="POST">
-
 			<!-- FICHE (entete)-->
-
 			<div style="display: table; width: 100%;">
 				<table style=" margin-right: auto; margin-left: auto;" class="display">
 					<tr>
 						<td colspan="2" align="center">
+							@if(fiche!=null) {
 							<b>Fiche n°@fiche.fiche_id </b><br>
 							<i>initalement soumise le @if(fiche.fiche_date_soumission!=null){@fiche.fiche_date_soumission.getTime().format("dd/MM/yyyy à HH:mm")}</i>
+							}
+							@if(fiche==null) {
+							<b>Nouvelle Fiche</b><br>
+							}
 						</td>
 					</tr>
 					<tr>
@@ -45,34 +46,34 @@
 								}
 							</select>
 						</td>
-						<td>Coordonnées GPS : <input type="text" name="gps" placeholder="" value="@fiche.fiche_gps_coordinates"></td>
+						<td>Coordonnées GPS : <input type="text" name="gps" placeholder="" @if(fiche!=null){value="@fiche.fiche_gps_coordinates"}></td>
 					</tr>
 					<tr>
-						<td>Lieu dit : <input type="text" name="lieu-dit" placeholder="Lieu-dit ou indication de lieu" value="@fiche.fiche_lieudit"></td>
+						<td>Lieu dit : <input type="text" name="lieu-dit" placeholder="Lieu-dit ou indication de lieu" @if(fiche!=null){value="@fiche.fiche_lieudit"}></td>
 						<td>Date min :
 							<select name="jourmin">
 								<option>&nbsp;</option>
 								@for(i: Int <- 1 to 31){
-								<option value="@i" @if(fiche.fiche_date_min!=null){@if(i==Integer.parseInt(fiche.fiche_date_min.getTime().format("d"))){selected}}>@i</option>
+								<option value="@i" @if((fiche!=null)&&(fiche.fiche_date_min!=null)){@if(i==Integer.parseInt(fiche.fiche_date_min.getTime().format("d"))){selected}}>@i</option>
 								}
 							</select>
 							<select name="moismin">
 								<option value="">&nbsp;</option>
 								@for(i: Int <- 1 to 12){
-								<option value="@i" @if(fiche.fiche_date_min!=null){@if(i==Integer.parseInt(fiche.fiche_date_min.getTime().format("M"))){selected}}>@i</option>
+								<option value="@i" @if((fiche!=null)&&(fiche.fiche_date_min!=null)){@if(i==Integer.parseInt(fiche.fiche_date_min.getTime().format("M"))){selected}}>@i</option>
 								}
 							</select>
 							<select name="anneemin">
 								<option value="">&nbsp;</option>
 								@for(i: Int <- 1950 to Integer.parseInt(Calendar.getInstance().getTime().format("yyyy"))){
-								<option value="@i" @if(fiche.fiche_date_min!=null){@if(i==Integer.parseInt(fiche.fiche_date_min.getTime().format("yyyy"))){selected}}>@i</option>
+								<option value="@i" @if((fiche!=null)&&(fiche.fiche_date_min!=null)){@if(i==Integer.parseInt(fiche.fiche_date_min.getTime().format("yyyy"))){selected}}>@i</option>
 								}
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>Commune :
-							<input type="text" name="ville_nom_reel" id="commune" placeholder="Nom de la commune" @if(fiche.fiche_commune!=null){value="@fiche.fiche_commune.ville_nom_reel"}>
+							<input type="text" name="ville_nom_reel" id="commune" placeholder="Nom de la commune" @if((fiche!=null)&&(fiche.fiche_commune!=null)){value="@fiche.fiche_commune.ville_nom_reel"}>
 						</td>
 						<td>Date :
 							@defining(Calendar.getInstance().getTime()){ maintenant =>
@@ -110,11 +111,10 @@
 					<tr>
 						<td colspan="2" id="memo">
 							Commentaires :<br>
-							<textarea name="memo">@fiche.fiche_memo</textarea>
+							<textarea name="memo" cols="70" rows="5">@fiche.fiche_memo</textarea>
 						</td>
 					</tr>
 				</table>
-
 			</div>
 			<br>
 
@@ -134,7 +134,15 @@
 				</thead>
 				<tbody id="observations">
 					@for(obs <- fiche.getObservations()){
-						@editObservation(obs)
+						@if(obs.estvalidee()) {
+							@if(membre.isExpert()){
+								@editObservation(obs)
+							} else {
+								@getObservation(obs)
+							}
+						} else {
+							@editObservation(obs)
+						}
 					}
 					<tr id="apresDerniereObservation">
 						<td colspan="7">
@@ -152,7 +160,6 @@
 		<!--TODO bouton annuler-->
 		<button onClick="addFicheViewPanel(@fiche.fiche_id)">Annuler</button>
 		<button onClick="poster();return false;">Valider témoignage</button>
-
 	</div>
 }{
 
@@ -164,28 +171,24 @@
 // initialisation : commune
 
 var listeCommunes = [@Html(controllers.ajax.Listes.listeCommunes())];
-$('#commune').autocomplete({	source : listeCommunes,
+$('#commune').autocomplete({
+	source : listeCommunes,
 	minLength: 1
 });
 
 
 // initialisation : membre courant par défaut
-
 var nombreMembres=@fiche.getFicheHasMembre.size();
 var listeMembres = [@Html(controllers.ajax.Listes.listeMembres())];
 
 
 // initialisation : ajout des observations et leurs compléments
-
 var nombreObservations=@fiche.getObservations().size();
-
 setTimeout(function(){rafraichirPhoto(1);},200);
 
 
 //****** post du formulaire /controle *********
 //*********************************************
-
-
 function poster(){
 
 	$('#message').html('');

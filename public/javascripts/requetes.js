@@ -21,6 +21,7 @@ function Donnees(listeUTMS,listeTemoins) {
 	this.espece = $('#espece').val();
 	this.stade = $('#stade').val();
 	this.maille = $('#maille').val();
+	this.mailles = $('#mailles').val();
 	this.temoin = $('#temoin').val();
 	this.jour1 = $('#jour1').val();
 	this.mois1 = $('#mois1').val();
@@ -28,6 +29,8 @@ function Donnees(listeUTMS,listeTemoins) {
 	this.jour2 = $('#jour2').val();
 	this.mois2 = $('#mois2').val();
 	this.annee2 = $('#annee2').val();
+	this.typeDonnees = $('#typeDonnees').val();
+	
 	this.getInfo = function() {
 		return this.groupe+' '+this.sous_groupe+' '+this.espece+' '+this.stade+' '+this.maille+' '+this.temoin+' '+this.jour1+'/'+this.mois1+'/'+this.annee1+':'+this.jour2+'/'+this.mois2+'/'+this.annee2;
 	};
@@ -44,6 +47,7 @@ function Donnees(listeUTMS,listeTemoins) {
 		formData.append('espece',this.espece);
 		formData.append('stade',this.stade);
 		formData.append('maille',this.maille);
+		formData.append('mailles',this.mailles);
 		formData.append('temoin',this.temoin);
 		formData.append('jour1',this.jour1);
 		formData.append('jour2',this.jour2);
@@ -51,6 +55,7 @@ function Donnees(listeUTMS,listeTemoins) {
 		formData.append('mois2',this.mois2);
 		formData.append('annee1',this.annee1);
 		formData.append('annee2',this.annee2);
+		formData.append('typeDonnees',this.typeDonnees);
 		return formData;
 	};
 
@@ -58,9 +63,10 @@ function Donnees(listeUTMS,listeTemoins) {
 		return !isNaN(val) && parseInt(val)==val;
 	}
 }
+
 function temoinsParPeriode(){
 	var donnees = new Donnees();
-	if(isValide(donnees)){
+//	if(isValide(donnees)){
 		$('#message').html('');
 		patientez();
 		$.ajax({
@@ -76,7 +82,7 @@ function temoinsParPeriode(){
 				rapportDErreur();
 			}
 		});
-	}
+//	}
 }
 function histogrammeDesImagos(){
 	var donnees = new Donnees();
@@ -220,6 +226,35 @@ function maillesParPeriode(){
 		});
 	}
 }
+
+function exportDonnees(typeExport) {
+	// On commence par mettre le type d'export pour qu'il soit collecté
+	var item = document.getElementById("typeDonnees");
+	if (item != null) {
+		item.value = typeExport;
+	}
+
+	var donnees = new Donnees();
+	if(isValide(donnees)){
+		$('#message').html('');
+		patientez();
+		$.ajax({
+			type : 'POST',
+			url : '/ajax/exportDonnees',
+			data: donnees.getFormData(),
+			processData: false,
+			contentType: false,
+			success: function (res) {
+				$('#resultats').html(res);
+			},
+			error: function(){
+				rapportDErreur();
+			}
+		});
+	}
+}
+
+
 function mailleValide(donnees){
 	return $.inArray(donnees.maille, listeUTMS)>=0 || donnees.maille=='';
 }

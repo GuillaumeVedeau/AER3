@@ -224,6 +224,39 @@ public class Membre extends Model {
 	public List<MembreIsExpertOnGroupe> getGroupesDExpertise(){
 		return MembreIsExpertOnGroupe.find.where().eq("membre",this).findList(); 
 	}
+	
+	/**
+	 * Indique si le membre a un statut de Membre
+	 * @return
+	 */
+	public boolean isMembre() {
+		if (membre_droits == null)
+			return false;
+		else
+			return membre_droits.isMembre();
+	}
+
+	/**
+	 * Indique si le membre a un statut d'expert
+	 * @return
+	 */
+	public boolean isExpert() {
+		if (membre_droits == null)
+			return false;
+		else
+			return membre_droits.isExpert();
+	}
+
+	/**
+	 * Indique si le membre a un statut d'admin
+	 * @return
+	 */
+	public boolean isAdmin() {
+		if (membre_droits == null)
+			return false;
+		else
+			return membre_droits.isAdmin();
+	}
 
 	/**
 	 * Génère un lien de validation pour le membre.

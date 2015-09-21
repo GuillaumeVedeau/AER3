@@ -53,6 +53,22 @@ public class Droits extends Model {
 		return find.all();
 	}
 
+	public Integer getId() {
+		return droits_id;
+	}
+	
+	public boolean isMembre() {
+		return (droits_id == 1);
+	}
+	
+	public boolean isExpert() {
+		return (droits_id == 2);
+	}
+	
+	public boolean isAdmin() {
+		return (droits_id == 3);
+	}
+	
 	@Override
 	public String toString(){
 		return droits_intitule;

@@ -98,7 +98,6 @@ public class StadeSexe extends Model{
 	 * @return
 	 */
 	public StadeSexe getStadeSexePerePourTelGroupe(Groupe groupe){
-
 		 StadeSexe s = StadeSexeHierarchieDansGroupe.find
 						.where()
 						.eq("stade_sexe", this)

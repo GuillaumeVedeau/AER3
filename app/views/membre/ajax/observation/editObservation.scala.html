@@ -1,12 +1,10 @@
-
 @(obs: Observation)
-
 @import views.html.membre.ajax.informationsComplementaires.editInformationsComplementaires
-
 <tr id="observation-@obs.observation_id">
 	<td>
 		<!-- photo de l'espèce-->
 		<div id="photo-@obs.observation_id" style="display: inline-block; vertical-align:top;"></div>
+		
 		<!-- groupe -->
 		<select id="groupes-@obs.observation_id" onChange="rafraichirListeDEspeces(@obs.observation_id)" size="1">
 		@for(groupe <- Groupe.findAll()){
@@ -14,6 +12,7 @@
 		}
 		</select><br>
 		<span style="margin-left: 20px;"> &times; </span>
+		
 		<!-- espèce -->
 		<select onClick="rafraichirPhoto(@obs.observation_id)" id="especes-@obs.observation_id" name="espece-@obs.observation_id" size="1">
 			@for(espece <- Groupe.find.where().eq("groupe_id",obs.observation_espece.getGroupe().groupe_id).findUnique().getEspecesInThisByAlpha()){
@@ -41,7 +40,7 @@
 		<i>
 			n°@obs.observation_id -
 
-				<!-- TODO clarifier les status de validation des observations -->
+			<!-- TODO clarifier les status de validation des observations -->
 			@if(obs.observation_validee==Observation.VALIDEE){
 				Validée le :
 				@if(obs.observation_date_validation!=null){

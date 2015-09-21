@@ -68,6 +68,10 @@ li{
 	width:inherit;
 }
 
+h1 {
+	color:black;
+}
+
 table.gestionDesTemoinsPassifs{
 	font-size:0.6em;
 }

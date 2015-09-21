@@ -16,41 +16,27 @@
  *   
  ********************************************************************************@
 @(message: String)
-
 @main("Identification"){
-
 	<div style="background-color: white; width: 475px; padding: 20px; border-radius: 10px; margin-left: auto; margin-right: auto;">
 		<img src="/assets/images/banniere-aer.png" height="200px"><br><br>
 		<span style="color: red;">@Html(message)</span>
 		<form action="/connexion" method="POST" style="text-align: center;">
-			<input type="login"	name="login" placeholder="Identifiant"><br><br>
-			<input type="password"	name="passw" placeholder="Mot de Passe"><br><br>
+			<input type="login"	name="login" placeholder="Identifiant" size="40" /><br><br>
+			<input type="password"	name="passw" placeholder="Mot de Passe" size="40" /><br><br>
 			<input type="checkbox" name="memory" value="">Se souvenir de moi<br><br>
 			<button type="submit">Se connecter</button>
 			<br><br>
-			<a href="/retrouverMotDePasse">Mot de passe oublié?</a>
+			<a href="/retrouverMotDePasse">Mot de passe oublié ?</a>
 		</form>
 
 		<div id="comp">
-			<p>
-				<a href="/inscription">Pas encore inscrit? Créez un compte ici!</a>
-			</p>
-			<p>
-				Vous avez déjà témoigné via un formulaire papier et vous souhaitez désormais saisir vos témoignages en ligne? Demandez votre identifiant et votre mot de passe à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>.
-			</p>
-			<p>
-				En cas de problème de connexion, merci de le signaler à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>
-			</p>
+			<p><a href="/inscription">Pas encore inscrit ? Créez un compte ici !</a></p>
+			<p>Vous avez déjà témoigné via un formulaire papier et vous souhaitez désormais saisir vos témoignages en ligne ? Demandez votre identifiant et votre mot de passe à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a>.</p>
+			<p>En cas de problème de connexion, merci de le signaler à <a href="mailto://@Membre.getAdminMail()">@Membre.getAdminMail()</a></p>
 		</div>
-		<p style="font-size:70%">
-			Cette base de données a été développée par Malik Olivier Boussejra, Geoffroy Haldebique, Johan Royer, élèves ingénieur à l'École centrale de Nantes, dans le cadre de leur projet "web stratégies".
-		</p>
-
+		<p style="font-size:70%">Cette base de données a été développée par Malik Olivier Boussejra, Geoffroy Haldebique, Johan Royer, élèves ingénieur à l'École centrale de Nantes, dans le cadre de leur projet "web stratégies".</p>
 	</div>
-
-	 	<br><br><br><br><br>
-
-
+	<p><br><br><br></p>
 }{
 <script>
 </script>
@@ -60,7 +46,7 @@
 			border: none;
 			border-bottom: solid 1px #c9c9c9;
 			transition: border 0.3s;
-			font-size: 130%;
+			font-size: 100%;
 		}
 
 		button{
@@ -80,5 +66,4 @@
 			font-size: 80%;
 		}
 	</style>
-
 }
