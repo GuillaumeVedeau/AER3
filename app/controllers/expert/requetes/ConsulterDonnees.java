@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import models.Membre;
 import controllers.admin.Admin;
 import controllers.expert.MenuExpert;
 import play.Play;
@@ -31,8 +32,9 @@ import views.html.expert.requetes.consulterDonnees;
 public class ConsulterDonnees extends Controller {
 
 	public static Result main() {
+        Membre membre = Membre.find.where().eq("membre_email", session("username")).findUnique();
 		if(MenuExpert.isExpertConnected()){
-			return ok(consulterDonnees.render());
+			return ok(consulterDonnees.render(membre));
 		}else
 			return Admin.nonAutorise();
 	}
