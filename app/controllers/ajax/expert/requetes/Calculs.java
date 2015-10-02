@@ -33,6 +33,8 @@ import controllers.ajax.expert.requetes.calculs.ChronologieDUnTemoin;
 import controllers.ajax.expert.requetes.calculs.HistogrammeDesImagos;
 import controllers.ajax.expert.requetes.calculs.MaillesParPeriode;
 import controllers.ajax.expert.requetes.calculs.TemoinsParPeriode;
+import controllers.ajax.expert.requetes.nvCalculs.ListeDesTemoins;
+//import controllers.ajax.expert.requetes.nvCalculs.CarnetDeChasse;
 import functions.excels.Excel;
 import functions.excels.exports.HistoriqueDesEspecesExcel;
 import functions.excels.exports.MaillesParEspeceExcel;
@@ -42,6 +44,8 @@ import functions.excels.exports.ChronologieDUnTemoinExcel;
 import functions.excels.exports.HistogrammeDesImagosExcel;
 import functions.excels.exports.MaillesParPeriodeExcel;
 import functions.excels.exports.TemoinsParPeriodeExcel;
+import functions.excels.exports.ListeDesTemoinsExcel;
+//import functions.excels.exports.CarnetDeChasseExcel;
 import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -155,7 +159,26 @@ public class Calculs extends Controller {
 
 				case 50 : // Liste des témoins
 					// Liste alphabétique des témoins pour une période donnée</td>
-				break;
+					List<ListeDesTemoins> listeTemoins = ListeDesTemoins.calculeListeDesTemoins(info);
+					excelData = new ListeDesTemoinsExcel(info,listeTemoins);
+					
+					temp.append("Témoignages du ");
+					temp.append(info.get("jour1"));
+					temp.append("/");
+					temp.append(info.get("mois1"));
+					temp.append("/");
+					temp.append(info.get("annee1"));
+					temp.append(" au ");
+					temp.append(info.get("jour2"));
+					temp.append("/");
+					temp.append(info.get("mois2"));
+					temp.append("/");
+					temp.append(info.get("annee2"));
+//					temp.append(" pour ");
+//					temp.append(info.get("temoin"));
+					
+					message = temp.toString();
+					break;
 
 				case 60 : // Liste des espèces
 					// Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées</td>
@@ -179,7 +202,14 @@ public class Calculs extends Controller {
 
 				case 110 : // Carnet de Chasse
 					// liste chronologique des différents lieux prospectés et, dans ces lieux, des différentes espèces observées avec détail des nombres et stade/sexe</td>
-				break;
+//					List<CarnetDeChasse> carnetDeChasse = CarnetDeChasse.calculeCarnetDeChasse(info);
+//					excelData = new CarnetDeChasseExcel(info,carnetDeChasse);
+//					
+//					temp.append("Carnet de chasse de ");
+//					temp.append(info.get("temoin"));
+//					
+//					message = temp.toString();
+					break;
 
 				case 120 : // Carte des observations
 					// Pour un témoin donné, carte du nombre d'espèces différentes par mailles prospectées</td>
@@ -194,7 +224,7 @@ public class Calculs extends Controller {
 					List<TemoinsParPeriode> temoins = TemoinsParPeriode.calculeTemoinsParPeriode(info);
 					excelData = new TemoinsParPeriodeExcel(info,temoins);
 					
-					temp.append("Témoidunages du ");
+					temp.append("Témoignages du ");
 					temp.append(info.get("jour1"));
 					temp.append("/");
 					temp.append(info.get("mois1"));
