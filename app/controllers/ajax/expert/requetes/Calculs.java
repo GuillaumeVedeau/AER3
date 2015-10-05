@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import controllers.ajax.expert.requetes.calculs.HistoriqueDesEspeces;
@@ -34,7 +35,7 @@ import controllers.ajax.expert.requetes.calculs.HistogrammeDesImagos;
 import controllers.ajax.expert.requetes.calculs.MaillesParPeriode;
 import controllers.ajax.expert.requetes.calculs.TemoinsParPeriode;
 import controllers.ajax.expert.requetes.nvCalculs.ListeDesTemoins;
-//import controllers.ajax.expert.requetes.nvCalculs.CarnetDeChasse;
+import controllers.ajax.expert.requetes.nvCalculs.CarnetDeChasse;
 import functions.excels.Excel;
 import functions.excels.exports.HistoriqueDesEspecesExcel;
 import functions.excels.exports.MaillesParEspeceExcel;
@@ -45,7 +46,7 @@ import functions.excels.exports.HistogrammeDesImagosExcel;
 import functions.excels.exports.MaillesParPeriodeExcel;
 import functions.excels.exports.TemoinsParPeriodeExcel;
 import functions.excels.exports.ListeDesTemoinsExcel;
-//import functions.excels.exports.CarnetDeChasseExcel;
+import functions.excels.exports.CarnetDeChasseExcel;
 import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -59,6 +60,8 @@ import views.html.expert.requetes.ajax.resultats.historiqueDesEspeces;
 import views.html.expert.requetes.ajax.resultats.maillesParPeriode;
 import views.html.expert.requetes.ajax.resultats.emptyExcel;
 import views.html.expert.requetes.ajax.resultats.exportExcel;
+import models.UTMS;
+import models.InformationsComplementaires;
 
 public class Calculs extends Controller {
 	
@@ -202,13 +205,13 @@ public class Calculs extends Controller {
 
 				case 110 : // Carnet de Chasse
 					// liste chronologique des différents lieux prospectés et, dans ces lieux, des différentes espèces observées avec détail des nombres et stade/sexe</td>
-//					List<CarnetDeChasse> carnetDeChasse = CarnetDeChasse.calculeCarnetDeChasse(info);
-//					excelData = new CarnetDeChasseExcel(info,carnetDeChasse);
-//					
-//					temp.append("Carnet de chasse de ");
-//					temp.append(info.get("temoin"));
-//					
-//					message = temp.toString();
+					Map<UTMS,ArrayList<InformationsComplementaires>> carnetDeChasse = CarnetDeChasse.calculeCarnetDeChasse(info);
+					excelData = new CarnetDeChasseExcel(info,carnetDeChasse);
+					
+					temp.append("Carnet de chasse de ");
+					
+					message = temp.toString();
+
 					break;
 
 				case 120 : // Carte des observations
