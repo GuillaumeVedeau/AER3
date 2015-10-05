@@ -254,6 +254,520 @@ function exportDonnees(typeExport) {
 	}
 }
 
+function choixDonnees(choix){
+
+	$("#choixDonnees").val(choix);
+	$("*").prop('disabled', false);
+	$('button[name=button'+choix+']').prop('disabled', 'disabled');
+
+	switch(choix) {
+	
+		case 10:
+		
+		
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+
+			break;
+			
+			case 11:
+		
+			
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+		case 20:
+		
+		
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 30:
+		
+		
+	
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 31:
+		
+		
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 32:
+		
+
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 40:
+		
+		
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 42:
+		
+
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+
+			
+			break;
+			
+			case 50:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 52:
+		
+
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				
+			break;
+			
+			case 60:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+	
+			
+			break;
+			
+			case 61:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 62:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			break;
+			
+			case 70:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 71:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+			
+			break;
+			
+			case 72:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 80:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 81:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 82:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 90:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 91:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+			
+			break;
+			
+			case 92:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 100:
+		
+		
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+		
+			case 110:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 111:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 120:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 121:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 130:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 132:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			default:
+	
+	}
+
+}
+
+function valider(){
+
+	exportDonnees($("#choixDonnees").val());
+
+}
+
 
 function mailleValide(donnees){
 	return $.inArray(donnees.maille, listeUTMS)>=0 || donnees.maille=='';
