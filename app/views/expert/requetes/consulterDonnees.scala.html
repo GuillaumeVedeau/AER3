@@ -71,7 +71,7 @@
 <td>
 	<table>
 	<tr>
-		<td>Témoin :</td>
+		<td>TÃ©moin :</td>
 		<td>
 			<input type="text" id="temoin" name="membre">
 		</td>
@@ -85,10 +85,13 @@
 			De <input type="text" size="2" id="jour1" name="jour1" placeholder="jj">
 			<input type="text" size="2" id="mois1" name="mois1" placeholder="mm">
 			<input type="text" size="4" id="annee1" name="annee1" placeholder="yyyy"><br>
-			à &nbsp;&nbsp;&nbsp;<input type="text" size="2" id="jour2" name="jour2" placeholder="jj">
+			Ã  &nbsp;&nbsp;&nbsp;<input type="text" size="2" id="jour2" name="jour2" placeholder="jj">
 			<input type="text" size="2" id="mois2" name="mois2" placeholder="mm">
 			<input type="text" size="4" id="annee2" name="annee2" placeholder="yyyy">
 		</td>
+	</tr>
+	<tr>
+	<td><button onClick="valider()" name='valider' disabled> Valider</button></td>
 	</tr>
 	</table>
 </td>
@@ -104,188 +107,188 @@
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(10)">Carte par espèce</button></td>
+	<td><button onClick="choixDonnees(10)" name='button10'>Carte par espèce</button></td>
 	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste des premiers témoignages de chaque maille (maille, index, date, témoin(s)) avec carte du nombre de témoignages par mailles</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(11)">Carte par espèce</button></td>
+	<td><button onClick="choixDonnees(11)" name='button11'>Carte par espèce</button></td>
 	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste de vos premiers témoignages de chaque maille (maille, index, date)</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(20)">Carte 20x20 par espèce</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste des premiers témoignages de chaque maille UTM 20km X 20km (maille, index, date, témoin(s)) avec carte du nombre de témoignages par mailles</td>
+	<td><button onClick="choixDonnees(20)" name='button20'>Carte 20x20 par espÃ¨ce</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et par espÃ¨ce, liste des premiers tÃ©moignages de chaque maille UTM 20km X 20km (maille, index, date, tÃ©moin(s)) avec carte du nombre de tÃ©moignages par mailles</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(30)">Carte somme</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille</td>
+	<td><button onClick="choixDonnees(30)" name='button30'>Carte somme</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(31)">Carte somme</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces de vos témoignages par maille</td>
+	<td><button onClick="choixDonnees(31)" name='button31'>Carte somme</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces de vos tÃ©moignages par maille</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(32)">Carte somme</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille</td>
+	<td><button onClick="choixDonnees(32) name='button32'">Carte somme</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(40)">Carte somme 20x20</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille UTM 20km X 20km</td>
+	<td><button onClick="choixDonnees(40)" name='button40'>Carte somme 20x20</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille UTM 20km X 20km</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(42)">Carte somme 20x20</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et pour toutes les espèces du groupe ou du sous-groupe choisi, carte du nombre d'espèces témoignées par maille UTM 20km X 20km</td>
+	<td><button onClick="choixDonnees(42)" name='button42'>Carte somme 20x20</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille UTM 20km X 20km</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(50)">Liste des témoins</button></td>
-	<td>[UNDER DEVELOPMENT]Liste alphabétique des témoins pour une période donnée</td>
+	<td><button onClick="choixDonnees(50)" name='button50'>Liste des tÃ©moins</button></td>
+	<td>[UNDER DEVELOPMENT]Liste alphabÃ©tique des tÃ©moins pour une pÃ©riode donnÃ©e</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(52)">Liste des témoins</button></td>
-	<td>[UNDER DEVELOPMENT]Liste alphabétique des témoins pour une période donnée</td>
+	<td><button onClick="choixDonnees(52)" name='button52'>Liste des tÃ©moins</button></td>
+	<td>[UNDER DEVELOPMENT]Liste alphabÃ©tique des tÃ©moins pour une pÃ©riode donnÃ©e</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(60)">Liste des espèces</button></td>
-	<td>[UNDER DEVELOPMENT]Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées</td>
+	<td><button onClick="choixDonnees(60)" name='button60'>Liste des espÃ¨ces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des espÃ¨ces par ordre systÃ©matique pour une pÃ©riode donnÃ©e avec le nombre de mailles renseignÃ©es</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(61)">Liste des espèces</button></td>
-	<td>[UNDER DEVELOPMENT]Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées, pour vos témoignages</td>
+	<td><button onClick="choixDonnees(61)" name='button61'>Liste des espÃ¨ces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des espÃ¨ces par ordre systÃ©matique pour une pÃ©riode donnÃ©e avec le nombre de mailles renseignÃ©es, pour vos tÃ©moignages</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(62)">Liste des espèces</button></td>
-	<td>[UNDER DEVELOPMENT]Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées</td>
+	<td><button onClick="choixDonnees(62)" name='button62'>Liste des espÃ¨ces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des espÃ¨ces par ordre systÃ©matique pour une pÃ©riode donnÃ©e avec le nombre de mailles renseignÃ©es</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(70)">Espèces par maille(s)</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste maille par maille des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+	<td><button onClick="choixDonnees(70)" name='button70'>EspÃ¨ces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste maille par maille des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(71)">Espèces par maille(s)</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste maille par maille des espèces renseignées</td>
+	<td><button onClick="choixDonnees(71)" name='button71'>EspÃ¨ces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste maille par maille des espÃ¨ces renseignÃ©es</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(72)">Espèces par maille(s)</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste maille par maille des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+	<td><button onClick="choixDonnees(72)" name='button72'>EspÃ¨ces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste maille par maille des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(80)">Espèces par commune</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par commune des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+	<td><button onClick="choixDonnees(80)" name='button80'>EspÃ¨ces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par commune des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(81)">Espèces par commune</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par commune des espèces renseignées</td>
+	<td><button onClick="choixDonnees(81)" name='button81'>EspÃ¨ces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par commune des espÃ¨ces renseignÃ©es</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(82)">Espèces par commune</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par commune des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+	<td><button onClick="choixDonnees(82)" name='button82'>EspÃ¨ces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par commune des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(90)">Espèces par département</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par département des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+	<td><button onClick="choixDonnees(90)" name='button90'>EspÃ¨ces par dÃ©partement</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par dÃ©partement des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(91)">Espèces par département</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par département des espèces renseignées</td>
+	<td><button onClick="choixDonnees(91)" name='button91'>EspÃ¨ces par dÃ©partement</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par dÃ©partement des espÃ¨ces renseignÃ©es</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(92)">Espèces par département</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée liste par département des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+	<td><button onClick="choixDonnees(92)" name='button92'>EspÃ¨ces par dÃ©partement</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par dÃ©partement des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(100)">Phénologie</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, histogramme par décades (mois divisé en trois) du nombre de témoignages (quels que soient le nombre d'individus)</td>
+	<td><button onClick="choixDonnees(100)" name='button100'>PhÃ©nologie</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et par espÃ¨ce, histogramme par dÃ©cades (mois divisÃ© en trois) du nombre de tÃ©moignages (quels que soient le nombre d'individus)</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(110)">Carnet de Chasse</button></td>
-	<td>[UNDER DEVELOPMENT]liste chronologique des différents lieux prospectés et, dans ces lieux, des différentes espèces observées avec détail des nombres et stade/sexe</td>
+	<td><button onClick="choixDonnees(110)" name='button110'>Carnet de Chasse</button></td>
+	<td>[UNDER DEVELOPMENT]liste chronologique des diffÃ©rents lieux prospectÃ©s et, dans ces lieux, des diffÃ©rentes espÃ¨ces observÃ©es avec dÃ©tail des nombres et stade/sexe</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(111)">Carnet de Chasse</button></td>
-	<td>[UNDER DEVELOPMENT]liste chronologique des différents lieux prospectés et, dans ces lieux, des différentes espèces observées avec détail des nombres et stade/sexe</td>
+	<td><button onClick="choixDonnees(111)" name='button111'>Carnet de Chasse</button></td>
+	<td>[UNDER DEVELOPMENT]liste chronologique des diffÃ©rents lieux prospectÃ©s et, dans ces lieux, des diffÃ©rentes espÃ¨ces observÃ©es avec dÃ©tail des nombres et stade/sexe</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(120)">Carte des observations</button></td>
-	<td>[UNDER DEVELOPMENT]Pour un témoin donné, carte du nombre d'espèces différentes par mailles prospectées</td>
+	<td><button onClick="choixDonnees(120)" name='button120'>Carte des observations</button></td>
+	<td>[UNDER DEVELOPMENT]Pour un tÃ©moin donnÃ©, carte du nombre d'espÃ¨ces diffÃ©rentes par mailles prospectÃ©es</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="exportDonnees(121)">Carte des observations</button></td>
-	<td>[UNDER DEVELOPMENT]Pour un témoin donné, carte du nombre d'espèces différentes par mailles prospectées</td>
+	<td><button onClick="choixDonnees(121)" name='button121'>Carte des observations</button></td>
+	<td>[UNDER DEVELOPMENT]Pour un tÃ©moin donnÃ©, carte du nombre d'espÃ¨ces diffÃ©rentes par mailles prospectÃ©es</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="exportDonnees(130)">Historique</button></td>
-	<td>[UNDER DEVELOPMENT]Graphique par période de 20 ans du nombre de témoignages</td>
+	<td><button onClick="choixDonnees(130)" name='button130'>Historique</button></td>
+	<td>[UNDER DEVELOPMENT]Graphique par pÃ©riode de 20 ans du nombre de tÃ©moignages</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="exportDonnees(132)">Historique</button></td>
-	<td>[UNDER DEVELOPMENT]Graphique par période de 20 ans du nombre de témoignages</td>
+	<td><button onClick="choixDonnees(132)" name='button132'>Historique</button></td>
+	<td>[UNDER DEVELOPMENT]Graphique par pÃ©riode de 20 ans du nombre de tÃ©moignages</td>
 </tr>
 }
 </table>
@@ -315,6 +318,7 @@
 </tr>
 </table>
 <input type="hidden" id="typeDonnees" name="typeDonnees" value="" />
+<input type="hidden" id="choixDonnees" name="choixDonnees" value="" />
 </form>
 <div id="resultats"></div>
 }{
