@@ -36,6 +36,7 @@ import controllers.ajax.expert.requetes.calculs.MaillesParPeriode;
 import controllers.ajax.expert.requetes.calculs.TemoinsParPeriode;
 import controllers.ajax.expert.requetes.nvCalculs.ListeDesTemoins;
 import controllers.ajax.expert.requetes.nvCalculs.CarnetDeChasse;
+import controllers.ajax.expert.requetes.nvCalculs.Historique;
 import functions.excels.Excel;
 import functions.excels.exports.HistoriqueDesEspecesExcel;
 import functions.excels.exports.MaillesParEspeceExcel;
@@ -47,6 +48,7 @@ import functions.excels.exports.MaillesParPeriodeExcel;
 import functions.excels.exports.TemoinsParPeriodeExcel;
 import functions.excels.exports.ListeDesTemoinsExcel;
 import functions.excels.exports.CarnetDeChasseExcel;
+import functions.excels.exports.HistoriqueExcel;
 import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -219,7 +221,14 @@ public class Calculs extends Controller {
 				break;
 
 				case 130 : // Historique
-					// Graphique par période de 20 ans du nombre de témoignages</td>
+					// Graphique par période de 20 ans du nombre de témoignages
+					Historique historique = new Historique(info);
+					excelData = new HistoriqueExcel(info,historique);
+					
+					temp.append("Historique de ");
+					
+					message = temp.toString();
+
 				break;
 
 				// OLD STATS
