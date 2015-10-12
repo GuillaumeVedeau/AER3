@@ -625,17 +625,6 @@ function choixDonnees(choix){
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
 				
-				$('input[name=periode]').prop('disabled', 'disabled');
-	
-				$("#jour1").prop('disabled', 'disabled');
-				$("#mois1").prop('disabled', 'disabled');
-				$("#annee1").prop('disabled', 'disabled');
-				$("#jour2").prop('disabled', 'disabled');
-				$("#mois2").prop('disabled', 'disabled');
-				$("#annee2").prop('disabled', 'disabled');
-				
-				$("#annee2").prop('disabled', 'disabled');
-			
 			break;
 			
 			case 111:
@@ -648,17 +637,6 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
-				
-				$('input[name=periode]').prop('disabled', 'disabled');
-	
-				$("#jour1").prop('disabled', 'disabled');
-				$("#mois1").prop('disabled', 'disabled');
-				$("#annee1").prop('disabled', 'disabled');
-				$("#jour2").prop('disabled', 'disabled');
-				$("#mois2").prop('disabled', 'disabled');
-				$("#annee2").prop('disabled', 'disabled');
-				
-				$("#annee2").prop('disabled', 'disabled');
 			
 			break;
 			
@@ -680,9 +658,7 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
-				
-				$("#annee2").prop('disabled', 'disabled');
-			
+
 			break;
 			
 			case 121:
@@ -703,8 +679,6 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
-				
-				$("#annee2").prop('disabled', 'disabled');
 			
 			break;
 			
@@ -718,17 +692,6 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
-				
-				$('input[name=periode]').prop('disabled', 'disabled');
-	
-				$("#jour1").prop('disabled', 'disabled');
-				$("#mois1").prop('disabled', 'disabled');
-				$("#annee1").prop('disabled', 'disabled');
-				$("#jour2").prop('disabled', 'disabled');
-				$("#mois2").prop('disabled', 'disabled');
-				$("#annee2").prop('disabled', 'disabled');
-				
-				$("#annee2").prop('disabled', 'disabled');
 			
 			break;
 			
@@ -743,16 +706,6 @@ function choixDonnees(choix){
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
 				
-				$('input[name=periode]').prop('disabled', 'disabled');
-	
-				$("#jour1").prop('disabled', 'disabled');
-				$("#mois1").prop('disabled', 'disabled');
-				$("#annee1").prop('disabled', 'disabled');
-				$("#jour2").prop('disabled', 'disabled');
-				$("#mois2").prop('disabled', 'disabled');
-				$("#annee2").prop('disabled', 'disabled');
-				
-				$("#annee2").prop('disabled', 'disabled');
 			
 			break;
 			
