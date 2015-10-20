@@ -27,7 +27,7 @@ import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook; //changement de l'import
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -52,13 +52,13 @@ public class Excel {
 	protected static int LIGNES = 51;
 	protected static String crLf = Character.toString((char)13) + Character.toString((char)10);
 
-	public Workbook wb = new HSSFWorkbook();
+	public Workbook wb = new XSSFWorkbook();  // nouveau type de workbook
 	protected CellStyle cellStyleDate;
 	private String file_name; 
 	
 	public Excel(){
 		SimpleDateFormat date_format = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
-		file_name=date_format.format(Calendar.getInstance().getTime())+".xls";
+		file_name=date_format.format(Calendar.getInstance().getTime())+".xlsx"; //changement du format de xls à xlsx (pas de restriction sur le nombre de colonnes)
 		cellStyleDate = wb.createCellStyle();
 		CreationHelper creationHelper = wb.getCreationHelper();
 		cellStyleDate.setDataFormat(creationHelper.createDataFormat().getFormat("dd/mm/yyyy"));

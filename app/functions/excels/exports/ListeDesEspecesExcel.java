@@ -30,39 +30,40 @@ import models.StadeSexe;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import controllers.ajax.expert.requetes.nvCalculs.ListeDesTemoins;
+import controllers.ajax.expert.requetes.nvCalculs.ListeDesEspeces;
 import functions.excels.Excel;
 
-public class ListeDesTemoinsExcel extends Excel{
+public class ListeDesEspecesExcel extends Excel{
 
-	public ListeDesTemoinsExcel(Map<String,String> info, ResultSet listeDesTemoins) throws IOException, SQLException{
+	public ListeDesEspecesExcel(Map<String,String> info, ResultSet listeDesEspeces) throws IOException, SQLException{
 		super();
 		Sheet sheet = wb.createSheet("Témoins par période");
 
 		String date1 = info.get("jour1")+"/"+info.get("mois1")+"/"+info.get("annee1");
 		String date2 = info.get("jour2")+"/"+info.get("mois2")+"/"+info.get("annee2");
-		String titre = "Liste des témoins ayant fait une observation"+crLf;
+		String titre = "Liste des espèces référencées"+crLf;
 		titre+=" du "+date1+" au "+date2;
+
 
 		int page = 0;
 		int ligne = 7;
 		this.collerLogoEtTitre(page,titre);
 		Row rowHead = sheet.createRow(ligne);
-		rowHead.createCell(0).setCellValue("Témoin");
-		rowHead.createCell(1).setCellValue("Nbre tém.");
+		rowHead.createCell(0).setCellValue("Espèce");
+		rowHead.createCell(1).setCellValue("Nbre de mailles");
 		ligne++;
 		boolean ecritAGauche = true;
-		while (listeDesTemoins.next()){
-			String nom = listeDesTemoins.getString("m.membre_nom");
-			String nombre = listeDesTemoins.getString("count(obs.observation_id)");
+		while (listeDesEspeces.next()){
+			String espece = listeDesEspeces.getString("e.espece_nom");
+			String nombre = listeDesEspeces.getString("count(f.fiche_utm_utm)");
 			if(ecritAGauche){
 				Row row = sheet.createRow(ligne);
-				row.createCell(0).setCellValue(nom);
+				row.createCell(0).setCellValue(espece);
 				row.createCell(1).setCellValue(nombre);
 				ligne++;
 			}else{
 				Row row = sheet.getRow(ligne);
-				row.createCell(3).setCellValue(nom);
+				row.createCell(3).setCellValue(espece);
 				row.createCell(4).setCellValue(nombre);
 				ligne++;
 			}
@@ -71,8 +72,8 @@ public class ListeDesTemoinsExcel extends Excel{
 					ecritAGauche=!ecritAGauche;
 					ligne-=(LIGNES-9);
 					Row row = sheet.getRow(ligne);
-					row.createCell(3).setCellValue("Témoin");
-					row.createCell(4).setCellValue("Nbre tém.");
+					row.createCell(3).setCellValue("Espèce");
+					row.createCell(4).setCellValue("Nbre de mailles");
 					ligne++;
 				}else{
 					ecritAGauche=!ecritAGauche;
@@ -83,8 +84,8 @@ public class ListeDesTemoinsExcel extends Excel{
 					page++;
 					this.collerLogoEtTitre(page, titre);
 					Row row = sheet.createRow(ligne);
-					row.createCell(0).setCellValue("Témoin");
-					row.createCell(1).setCellValue("Nbre tém.");
+					row.createCell(0).setCellValue("Espèce");
+					row.createCell(1).setCellValue("Nbre de mailles");
 					ligne++;
 				}
 			}

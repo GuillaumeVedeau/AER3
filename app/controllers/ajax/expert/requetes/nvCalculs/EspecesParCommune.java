@@ -17,22 +17,22 @@
  ********************************************************************************/
 package controllers.ajax.expert.requetes.nvCalculs;
 
-
+import java.util.Comparator;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Collections;
 
-import play.mvc.Controller;
-import models.Observation;
+import controllers.ajax.expert.requetes.Calculs;
+import models.Espece;
+import models.Groupe;
 import models.InformationsComplementaires;
-import models.Fiche;
+import models.Observation;
+import models.StadeSexe;
 import models.UTMS;
-import models.FicheHasMembre;
-import models.Membre;
 
 import play.db.*;
 import javax.sql.DataSource;
@@ -41,35 +41,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CarnetDeChasse extends Controller {
+public class EspecesParCommune {
+
 	
-	
-	public static ResultSet calculeCarnetDeChasse(Map<String,String> info) throws SQLException {
-	
+	public static ResultSet calculeEspecesParCommune(Map<String,String> info) throws ParseException, SQLException {
+		
+		Calendar date1 = Calculs.getDataDate1(info);
+		Calendar date2 = Calculs.getDataDate2(info);
 		  
 		DataSource ds = DB.getDataSource();
 
 		Connection connection = ds.getConnection();
 		String statement = ""
-				+ "SELECT f.fiche_utm_utm, obs.observation_id, e.espece_nom, i.informations_complementaires_nombre_de_specimens, s.stade_sexe_intitule "
-				+ "FROM Observation obs "
+				+ "SELECT c.ville_nom , e.espece_nom, count(e.espece_nom) FROM Observation obs "
 				+ "INNER JOIN Fiche f ON obs.observation_fiche_fiche_id = f.fiche_id "
-				+ "INNER JOIN Fiche_Has_Membre fhm ON fhm.fiche_fiche_id = f.fiche_id "
-				+ "INNER JOIN Membre m ON fhm.membre_membre_id = m.membre_id "
 				+ "INNER JOIN Espece e ON obs.observation_espece_espece_id = e.espece_id "
-				+ "INNER JOIN Informations_Complementaires i ON obs.observation_id = i.informations_complementaires_observation_observation_id "
-				+ "INNER JOIN Stade_sexe s ON i.informations_complementaires_stade_sexe_stade_sexe_id = s.stade_sexe_id "
-				+ "WHERE  m.membre_email = ? "
-				+ "GROUP BY f.fiche_utm_utm, obs.observation_id ";
-		PreparedStatement carnetDeChasse = connection.prepareStatement(statement); 
-		carnetDeChasse.setString(1,session("username"));
+				+ "INNER JOIN Commune c ON f.fiche_commune_ville_id = c.ville_id "			
+				+ "WHERE obs.observation_validee = 1 and f.fiche_date BETWEEN ? AND ? "
+				+ "GROUP BY c.ville_nom, e.espece_nom ";
+		PreparedStatement especesParCommune = connection.prepareStatement(statement); 
+		especesParCommune.setDate(1,new java.sql.Date(date1.getTimeInMillis()));
+		especesParCommune.setDate(2,new java.sql.Date(date2.getTimeInMillis()));	
 				
-		ResultSet rs = carnetDeChasse.executeQuery();
+		ResultSet rs = especesParCommune.executeQuery();
 		
 		return rs;
-			
-		}
-	
-	
+
+		
+	}
 
 }

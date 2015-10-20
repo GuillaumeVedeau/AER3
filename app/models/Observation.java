@@ -134,6 +134,8 @@ public class Observation extends Model {
 		}
 		return listeObs;
 	}
+	
+
 
 	/**
 	 * Renvoie la fiche associée à l'observation sélectionnée
@@ -143,6 +145,16 @@ public class Observation extends Model {
 	public Fiche getFiche(){
 		Fiche fiche=this.observation_fiche;
 		return fiche;
+	}
+	
+	/**
+	 * Renvoie l'espèce associée à l'observation sélectionnée
+	 * @return
+	 */
+
+	public Espece getEspece(){
+		Espece espece=this.observation_espece;
+		return espece;
 	}
 
 	/**

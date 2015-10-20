@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import controllers.ajax.expert.requetes.calculs.HistoriqueDesEspeces;
 import controllers.ajax.expert.requetes.calculs.MaillesParEspece;
@@ -35,7 +37,11 @@ import controllers.ajax.expert.requetes.calculs.HistogrammeDesImagos;
 import controllers.ajax.expert.requetes.calculs.MaillesParPeriode;
 import controllers.ajax.expert.requetes.calculs.TemoinsParPeriode;
 import controllers.ajax.expert.requetes.nvCalculs.ListeDesTemoins;
+import controllers.ajax.expert.requetes.nvCalculs.ListeDesEspeces;
 import controllers.ajax.expert.requetes.nvCalculs.CarnetDeChasse;
+import controllers.ajax.expert.requetes.nvCalculs.EspecesParMaille;
+import controllers.ajax.expert.requetes.nvCalculs.EspecesParCommune;
+import controllers.ajax.expert.requetes.nvCalculs.EspecesParDepartement;
 import controllers.ajax.expert.requetes.nvCalculs.Historique;
 import functions.excels.Excel;
 import functions.excels.exports.HistoriqueDesEspecesExcel;
@@ -47,7 +53,11 @@ import functions.excels.exports.HistogrammeDesImagosExcel;
 import functions.excels.exports.MaillesParPeriodeExcel;
 import functions.excels.exports.TemoinsParPeriodeExcel;
 import functions.excels.exports.ListeDesTemoinsExcel;
+import functions.excels.exports.ListeDesEspecesExcel;
 import functions.excels.exports.CarnetDeChasseExcel;
+import functions.excels.exports.EspecesParMailleExcel;
+import functions.excels.exports.EspecesParCommuneExcel;
+import functions.excels.exports.EspecesParDepartementExcel;
 import functions.excels.exports.HistoriqueExcel;
 import play.data.DynamicForm;
 import play.mvc.Controller;
@@ -64,6 +74,7 @@ import views.html.expert.requetes.ajax.resultats.emptyExcel;
 import views.html.expert.requetes.ajax.resultats.exportExcel;
 import models.UTMS;
 import models.InformationsComplementaires;
+import models.Espece;
 
 public class Calculs extends Controller {
 	
@@ -134,7 +145,7 @@ public class Calculs extends Controller {
 		mppe.writeToDisk();
 		return ok(maillesParPeriode.render(mpp,info,mppe.getFileName()));
 	}
-	public static Result exportDonnees() throws ParseException, IOException{
+	public static Result exportDonnees() throws ParseException, IOException, SQLException{
 		Map<String,String> info = getData();
 		for (String str: info.keySet()) {
 			System.out.println(str + " : " + info.get(str));
@@ -164,7 +175,7 @@ public class Calculs extends Controller {
 
 				case 50 : // Liste des témoins
 					// Liste alphabétique des témoins pour une période donnée</td>
-					List<ListeDesTemoins> listeTemoins = ListeDesTemoins.calculeListeDesTemoins(info);
+					ResultSet listeTemoins = ListeDesTemoins.calculeListeDesTemoins(info);
 					excelData = new ListeDesTemoinsExcel(info,listeTemoins);
 					
 					temp.append("Témoignages du ");
@@ -179,27 +190,94 @@ public class Calculs extends Controller {
 					temp.append(info.get("mois2"));
 					temp.append("/");
 					temp.append(info.get("annee2"));
-//					temp.append(" pour ");
-//					temp.append(info.get("temoin"));
 					
 					message = temp.toString();
 					break;
 
 				case 60 : // Liste des espèces
 					// Liste des espèces par ordre systématique pour une période donnée avec le nombre de mailles renseignées</td>
-				break;
+					ResultSet listeEspeces = ListeDesEspeces.calculeListeDesEspeces(info);
+					excelData = new ListeDesEspecesExcel(info,listeEspeces);
+					
+					temp.append("Espèces référencées du ");
+					temp.append(info.get("jour1"));
+					temp.append("/");
+					temp.append(info.get("mois1"));
+					temp.append("/");
+					temp.append(info.get("annee1"));
+					temp.append(" au ");
+					temp.append(info.get("jour2"));
+					temp.append("/");
+					temp.append(info.get("mois2"));
+					temp.append("/");
+					temp.append(info.get("annee2"));
+					
+					message = temp.toString();
+					break;
 
 				case 70 : // Espèces par maille(s)
 					// Pour une période donnée liste maille par maille des espèces renseignées avec le nombre des témoignages de ces espèces</td>
+					ResultSet especesParMaille = EspecesParMaille.calculeEspecesParMaille(info);
+					excelData = new EspecesParMailleExcel(info,especesParMaille);
+					
+					temp.append("Espèces par maille du ");
+					temp.append(info.get("jour1"));
+					temp.append("/");
+					temp.append(info.get("mois1"));
+					temp.append("/");
+					temp.append(info.get("annee1"));
+					temp.append(" au ");
+					temp.append(info.get("jour2"));
+					temp.append("/");
+					temp.append(info.get("mois2"));
+					temp.append("/");
+					temp.append(info.get("annee2"));
+					
+					message = temp.toString();
+					
 				break;
 
 				case 80 : // Espèces par commune
 					// Pour une période donnée liste par commune des espèces renseignées avec le nombre des témoignages de ces espèces</td>
-				break;
+					ResultSet especesParCommune = EspecesParCommune.calculeEspecesParCommune(info);
+					excelData = new EspecesParCommuneExcel(info,especesParCommune);
+					
+					temp.append("Espèces par commune du ");
+					temp.append(info.get("jour1"));
+					temp.append("/");
+					temp.append(info.get("mois1"));
+					temp.append("/");
+					temp.append(info.get("annee1"));
+					temp.append(" au ");
+					temp.append(info.get("jour2"));
+					temp.append("/");
+					temp.append(info.get("mois2"));
+					temp.append("/");
+					temp.append(info.get("annee2"));
+					
+					message = temp.toString();
+					break;
 
 				case 90 : // Espèces par département
 					// Pour une période donnée liste par département des espèces renseignées avec le nombre des témoignages de ces espèces</td>
-				break;
+					ResultSet especesParDepartement = EspecesParDepartement.calculeEspecesParDepartement(info);
+					excelData = new EspecesParDepartementExcel(info,especesParDepartement);
+					
+					temp.append("Espèces par département du ");
+					temp.append(info.get("jour1"));
+					temp.append("/");
+					temp.append(info.get("mois1"));
+					temp.append("/");
+					temp.append(info.get("annee1"));
+					temp.append(" au ");
+					temp.append(info.get("jour2"));
+					temp.append("/");
+					temp.append(info.get("mois2"));
+					temp.append("/");
+					temp.append(info.get("annee2"));
+					
+					message = temp.toString();
+					break;
 
 				case 100 : // Phénologie
 					// Pour une période donnée, et par espèce, histogramme par décades (mois divisé en trois) du nombre de témoignages (quels que soient le nombre d'individus)</td>
@@ -207,10 +285,11 @@ public class Calculs extends Controller {
 
 				case 110 : // Carnet de Chasse
 					// liste chronologique des différents lieux prospectés et, dans ces lieux, des différentes espèces observées avec détail des nombres et stade/sexe</td>
-					Map<UTMS,ArrayList<InformationsComplementaires>> carnetDeChasse = CarnetDeChasse.calculeCarnetDeChasse(info);
+					ResultSet carnetDeChasse = CarnetDeChasse.calculeCarnetDeChasse(info);
 					excelData = new CarnetDeChasseExcel(info,carnetDeChasse);
 					
 					temp.append("Carnet de chasse de ");
+					temp.append(info.get("temoin"));
 					
 					message = temp.toString();
 

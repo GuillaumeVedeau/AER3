@@ -18,12 +18,15 @@
 package controllers.ajax.expert.requetes.nvCalculs;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
+
+import play.db.*;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.avaje.ebean.Expr;
 
@@ -37,108 +40,32 @@ import models.Observation;
 import models.StadeSexe;
 import models.UTMS;
 
-public class ListeDesTemoins implements Comparator<ListeDesTemoins>{
-	public Membre temoin;
-	public int nombreDeTemoignages;
+public class ListeDesTemoins {
 
-	public ListeDesTemoins(Membre temoin, Integer nombreDeTemoignage){
-		this.temoin=temoin;
-		this.nombreDeTemoignages=nombreDeTemoignage;
-	}
-
-	@Override
-	public String toString(){
-		return temoin.membre_nom+" : "+nombreDeTemoignages;
-	}
-
-	/**
-	 * Trie par ordre décroissant de nombre de témoignages
-	 */
-	@Override
-	public int compare(ListeDesTemoins t1, ListeDesTemoins t2) {
-		return t1.temoin.membre_nom.compareToIgnoreCase(t2.temoin.membre_nom);
-	}
-	private ListeDesTemoins(){}
-
-
-	public static List<ListeDesTemoins> calculeListeDesTemoins(Map<String,String> info) throws ParseException {
-		List<ListeDesTemoins> temoins = new ArrayList<ListeDesTemoins>();
-		List<InformationsComplementaires> complements = ListeDesTemoins.getObservations(info);
-		//On commence la génération des témoins par période.
-		for(InformationsComplementaires complement : complements){
-			List<FicheHasMembre> fhms = FicheHasMembre.find.where().eq("fiche", complement.informations_complementaires_observation.getFiche()).findList();
-			for(FicheHasMembre fhm : fhms){
-				int position;
-				if((position=position(fhm.membre,temoins))==-1){
-					temoins.add(new ListeDesTemoins(fhm.membre,1));
-				}else{
-					temoins.get(position).nombreDeTemoignages++;
-				}
-			}
-		}
-		Collections.sort(temoins,new ListeDesTemoins());
-		return temoins;
-	}
-
-	/**
-	 * Renvoie la position du membre dans la liste temoins
-	 * @param membre
-	 * @param temoins
-	 * @return
-	 */
-	private static int position(Membre membre, List<ListeDesTemoins> temoins) {
-		int i = 0;
-		while(i<temoins.size()){
-			if(temoins.get(i).temoin.equals(membre))
-				return i;
-			i++;
-		}
-		return -1;
-	}
-	
-	/**
-	 * Renvoie les observations pour afficher temoins par période
-	 * @param info
-	 * @return
-	 * @throws ParseException
-	 */
-	public static List<InformationsComplementaires> getObservations(Map<String,String> info) throws ParseException{
-
-		List<StadeSexe> stades_sexes;
-
-			stades_sexes=StadeSexe.findAll();
-		List<UTMS> mailles = UTMS.parseMaille(info.get("maille"));
+	public static ResultSet calculeListeDesTemoins(Map<String,String> info) throws ParseException, SQLException {
+		
 		Calendar date1 = Calculs.getDataDate1(info);
 		Calendar date2 = Calculs.getDataDate2(info);
-		List<InformationsComplementaires> complements;
+		  
+		DataSource ds = DB.getDataSource();
 
-			complements = InformationsComplementaires.find.where()
-					.eq("informations_complementaires_observation.observation_validee", Observation.VALIDEE)
-					.or(Expr.and(
-							Expr.isNull("informations_complementaires_observation.observation_fiche.fiche_date_min"),
-							Expr.between("informations_complementaires_observation.observation_fiche.fiche_date", date1.getTime(), date2.getTime())
-							),
-						Expr.and(
-							Expr.ge("informations_complementaires_observation.observation_fiche.fiche_date_min", date1.getTime()),
-							Expr.le("informations_complementaires_observation.observation_fiche.fiche_date", date2.getTime())
-							)
-						)
-					.in("informations_complementaires_observation.observation_fiche.fiche_utm", mailles)
-					.in("informations_complementaires_stade_sexe", stades_sexes)
-					.findList();
-		return complements;
+		Connection connection = ds.getConnection();
+		String statement = ""
+				+ "SELECT m.membre_nom, count(obs.observation_id) FROM Observation obs "
+				+ "INNER JOIN Fiche f ON obs.observation_fiche_fiche_id = f.fiche_id "
+				+ "INNER JOIN Fiche_Has_Membre fhm ON fhm.fiche_fiche_id = f.fiche_id "
+				+ "INNER JOIN Membre m ON fhm.membre_membre_id = m.membre_id "
+				+ "WHERE obs.observation_validee = 1 and f.fiche_date BETWEEN ? AND ? "
+				+ "GROUP BY m.membre_nom ";
+		PreparedStatement listeDesTemoins = connection.prepareStatement(statement); 
+		listeDesTemoins.setDate(1,new java.sql.Date(date1.getTimeInMillis()));
+		listeDesTemoins.setDate(2,new java.sql.Date(date2.getTimeInMillis()));	
+				
+		ResultSet rs = listeDesTemoins.executeQuery();
+
+		
+		return rs;
 	}
-	
-	/**
-	 * Renvoie le nombre total de témoignage
-	 * @param tpps
-	 * @return
-	 */
-	public static int getSomme(List<ListeDesTemoins> tpps){
-		int somme = 0;
-		for(ListeDesTemoins tpp : tpps){
-			somme+=tpp.nombreDeTemoignages;
-		}
-		return somme;
-	}
+
+
 }
