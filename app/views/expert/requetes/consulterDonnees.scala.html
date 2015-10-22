@@ -16,10 +16,10 @@
  *   
  ********************************************************************************@
 @(membre: Membre)
-@main("Consulter les Données"){
+@main("Consulter les DonnÃ©es"){
 <a href="/menuExpert">Retour</a><br>
 <link rel="stylesheet" href="@routes.Assets.at("stylesheets/jquery-ui-1.10.4.custom.min.css")">
-	<h1>Consultation des données</h1>
+	<h1>Consultation des donnÃ©es</h1>
 	<span id="message"></span>
 <table>
 	<tr>
@@ -192,7 +192,7 @@
 <td>
 	<table>
 	<tr>
-		<td>TÃ©moin :</td>
+		<td>T&eacute;moin :</td>
 		<td>
 			<input type="text" id="temoin" name="membre">
 		</td>
@@ -206,7 +206,7 @@
 			De <input type="text" size="2" id="jour1" name="jour1" placeholder="jj">
 			<input type="text" size="2" id="mois1" name="mois1" placeholder="mm">
 			<input type="text" size="4" id="annee1" name="annee1" placeholder="yyyy"><br>
-			Ã  &nbsp;&nbsp;&nbsp;<input type="text" size="2" id="jour2" name="jour2" placeholder="jj">
+			ÃƒÂ  &nbsp;&nbsp;&nbsp;<input type="text" size="2" id="jour2" name="jour2" placeholder="jj">
 			<input type="text" size="2" id="mois2" name="mois2" placeholder="mm">
 			<input type="text" size="4" id="annee2" name="annee2" placeholder="yyyy">
 		</td>
@@ -224,192 +224,192 @@
 		<col width="100" />
 		<col width="600" />
 	</colgroup>
-<tr><th colspan="2">Générer les données : </th></tr>
+<tr><th colspan="2">GÃ©nÃ©rer les donnÃ©es : </th></tr>
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(10)" name='button10'>Carte par espèce</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste des premiers témoignages de chaque maille (maille, index, date, témoin(s)) avec carte du nombre de témoignages par mailles</td>
+	<td><button onClick="choixDonnees(10)" name='button10'>Carte par espÃ¨ce</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et par espÃ¨ce, liste des premiers tÃ©moignages de chaque maille (maille, index, date, tÃ©moin(s)) avec carte du nombre de tÃ©moignages par mailles</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="choixDonnees(11)" name='button11'>Carte par espèce</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une période donnée, et par espèce, liste de vos premiers témoignages de chaque maille (maille, index, date)</td>
+	<td><button onClick="choixDonnees(11)" name='button11'>Carte par espÃ¨ce</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et par espÃ¨ce, liste de vos premiers tÃ©moignages de chaque maille (maille, index, date)</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(20)" name='button20'>Carte 20x20 par espÃ¨ce</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et par espÃ¨ce, liste des premiers tÃ©moignages de chaque maille UTM 20km X 20km (maille, index, date, tÃ©moin(s)) avec carte du nombre de tÃ©moignages par mailles</td>
+	<td><button onClick="choixDonnees(20)" name='button20'>Carte 20x20 par esp&egrave;ce</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e, et par esp&egrave;ce, liste des premiers t&eacute;moignages de chaque maille UTM 20km X 20km (maille, index, date, t&eacute;moin(s)) avec carte du nombre de t&eacute;moignages par mailles</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
 	<td><button onClick="choixDonnees(30)" name='button30'>Carte somme</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille</td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moign&eacute;es par maille</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
 	<td><button onClick="choixDonnees(31)" name='button31'>Carte somme</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces de vos tÃ©moignages par maille</td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces de vos t&eacute;moignages par maille</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
 	<td><button onClick="choixDonnees(32) name='button32'">Carte somme</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille</td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moign&eacute;es par maille</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
 	<td><button onClick="choixDonnees(40)" name='button40'>Carte somme 20x20</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille UTM 20km X 20km</td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moign&eacute;es par maille UTM 20km X 20km</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
 	<td><button onClick="choixDonnees(42)" name='button42'>Carte somme 20x20</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et pour toutes les espÃ¨ces du groupe ou du sous-groupe choisi, carte du nombre d'espÃ¨ces tÃ©moignÃ©es par maille UTM 20km X 20km</td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moign&eacute;es par maille UTM 20km X 20km</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(50)" name='button50'>Liste des tÃ©moins</button></td>
-	<td>[UNDER DEVELOPMENT]Liste alphabÃ©tique des tÃ©moins pour une pÃ©riode donnÃ©e</td>
+	<td><button onClick="choixDonnees(50)" name='button50'>Liste des t&eacute;moins</button></td>
+	<td>[UNDER DEVELOPMENT]Liste alphab&eacute;tique des t&eacute;moins pour une p&eacute;riode donn&eacute;e</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="choixDonnees(52)" name='button52'>Liste des tÃ©moins</button></td>
-	<td>[UNDER DEVELOPMENT]Liste alphabÃ©tique des tÃ©moins pour une pÃ©riode donnÃ©e</td>
+	<td><button onClick="choixDonnees(52)" name='button52'>Liste des t&eacute;moins</button></td>
+	<td>[UNDER DEVELOPMENT]Liste alphab&eacute;tique des t&eacute;moins pour une p&eacute;riode donn&eacute;e</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(60)" name='button60'>Liste des espÃ¨ces</button></td>
-	<td>[UNDER DEVELOPMENT]Liste des espÃ¨ces par ordre systÃ©matique pour une pÃ©riode donnÃ©e avec le nombre de mailles renseignÃ©es</td>
+	<td><button onClick="choixDonnees(60)" name='button60'>Liste des esp&egrave;ces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des esp&egrave;ces par ordre syst&eacute;matique pour une p&eacute;riode donn&eacute;e avec le nombre de mailles renseign&eacute;es</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="choixDonnees(61)" name='button61'>Liste des espÃ¨ces</button></td>
-	<td>[UNDER DEVELOPMENT]Liste des espÃ¨ces par ordre systÃ©matique pour une pÃ©riode donnÃ©e avec le nombre de mailles renseignÃ©es, pour vos tÃ©moignages</td>
+	<td><button onClick="choixDonnees(61)" name='button61'>Liste des esp&egrave;ces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des esp&egrave;ces par ordre syst&eacute;matique pour une p&eacute;riode donn&eacute;e avec le nombre de mailles renseign&eacute;es, pour vos t&eacute;moignages</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="choixDonnees(62)" name='button62'>Liste des espÃ¨ces</button></td>
-	<td>[UNDER DEVELOPMENT]Liste des espÃ¨ces par ordre systÃ©matique pour une pÃ©riode donnÃ©e avec le nombre de mailles renseignÃ©es</td>
+	<td><button onClick="choixDonnees(62)" name='button62'>Liste des esp&egrave;ces</button></td>
+	<td>[UNDER DEVELOPMENT]Liste des esp&egrave;ces par ordre syst&eacute;matique pour une p&eacute;riode donn&eacute;e avec le nombre de mailles renseign&eacute;es</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(70)" name='button70'>EspÃ¨ces par maille(s)</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste maille par maille des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
+	<td><button onClick="choixDonnees(70)" name='button70'>Esp&egrave;ces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste maille par maille des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="choixDonnees(71)" name='button71'>EspÃ¨ces par maille(s)</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste maille par maille des espÃ¨ces renseignÃ©es</td>
+	<td><button onClick="choixDonnees(71)" name='button71'>Esp&egrave;ces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste maille par maille des esp&egrave;ces renseign&eacute;es</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="choixDonnees(72)" name='button72'>EspÃ¨ces par maille(s)</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste maille par maille des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
+	<td><button onClick="choixDonnees(72)" name='button72'>Esp&egrave;ces par maille(s)</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste maille par maille des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(80)" name='button80'>EspÃ¨ces par commune</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par commune des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
+	<td><button onClick="choixDonnees(80)" name='button80'>Esp&egrave;ces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste par commune des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="choixDonnees(81)" name='button81'>EspÃ¨ces par commune</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par commune des espÃ¨ces renseignÃ©es</td>
+	<td><button onClick="choixDonnees(81)" name='button81'>Esp&egrave;ces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste par commune des esp&egrave;ces renseign&eacute;es</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="choixDonnees(82)" name='button82'>EspÃ¨ces par commune</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par commune des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
+	<td><button onClick="choixDonnees(82)" name='button82'>Esp&egrave;ces par commune</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste par commune des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(90)" name='button90'>EspÃ¨ces par dÃ©partement</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par dÃ©partement des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
+	<td><button onClick="choixDonnees(90)" name='button90'>Esp&egrave;ces par d&eacute;partement</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste par d&eacute;partement des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
-	<td><button onClick="choixDonnees(91)" name='button91'>EspÃ¨ces par dÃ©partement</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par dÃ©partement des espÃ¨ces renseignÃ©es</td>
+	<td><button onClick="choixDonnees(91)" name='button91'>Esp&egrave;ces par d&eacute;partement</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste par d&eacute;partement des esp&egrave;ces renseign&eacute;es</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
-	<td><button onClick="choixDonnees(92)" name='button92'>EspÃ¨ces par dÃ©partement</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e liste par dÃ©partement des espÃ¨ces renseignÃ©es avec le nombre des tÃ©moignages de ces espÃ¨ces</td>
+	<td><button onClick="choixDonnees(92)" name='button92'>Esp&egrave;ces par d&eacute;partement</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e liste par d&eacute;partement des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
-	<td><button onClick="choixDonnees(100)" name='button100'>PhÃ©nologie</button></td>
-	<td>[UNDER DEVELOPMENT]Pour une pÃ©riode donnÃ©e, et par espÃ¨ce, histogramme par dÃ©cades (mois divisÃ© en trois) du nombre de tÃ©moignages (quels que soient le nombre d'individus)</td>
+	<td><button onClick="choixDonnees(100)" name='button100'>Ph&eacute;nologie</button></td>
+	<td>[UNDER DEVELOPMENT]Pour une p&eacute;riode donn&eacute;e, et par esp&egrave;ce, histogramme par d&eacute;cades (mois divis&eacute; en trois) du nombre de t&eacute;moignages (quels que soient le nombre d'individus)</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
 	<td><button onClick="choixDonnees(110)" name='button110'>Carnet de Chasse</button></td>
-	<td>[UNDER DEVELOPMENT]liste chronologique des diffÃ©rents lieux prospectÃ©s et, dans ces lieux, des diffÃ©rentes espÃ¨ces observÃ©es avec dÃ©tail des nombres et stade/sexe</td>
+	<td>[UNDER DEVELOPMENT]liste chronologique des diff&eacute;rents lieux prospect&eacute;s et, dans ces lieux, des diff&eacute;rentes esp&egrave;ces observ&eacute;es avec d&eacute;tail des nombres et stade/sexe</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
 	<td><button onClick="choixDonnees(111)" name='button111'>Carnet de Chasse</button></td>
-	<td>[UNDER DEVELOPMENT]liste chronologique des diffÃ©rents lieux prospectÃ©s et, dans ces lieux, des diffÃ©rentes espÃ¨ces observÃ©es avec dÃ©tail des nombres et stade/sexe</td>
+	<td>[UNDER DEVELOPMENT]liste chronologique des diff&eacute;rents lieux prospect&eacute;s et, dans ces lieux, des diff&eacute;rentes esp&egrave;ces observ&eacute;es avec d&eacute;tail des nombres et stade/sexe</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
 	<td><button onClick="choixDonnees(120)" name='button120'>Carte des observations</button></td>
-	<td>[UNDER DEVELOPMENT]Pour un tÃ©moin donnÃ©, carte du nombre d'espÃ¨ces diffÃ©rentes par mailles prospectÃ©es</td>
+	<td>[UNDER DEVELOPMENT]Pour un t&eacute;moin donn&eacute;, carte du nombre d'esp&egrave;ces diff&eacute;rentes par mailles prospect&eacute;es</td>
 </tr>
 }
 @if(membre.isMembre()) {
 <tr>
 	<td><button onClick="choixDonnees(121)" name='button121'>Carte des observations</button></td>
-	<td>[UNDER DEVELOPMENT]Pour un tÃ©moin donnÃ©, carte du nombre d'espÃ¨ces diffÃ©rentes par mailles prospectÃ©es</td>
+	<td>[UNDER DEVELOPMENT]Pour un t&eacute;moin donn&eacute;, carte du nombre d'esp&egrave;ces diff&eacute;rentes par mailles prospect&eacute;es</td>
 </tr>
 }
 
 @if(membre.isExpert()) {
 <tr>
 	<td><button onClick="choixDonnees(130)" name='button130'>Historique</button></td>
-	<td>[UNDER DEVELOPMENT]Graphique par pÃ©riode de 20 ans du nombre de tÃ©moignages</td>
+	<td>[UNDER DEVELOPMENT]Graphique par p&eacute;riode de 20 ans du nombre de t&eacute;moignages</td>
 </tr>
 }
 @if(membre.isAdmin()) {
 <tr>
 	<td><button onClick="choixDonnees(132)" name='button132'>Historique</button></td>
-	<td>[UNDER DEVELOPMENT]Graphique par pÃ©riode de 20 ans du nombre de tÃ©moignages</td>
+	<td>[UNDER DEVELOPMENT]Graphique par p&eacute;riode de 20 ans du nombre de t&eacute;moignages</td>
 </tr>
 }
 </table>
@@ -492,6 +492,7 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et par esp&egrave;ce, liste des premiers tÃ&eacute;moignages de chaque maille (maille, index, date, t&eacute;moin(s)) avec carte du nombre de t&eacute;moignages par mailles');
 				
 
 			break;
@@ -510,6 +511,8 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et par esp&egrave;ce, liste des premiers tÃ&eacute;moignages de chaque maille (maille, index, date, t&eacute;moin(s))');
+				
 				
 			
 			break;
@@ -528,6 +531,8 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et par esp&egrave;ce, liste des premiers tÃ&eacute;moignages de chaque maille UTM20km X 20km (maille, index, date, t&eacute;moin(s)) avec carte du nombre de t&eacute;moignages par mailles');
+
 				
 			
 			break;
@@ -547,6 +552,7 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moignages par maille');
 				
 			
 			break;
@@ -564,6 +570,8 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moignages par maille');
+
 				
 			
 			break;
@@ -582,6 +590,8 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moignages par maille');
+
 				
 			
 			break;
@@ -599,6 +609,8 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moignages par maille UTM 20km X 20km');
+
 			
 			break;
 			
@@ -615,6 +627,8 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et pour toutes les esp&egrave;ces du groupe ou du sous-groupe choisi, carte du nombre d'esp&egrave;ces t&eacute;moignages par maille UTM 20km X 20km');
+
 
 			
 			break;
@@ -629,6 +643,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Liste alphab&eacute;tique des t&eacute;moins pour une p&eacute;riode donn&eacute;e');
 				
 			
 			break;
@@ -643,6 +658,8 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Liste alphab&eacute;tique des t&eacute;moins pour une p&eacute;riode donn&eacute;e');
+
 				
 				$('input[name=periode]').prop('disabled', 'disabled');
 	
@@ -659,6 +676,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Liste des esp&egrave;ces par ordre syst&eacute;matique pour une p&eacute;riode donn&eacute;e avec le nombre de mailles renseign&eacute;es');
 	
 			
 			break;
@@ -673,7 +691,8 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
-				
+				$("#descriptioncalcul").html('Liste des esp&egrave;ces par ordre syst&eacute;matique pour une p&eacute;riode donn&eacute;e avec le nombre de mailles renseign&eacute;es, pour vos observations');
+
 			
 			break;
 			
@@ -687,6 +706,8 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Liste des esp&egrave;ces par ordre syst&eacute;matique pour une p&eacute;riode donn&eacute;e avec le nombre de mailles renseign&eacute;es');
+
 				
 			break;
 			
@@ -700,6 +721,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste maille par maille des esp&eagrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces');
 				
 			
 			break;
@@ -714,6 +736,8 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste maille par maille des esp&eagrave;ces renseign&eacute;es');
+
 				
 				$('input[name=periode]').prop('disabled', 'disabled');
 	
@@ -730,6 +754,8 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste maille par maille des esp&eagrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces');
+
 				
 			
 			break;
@@ -744,6 +770,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste par commune des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces
 				
 			
 			break;
@@ -758,6 +785,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste par commune des esp&egrave;ces renseign&eacute;es');
 				
 			
 			break;
@@ -772,6 +800,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste par commune des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces');
 				
 			
 			break;
@@ -786,7 +815,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
-				
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste par d&eacute;partement des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces');
 			
 			break;
 			
@@ -800,6 +829,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste par d&eacute;partement des esp&egrave;ces renseign&eacute;es');
 				
 				$('input[name=periode]').prop('disabled', 'disabled');
 	
@@ -816,6 +846,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e liste par d&eacute;partement des esp&egrave;ces renseign&eacute;es avec le nombre des t&eacute;moignages de ces esp&egrave;ces');
 				
 			
 			break;
@@ -826,6 +857,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour une p&eacute;riode donn&eacute;e, et par esp&egrave;ce, histogramme par d&eacute;cades (mois divis&eacute; en trois) du nombre de t&eacute;moignages (quels que soient le nombre d'individus)');
 				
 			
 			break;
@@ -840,6 +872,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('liste chronologique des diff&eacute;rents lieux prospect&eacute;s et, dans ces lieux, des diff&eacute;rentes esp&egrave;ces observ&eacute;es avec d&eacute;tail des nombres et stade/sexe');
 				
 			break;
 			
@@ -853,6 +886,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('liste chronologique des diff&eacute;rents lieux prospect&eacute;s et, dans ces lieux, des diff&eacute;rentes esp&egrave;ces observ&eacute;es avec d&eacute;tail des nombres et stade/sexe');
 			
 			break;
 			
@@ -874,6 +908,7 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour un t&eacute;moin donn&eacute;, carte du nombre d'esp&egrave;ces diff&eacute;rentes par mailles prospect&eacute;es');
 
 			break;
 			
@@ -895,6 +930,7 @@ function choixDonnees(choix){
 				$("#jour2").prop('disabled', 'disabled');
 				$("#mois2").prop('disabled', 'disabled');
 				$("#annee2").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Pour un t&eacute;moin donn&eacute;, carte du nombre d'esp&egrave;ces diff&eacute;rentes par mailles prospect&eacute;es');
 			
 			break;
 			
@@ -908,6 +944,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Graphique par p&eacute;riode de 20 ans du nombre de t&eacute;moignages');
 			
 			break;
 			
@@ -921,6 +958,7 @@ function choixDonnees(choix){
 				$("#maille").prop('disabled', 'disabled');
 				$("#temoin").prop('disabled', 'disabled');
 				$("#mailles").prop('disabled', 'disabled');
+				$("#descriptioncalcul").html('Graphique par p&eacute;riode de 20 ans du nombre de t&eacute;moignages');
 				
 			
 			break;
