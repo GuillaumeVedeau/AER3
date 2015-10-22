@@ -22,52 +22,173 @@
 	<h1>Consultation des données</h1>
 	<span id="message"></span>
 <table>
-<tr>
-<td>
-	<table>
 	<tr>
-		<td>Groupe :</td>
+		<td>Type de calcul</td>
+		
 		<td>
-			<select id="groupe" name="groupe" onChange="rafraichirSousGroupe();;rafraichirDates();">
-			<option value="0">*</option>
-			@for(groupe <- Groupe.findAllOfType("groupe")){
-			<option value="@groupe.groupe_id">@groupe</option>
-			}
+			
+		
+	
+			<select id='selectchoix' onchange='choixDonnees(this.value);'>
+				@if(membre.isExpert()) {
+				<option value='10'>Carte par esp&egrave;ce</option>
+				}
+				
+				@if(membre.isMembre()) {
+				<option value='11'>Carte par esp&egrave;ce</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='20'>Carte 20x20 par esp&egrave;ce</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='30'>Carte somme</option>
+				}
+				
+				@if(membre.isMembre()) {
+				<option value='31'>Carte somme</option>
+				}
+		
+				@if(membre.isAdmin()) {
+				<option value='32'>Carte somme</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='40'>Carte 20 x 20</option>
+				}
+				@if(membre.isAdmin()) {
+				<option value='42'>Carte 20 x 20</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='50'>Liste des t&eacute;moins</option>
+				}
+				
+				@if(membre.isAdmin()) {
+				<option value='52'>Liste des t&eacute;moins</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='60'>Liste des esp&egrave;ces</option>
+				}
+				@if(membre.isMembre()) {
+				<option value='61'>Liste des esp&egrave;ces</option>
+				}
+				@if(membre.isAdmin()) {
+				<option value='62'>Liste des esp&egrave;ces</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='70'>Esp&egrave;ces par maille</option>
+				}
+				@if(membre.isMembre()) {
+				<option value='71'>Esp&egrave;ces par maille</option>
+				}
+				@if(membre.isAdmin()) {
+				<option value='72'>Esp&egrave;ces par maille</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='80'>Esp&egrave;ces par commune</option>
+				}
+				@if(membre.isMembre()) {
+				<option value='81'>Esp&egrave;ces par commune</option>
+				}
+				@if(membre.isAdmin()) {
+				<option value='82'>Esp&egrave;ces par commune</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='90'>Esp&egrave;ces par d&eacute;partement</option>
+				}
+				@if(membre.isMembre()) {
+				<option value='91'>Esp&egrave;ces par d&eacute;partement</option>
+				}
+				@if(membre.isAdmin()) {
+				<option value='92'>Esp&egrave;ces par d&eacute;partement</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='100'>Ph&eacute;nologie</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='110'>Carnet de chasse</option>
+				}
+				@if(membre.isMembre()) {
+				<option value='111'>Carnet de chasse</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='120'>Carnet des observations</option>
+				}
+				@if(membre.isMembre()) {
+				<option value='121'>Carnet des observations</option>
+				}
+				
+				@if(membre.isExpert()) {
+				<option value='130'>Historique</option>
+				}
+				@if(membre.isAdmin()) {
+				<option value='132'>Historique</option>
+				}
 			</select>
 		</td>
+		
 	</tr>
 	<tr>
-		<td>Sous-groupe :</td>
-		<td>
-			<select id="sous-groupe" onChange="rafraichirEspeces()"></select>
-		</td>
+		<td>Description</td>
+		<td><p id="descriptioncalcul" name="descriptioncalcul">Pour une p&eacute;riode donn&eacute;e, et par esp&egrave;ce, liste des premiers t&eacute;moignages de chaque maille (maille, index, date, t&eacute;moin(s)) avec carte du nombre de t&eacute;moignages par mailles</p></td>
 	</tr>
-	<tr>
-		<td>Espece :</td>
-		<td>
-			<select id="espece"></select>
-		</td>
-	</tr>
-	<tr>
-		<td>Stade</td>
-		<td>
-			<select id="stade"></select>
-		</td>
-	</tr>
-	<tr>
-		<td>Maille :</td>
-		<td>
-			<select name="maille" id="maille">
-				<option value="">-</option>
-				@for(utm <- UTMS.findAll()){
-				<option value="@utm">@utm</option>
+</table>
+
+<table>
+	<td>	
+	<table>
+		<tr>
+			<td>Groupe :</td>
+			<td>
+				<select id="groupe" name="groupe" onChange="rafraichirSousGroupe();;rafraichirDates();">
+				<option value="0">*</option>
+				@for(groupe <- Groupe.findAllOfType("groupe")){
+				<option value="@groupe.groupe_id">@groupe</option>
 				}
-			</select><br/>
-			<input type="text" id="mailles" name="mailles" size="10">
-		</td>
-	</tr>
-	</table>
-</td>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Sous-groupe :</td>
+			<td>
+				<select id="sous-groupe" onChange="rafraichirEspeces()"></select>
+			</td>
+		</tr>
+		<tr>
+			<td>Espece :</td>
+			<td>
+				<select id="espece"></select>
+			</td>
+		</tr>
+		<tr>
+			<td>Stade</td>
+			<td>
+				<select id="stade"></select>
+			</td>
+		</tr>
+		<tr>
+			<td>Maille :</td>
+			<td>
+				<select name="maille" id="maille">
+					<option value="">-</option>
+					@for(utm <- UTMS.findAll()){
+					<option value="@utm">@utm</option>
+					}
+				</select><br/>
+				<input type="text" id="mailles" name="mailles" size="10">
+			</td>
+		</tr>
+		</table>
+	</td>
 <td>
 	<table>
 	<tr>
@@ -347,6 +468,474 @@ function changerDate(){
 	}
 }
 changerDate();
+
+function choixDonnees(choix){
+
+	$("#choixDonnees").val(choix);
+	$("*").prop('disabled', false);
+	$('button[name=button'+choix+']').prop('disabled', 'disabled');
+	$("#descriptioncalcul").html('test');
+
+	switch(choix) {
+	
+		case 10:
+		
+		
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+
+			break;
+			
+			case 11:
+		
+			
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+		case 20:
+		
+		
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 30:
+		
+		
+	
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 31:
+		
+		
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 32:
+		
+
+				
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 40:
+		
+		
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 42:
+		
+
+				$("#temoin").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+
+			
+			break;
+			
+			case 50:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 52:
+		
+
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				
+			break;
+			
+			case 60:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+	
+			
+			break;
+			
+			case 61:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 62:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			break;
+			
+			case 70:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 71:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+			
+			break;
+			
+			case 72:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 80:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 81:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 82:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 90:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 91:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+			
+			break;
+			
+			case 92:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			case 100:
+		
+		
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+		
+			case 110:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			break;
+			
+			case 111:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 120:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+
+			break;
+			
+			case 121:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+				$('input[name=periode]').prop('disabled', 'disabled');
+	
+				$("#jour1").prop('disabled', 'disabled');
+				$("#mois1").prop('disabled', 'disabled');
+				$("#annee1").prop('disabled', 'disabled');
+				$("#jour2").prop('disabled', 'disabled');
+				$("#mois2").prop('disabled', 'disabled');
+				$("#annee2").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 130:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+			
+			break;
+			
+			case 132:
+		
+		
+				$("#groupe").prop('disabled', 'disabled');
+				$("#sous-groupe").prop('disabled', 'disabled');
+				$("#espece").prop('disabled', 'disabled');
+				$("#stade").prop('disabled', 'disabled');
+				$("#maille").prop('disabled', 'disabled');
+				$("#temoin").prop('disabled', 'disabled');
+				$("#mailles").prop('disabled', 'disabled');
+				
+			
+			break;
+			
+			default:
+	
+	}
+
+}
+
+function valider(){
+
+	exportDonnees($("#choixDonnees").val());
+
+}
 </script>
 <script type="text/javascript" src="/assets/javascripts/requetes.js"></script>
 }
